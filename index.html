@@ -32,6 +32,7 @@
       <option value="cuadratica" selected>Ecuación Cuadrática (Segundo Grado)</option>
       <option value="sistema">Sistema de Ecuaciones Lineales 2×2</option>
       <option value="polinomica">Ecuación Polinómica (Grado Superior - Cúbica)</option>
+      <option value="absoluto">Ecuación con Valor Absoluto</option>
     </select>
   </div>
 
@@ -146,6 +147,31 @@
         <div class="control"><label for="poly-c">Coeficiente <em>c</em> ($x$):</label><input type="number" id="poly-c" value="11" step="any"></div>
         <div class="control"><label for="poly-d">Término independiente <em>d</em>:</label><input type="number" id="poly-d" value="-6" step="any"></div>
         <button class="btn-resolver" onclick="resolverPolinomica()">▶ Resolver Ecuación Polinómica</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Panel Valor Absoluto -->
+  <div id="panel-absoluto" class="panel-contenido oculto">
+    <section class="tarjeta-info">
+      <h3>Ecuación con Valor Absoluto</h3>
+      <p class="descripcion">Expresión algebraica que contiene una variable dentro de las barras de valor absoluto:</p>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Forma General:</span>
+        <div class="math-render">$$|ax + b| = c$$</div>
+      </div>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Propiedad Fundamental ($c \ge 0$):</span>
+        <div class="math-render">$$ax + b = c \quad \text{o} \quad ax + b = -c$$</div>
+      </div>
+    </section>
+    <section class="tarjeta-laboratorio">
+      <h3>🧪 Laboratorio Virtual de: Valor Absoluto</h3>
+      <div class="formulario">
+        <div class="control"><label for="abs-a">Coeficiente <em>a</em> ($x$):</label><input type="number" id="abs-a" value="2" step="any"></div>
+        <div class="control"><label for="abs-b">Término interior <em>b</em>:</label><input type="number" id="abs-b" value="-3" step="any"></div>
+        <div class="control"><label for="abs-c">Término externo <em>c</em>:</label><input type="number" id="abs-c" value="5" step="any"></div>
+        <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
       </div>
     </section>
   </div>
