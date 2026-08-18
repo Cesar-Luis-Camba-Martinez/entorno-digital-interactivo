@@ -99,6 +99,7 @@ function conmutarPanel() {
   // 2. Mapeo del valor del select con el ID del panel
   const mapa = {
     lineal: 'panel-lineal',
+    absoluto: 'panel-absoluto' // NUEVA ASOCIACIÓN
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
     polinomica: 'panel-polinomica'
