@@ -31,8 +31,8 @@
       <option value="lineal">Ecuación Lineal (Primer Grado)</option>
       <option value="cuadratica" selected>Ecuación Cuadrática (Segundo Grado)</option>
       <option value="sistema">Sistema de Ecuaciones Lineales 2×2</option>
-      <option value="polinomica">Ecuación Polinómica de Grado Superior - Cúbica</option>
-      <option value="polinomica">Ecuación Polinómica de Cuarto Grado o Cúartica</option>
+      <option value="polinomica">Ecuación Polinómica de Tercer Grado (Cúbica)</option>
+      <option value="cuartica">Ecuación Polinómica de Cuarto Grado (Cuártica)</option>
       <option value="absoluto">Ecuación con Valor Absoluto</option>
     </select>
   </div>
@@ -126,10 +126,10 @@
     </section>
   </div>
 
-  <!-- Panel Polinómica -->
+  <!-- Panel Polinómica Tercer Grado (Cúbica) -->
   <div id="panel-polinomica" class="panel-contenido oculto">
     <section class="tarjeta-info">
-      <h3>Ecuación Polinómica de Grado Superior (Tercer Grado)</h3>
+      <h3>Ecuación Polinómica de Tercer Grado (Cúbica)</h3>
       <p class="descripcion">Expresión analítica de un polinomio cúbico con coeficientes reales:</p>
       <div class="contenedor-formula">
         <span class="etiqueta-formula">Forma Estándar Cúbica:</span>
@@ -141,13 +141,40 @@
       </div>
     </section>
     <section class="tarjeta-laboratorio">
-      <h3>🧪 Laboratorio Virtual de: Ecuación Polinómica Cúbica</h3>
+      <h3>🧪 Laboratorio Virtual de: Ecuación Cúbica</h3>
       <div class="formulario">
         <div class="control"><label for="poly-a">Coeficiente <em>a</em> ($x^3$):</label><input type="number" id="poly-a" value="1" step="any"></div>
         <div class="control"><label for="poly-b">Coeficiente <em>b</em> ($x^2$):</label><input type="number" id="poly-b" value="-6" step="any"></div>
         <div class="control"><label for="poly-c">Coeficiente <em>c</em> ($x$):</label><input type="number" id="poly-c" value="11" step="any"></div>
         <div class="control"><label for="poly-d">Término independiente <em>d</em>:</label><input type="number" id="poly-d" value="-6" step="any"></div>
-        <button class="btn-resolver" onclick="resolverPolinomica()">▶ Resolver Ecuación Polinómica</button>
+        <button class="btn-resolver" onclick="resolverPolinomica()">▶ Resolver Ecuación Cúbica</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Panel Polinómica de Cuarto Grado (Cuártica) -->
+  <div id="panel-cuartica" class="panel-contenido oculto">
+    <section class="tarjeta-info">
+      <h3>Ecuación Polinómica de Cuarto Grado (Cuártica)</h3>
+      <p class="descripcion">Expresión algebraica polinómica con término de mayor grado igual a cuatro:</p>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Forma Estándar Cuártica:</span>
+        <div class="math-render">$$ax^4 + bx^3 + cx^2 + dx + e = 0 \quad \text{con } a \neq 0$$</div>
+      </div>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Estrategia de Resolución:</span>
+        <div class="math-render">$$\text{Raíz Racional } \rightarrow \text{Ruffini (1° nivel)} \rightarrow \text{Ruffini (2° nivel)} \rightarrow \text{Fórmula Cuadrática}$$</div>
+      </div>
+    </section>
+    <section class="tarjeta-laboratorio">
+      <h3>🧪 Laboratorio Virtual de: Ecuación Cuártica</h3>
+      <div class="formulario">
+        <div class="control"><label for="quart-a">Coeficiente <em>a</em> ($x^4$):</label><input type="number" id="quart-a" value="1" step="any"></div>
+        <div class="control"><label for="quart-b">Coeficiente <em>b</em> ($x^3$):</label><input type="number" id="quart-b" value="-2" step="any"></div>
+        <div class="control"><label for="quart-c">Coeficiente <em>c</em> ($x^2$):</label><input type="number" id="quart-c" value="-1" step="any"></div>
+        <div class="control"><label for="quart-d">Coeficiente <em>d</em> ($x$):</label><input type="number" id="quart-d" value="2" step="any"></div>
+        <div class="control"><label for="quart-e">Término independiente <em>e</em>:</label><input type="number" id="quart-e" value="0" step="any"></div>
+        <button class="btn-resolver" onclick="resolverCuartica()">▶ Resolver Ecuación Cuártica</button>
       </div>
     </section>
   </div>
