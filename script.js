@@ -54,9 +54,8 @@ function renderizarMatematicasGlobal() {
    SISTEMA DE ZOOM INTERACTIVO
    ===================================================================== */
 function cambiarZoom(factor) {
-  // Limitar el nivel máximo y mínimo de zoom
   const rangoX = (RANGO.maxX - RANGO.minX) * factor;
-  if (rangoX < 2 || rangoX > 200) return; // Evita límites extremos
+  if (rangoX < 2 || rangoX > 200) return; // Limitar zoom extremo
 
   const centroX = (RANGO.minX + RANGO.maxX) / 2;
   const centroY = (RANGO.minY + RANGO.maxY) / 2;
@@ -102,6 +101,7 @@ function conmutarPanel() {
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
     polinomica: 'panel-polinomica',
+    cuartica: 'panel-cuartica',
     absoluto: 'panel-absoluto'
   };
 
@@ -146,7 +146,6 @@ function dibujarPlano() {
   const centroX = -RANGO.minX * scaleX;
   const centroY = RANGO.maxY * scaleY;
 
-  // Determinar el paso de las marcas según la escala del zoom
   const rangoTotalX = RANGO.maxX - RANGO.minX;
   let paso = 1;
   if (rangoTotalX > 40) paso = 5;
@@ -179,7 +178,6 @@ function dibujarPlano() {
   ctx.fillStyle = '#475569';
   ctx.font = '11px sans-serif';
 
-  // Numeración Eje X
   ctx.textBaseline = 'top';
   for (let i = inicioX; i <= RANGO.maxX; i += paso) {
     if (Math.abs(i) < 0.0001) continue;
@@ -188,7 +186,6 @@ function dibujarPlano() {
     ctx.fillText(Number(i.toFixed(2)), x - 6, centroY + 6);
   }
 
-  // Numeración Eje Y
   ctx.textBaseline = 'middle';
   for (let i = inicioY; i <= RANGO.maxY; i += paso) {
     if (Math.abs(i) < 0.0001) continue;
@@ -197,7 +194,6 @@ function dibujarPlano() {
     ctx.fillText(Number(i.toFixed(2)), centroX + 8, y);
   }
 
-  // Etiquetas identificadoras
   ctx.font = 'bold 12px sans-serif';
   ctx.fillText('X', canvas.width - 15, centroY - 15);
   ctx.fillText('Y', centroX + 12, 15);
@@ -269,6 +265,14 @@ function actualizarGrafica() {
     let d = parseFloat(document.getElementById('poly-d').value) || 0;
     graficarFuncion((x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d, '#ef4444');
   }
+  else if (sel === 'cuartica') {
+    let a = parseFloat(document.getElementById('quart-a').value) || 0;
+    let b = parseFloat(document.getElementById('quart-b').value) || 0;
+    let c = parseFloat(document.getElementById('quart-c').value) || 0;
+    let d = parseFloat(document.getElementById('quart-d').value) || 0;
+    let e = parseFloat(document.getElementById('quart-e').value) || 0;
+    graficarFuncion((x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e, '#ef4444');
+  }
   else if (sel === 'absoluto') {
     let a = parseFloat(document.getElementById('abs-a').value) || 0;
     let b = parseFloat(document.getElementById('abs-b').value) || 0;
@@ -286,7 +290,7 @@ function resolverLineal() {
   const res = document.getElementById('resultado');
 
   if (a === 0) {
-    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error matemático: Si $$a = 0$$, la expresión no representa una ecuación lineal de primer grado de manera válida.</span>';
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error matemático: Si $$a = 0$$, la expresión no representa una ecuación lineal de primer grado válida.</span>';
     renderizarMatematicasGlobal();
     return;
   }
@@ -328,7 +332,7 @@ function calcularEcuacion() {
   } else {
     let parteReal = -b / (2 * a);
     let parteImaginaria = Math.sqrt(-discriminante) / (2 * a);
-    pasos += `<div><strong>Paso 3:</strong> El discriminante es negativo ($$\Delta < 0$$). Las raíces pertenecen al campo de los números complejos:</div>
+    pasos += `<div><strong>Paso 3:</strong> El discriminante es negativo ($$\Delta < 0$$). Las raíces pertenecen al campo complejo:</div>
               <div class="resultado-final">$$x_1 = ${parteReal.toFixed(2)} + ${parteImaginaria.toFixed(2)}i$$</div>
               <div class="resultado-final">$$x_2 = ${parteReal.toFixed(2)} - ${parteImaginaria.toFixed(2)}i$$</div>`;
   }
@@ -367,7 +371,7 @@ function resolverSistema() {
 }
 
 /* =====================================================================
-   IMPLEMENTACIÓN DETALLADA: ECUACIÓN POLINÓMICA (RUFFINI + RATIONAL ROOT)
+   LÓGICA MATEMÁTICA: ECUACIÓN CÚBICA Y CUÁRTICA (RUFFINI)
    ===================================================================== */
 function obtenerDivisores(num) {
   let divisores = [];
@@ -397,24 +401,18 @@ function resolverPolinomica() {
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Polinómica Cúbica:</strong></div>`;
   pasos += `<div>$$P(x) = ${a}x^3 + (${b})x^2 + (${c})x + (${d}) = 0$$</div>`;
 
-  // CASO ESPECIAL: Si d = 0, x = 0 es raíz por factor común
   if (d === 0) {
     pasos += `<div><strong>Paso 2: Extracción de Factor Común $$x$$:</strong></div>`;
     pasos += `<div>$$P(x) = x \\cdot (${a}x^2 + (${b})x + (${c})) = 0$$</div>`;
     pasos += `<div class="resultado-final">Primera raíz evidente: $$x_1 = 0$$</div>`;
-    
-    // Resolver ecuación cuadrática restante a*x^2 + b*x + c = 0
     pasos += resolverCuadraticaResidual(a, b, c, 2);
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
   }
 
-  // PASO 2: TEOREMA DE LA RAÍZ RACIONAL
   const pList = obtenerDivisores(d);
   const qList = obtenerDivisores(a);
-  
-  // Calcular candidatos unicos p/q
   let candidatos = [];
   pList.forEach(p => {
     qList.forEach(q => {
@@ -425,11 +423,10 @@ function resolverPolinomica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Aplicación del Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Divisores del término independiente $$d = ${d}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
-  pasos += `<div>• Divisores del coeficiente principal $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Posibles raíces racionales ($\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$d = ${d}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
+  pasos += `<div>• Posibles raíces ($\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
 
-  // Evaluación de candidatos mediante P(r) = 0
   const P = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
   let raizEncontrada = null;
 
@@ -441,13 +438,12 @@ function resolverPolinomica() {
   }
 
   if (raizEncontrada === null) {
-    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Nota:</strong> No se encontraron raíces enteras/racionales exactas en la lista de candidatos. La ecuación requiere métodos numéricos o la Fórmula de Cardano.</div>`;
+    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Nota:</strong> No se encontraron raíces racionales exactas en los candidatos.</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
   }
 
-  // PASO 3: DIVISIÓN SINTÉTICA (REGLA DE RUFFINI)
   let k = raizEncontrada;
   let m1 = a * k;
   let coef2 = b + m1;
@@ -457,17 +453,13 @@ function resolverPolinomica() {
   let residuo = d + m3;
 
   pasos += `<div><strong>Paso 3: Evaluación y División Sintética (Regla de Ruffini):</strong></div>`;
-  pasos += `<div>Probando el valor $$x = ${k}$$: $$P(${k}) = 0$$. Por lo tanto, <span class="resultado-final">$$x_1 = ${k}$$</span> es una raíz exacta.</div>`;
+  pasos += `<div>Probando $$x = ${k}$$: $$P(${k}) = 0$$. <span class="resultado-final">$$x_1 = ${k}$$</span> es una raíz exacta.</div>`;
   
-  // Render de la Tabla de Ruffini en HTML
   pasos += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
       <tr>
         <td class="col-raiz">x = ${k}</td>
-        <td>${a}</td>
-        <td>${b}</td>
-        <td>${c}</td>
-        <td>${d}</td>
+        <td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td>
       </tr>
       <tr>
         <td class="col-raiz">↓</td>
@@ -486,17 +478,181 @@ function resolverPolinomica() {
     </table>
   </div>`;
 
-  pasos += `<div>Polinomio reducido de segundo grado: $$(${a})x^2 + (${coef2})x + (${coef3}) = 0$$</div>`;
-
-  // PASO 4: RESOLVER ECUACIÓN CUADRÁTICA RESIDUAL
+  pasos += `<div>Polinomio reducido: $$(${a})x^2 + (${coef2})x + (${coef3}) = 0$$</div>`;
   pasos += resolverCuadraticaResidual(a, coef2, coef3, 2);
 
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
 }
 
+/* ECUACIÓN POLINÓMICA DE CUARTO GRADO (CUÁRTICA) */
+function resolverCuartica() {
+  const a = parseFloat(document.getElementById('quart-a').value) || 0;
+  const b = parseFloat(document.getElementById('quart-b').value) || 0;
+  const c = parseFloat(document.getElementById('quart-c').value) || 0;
+  const d = parseFloat(document.getElementById('quart-d').value) || 0;
+  const e = parseFloat(document.getElementById('quart-e').value) || 0;
+  const res = document.getElementById('resultado');
+
+  if (a === 0) {
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente principal $$a$$ debe ser distinto de cero para ser de cuarto grado.</span>';
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Polinómica Cuártica:</strong></div>`;
+  pasos += `<div>$$P(x) = ${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e}) = 0$$</div>`;
+
+  if (e === 0) {
+    pasos += `<div><strong>Paso 2: Factorización por Término Común $$x$$:</strong></div>`;
+    pasos += `<div>$$P(x) = x \\cdot (${a}x^3 + (${b})x^2 + (${c})x + (${d})) = 0$$</div>`;
+    pasos += `<div class="resultado-final">Primera raíz evidente: $$x_1 = 0$$</div>`;
+    pasos += `<div>Para encontrar las raíces restantes, resolvemos la ecuación cúbica $$${a}x^3 + (${b})x^2 + (${c})x + (${d}) = 0$$:</div>`;
+    
+    res.innerHTML = pasos + resolverCubicaAuxiliar(a, b, c, d, 2);
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  const pList = obtenerDivisores(e);
+  const qList = obtenerDivisores(a);
+  let candidatos = [];
+  pList.forEach(p => {
+    qList.forEach(q => {
+      let val = p / q;
+      if (!candidatos.includes(val)) candidatos.push(val);
+    });
+  });
+  candidatos.sort((x, y) => x - y);
+
+  pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
+  pasos += `<div>• Divisores de $$e = ${e}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
+  pasos += `<div>• Raíces racionales candidatas ($\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+
+  const P = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
+  let r1 = null;
+
+  for (let cand of candidatos) {
+    if (Math.abs(P(cand)) < 0.000001) {
+      r1 = cand;
+      break;
+    }
+  }
+
+  if (r1 === null) {
+    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Nota:</strong> No se encontraron raíces enteras/racionales exactas en los candidatos.</div>`;
+    res.innerHTML = pasos;
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let k1 = r1;
+  let m1 = a * k1;
+  let c2 = b + m1;
+  let m2 = c2 * k1;
+  let c3 = c + m2;
+  let m3 = c3 * k1;
+  let c4 = d + m3;
+  let m4 = c4 * k1;
+  let residuo1 = e + m4;
+
+  pasos += `<div><strong>Paso 3: Primera División Sintética (Ruffini):</strong></div>`;
+  pasos += `<div>Evaluando $$x = ${k1}$$: $$P(${k1}) = 0$$. Raíz encontrada: <span class="resultado-final">$$x_1 = ${k1}$$</span></div>`;
+  
+  pasos += `<div class="tabla-ruffini-container">
+    <table class="tabla-ruffini">
+      <tr>
+        <td class="col-raiz">x = ${k1}</td>
+        <td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td><td>${e}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">↓</td>
+        <td>—</td>
+        <td>${m1 >= 0 ? '+' + m1 : m1}</td>
+        <td>${m2 >= 0 ? '+' + m2 : m2}</td>
+        <td>${m3 >= 0 ? '+' + m3 : m3}</td>
+        <td>${m4 >= 0 ? '+' + m4 : m4}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">Cúbico</td>
+        <td><strong>${a}</strong></td>
+        <td><strong>${c2}</strong></td>
+        <td><strong>${c3}</strong></td>
+        <td><strong>${c4}</strong></td>
+        <td class="residuo-cero">${Math.abs(residuo1) < 0.0001 ? 0 : residuo1}</td>
+      </tr>
+    </table>
+  </div>`;
+
+  pasos += `<div>Polinomio cúbico reducido: $$(${a})x^3 + (${c2})x^2 + (${c3})x + (${c4}) = 0$$</div>`;
+  pasos += resolverCubicaAuxiliar(a, c2, c3, c4, 2);
+
+  res.innerHTML = pasos;
+  renderizarMatematicasGlobal();
+}
+
+function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
+  let html = `<div style="margin-top:1rem;"><strong>Resolución de la Ecuación Cúbica Reducida:</strong></div>`;
+  const P3 = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
+  
+  const pList = obtenerDivisores(d);
+  const qList = obtenerDivisores(a);
+  let candidatos = [];
+  pList.forEach(p => qList.forEach(q => {
+    let val = p / q;
+    if (!candidatos.includes(val)) candidatos.push(val);
+  }));
+
+  let r2 = null;
+  for (let cand of candidatos) {
+    if (Math.abs(P3(cand)) < 0.000001) {
+      r2 = cand;
+      break;
+    }
+  }
+
+  if (r2 === null) {
+    return html + `<div style="color:#b91c1c;">No se encontraron más raíces racionales exactas para la sub-ecuación cúbica.</div>`;
+  }
+
+  let m1 = a * r2;
+  let c2 = b + m1;
+  let m2 = c2 * r2;
+  let c3 = c + m2;
+  let m3 = c3 * r2;
+  let residuo2 = d + m3;
+
+  html += `<div>Evaluando $$x = ${r2}$$: Raíz obtenida: <span class="resultado-final">$$x_${indiceInicio} = ${r2}$$</span></div>`;
+  html += `<div class="tabla-ruffini-container">
+    <table class="tabla-ruffini">
+      <tr>
+        <td class="col-raiz">x = ${r2}</td>
+        <td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">↓</td>
+        <td>—</td>
+        <td>${m1 >= 0 ? '+' + m1 : m1}</td>
+        <td>${m2 >= 0 ? '+' + m2 : m2}</td>
+        <td>${m3 >= 0 ? '+' + m3 : m3}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">Cuadrático</td>
+        <td><strong>${a}</strong></td>
+        <td><strong>${c2}</strong></td>
+        <td><strong>${c3}</strong></td>
+        <td class="residuo-cero">${Math.abs(residuo2) < 0.0001 ? 0 : residuo2}</td>
+      </tr>
+    </table>
+  </div>`;
+
+  html += resolverCuadraticaResidual(a, c2, c3, indiceInicio + 1);
+  return html;
+}
+
 function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
-  let html = `<div><strong>Paso 4: Resolución de la Ecuación Cuadrática Residual:</strong></div>`;
+  let html = `<div style="margin-top:0.75rem;"><strong>Resolución de la Ecuación Cuadrática Residual:</strong></div>`;
   html += `<div>Aplicando la fórmula general a $$${a2}x^2 + (${b2})x + (${c2}) = 0$$:</div>`;
   
   let disc = (b2 * b2) - (4 * a2 * c2);
@@ -538,10 +694,9 @@ function resolverAbsoluto() {
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación:</strong></div>`;
   pasos += `<div>$$|${a}x + (${b})| = ${c}$$</div>`;
 
-  // Condición de existencia
   if (c < 0) {
     pasos += `<div><strong>Paso 2: Análisis de restricción del Valor Absoluto:</strong></div>`;
-    pasos += `<div>Dado que el término independiente $$c = ${c} < 0$$, la ecuación no tiene solución en los números reales ($$\\mathbb{R}$$), ya que por definición $$|u| \\ge 0$$ para todo $$u$$.</div>`;
+    pasos += `<div>Dado que el término independiente $$c = ${c} < 0$$, la ecuación no tiene solución en los números reales ($$\\mathbb{R}$$).</div>`;
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$ (Sin solución real)</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
@@ -558,7 +713,6 @@ function resolverAbsoluto() {
     return;
   }
 
-  // Caso c > 0: Dos ecuaciones lineales
   let x1 = (c - b) / a;
   let x2 = (-c - b) / a;
 
