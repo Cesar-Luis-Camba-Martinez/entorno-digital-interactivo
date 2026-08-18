@@ -60,6 +60,31 @@
     </section>
   </div>
 
+  <!-- Panel Ecuación con Valor Absoluto -->
+<div id="panel-absoluto" class="panel-contenido oculto">
+  <section class="tarjeta-info">
+    <h3>Ecuación con Valor Absoluto</h3>
+    <p class="descripcion">Definición y propiedad fundamental del valor absoluto para $c \ge 0$:</p>
+    <div class="contenedor-formula">
+      <span class="etiqueta-formula">Forma Estándar:</span>
+      <div class="math-render">$$|ax + b| = c$$</div>
+    </div>
+    <div class="contenedor-formula">
+      <span class="etiqueta-formula">Propiedad de Desglose:</span>
+      <div class="math-render">$$ax + b = c \quad \text{o} \quad ax + b = -c$$</div>
+    </div>
+  </section>
+  <section class="tarjeta-laboratorio">
+    <h3>🧪 Laboratorio Virtual de: Valor Absoluto</h3>
+    <div class="formulario">
+      <div class="control"><label for="abs-a">Coeficiente <em>a</em> ($x$):</label><input type="number" id="abs-a" value="2" step="any"></div>
+      <div class="control"><label for="abs-b">Término interior <em>b</em>:</label><input type="number" id="abs-b" value="-3" step="any"></div>
+      <div class="control"><label for="abs-c">Término independiente <em>c</em>:</label><input type="number" id="abs-c" value="5" step="any"></div>
+      <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
+    </div>
+  </section>
+</div>
+  
   <!-- Panel Ecuación Cuadrática -->
   <div id="panel-cuadratica" class="panel-contenido">
     <section class="tarjeta-info">
