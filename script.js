@@ -101,8 +101,7 @@ function conmutarPanel() {
     lineal: 'panel-lineal',
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
-    polinomica: 'panel-polinomica',
-    absoluto: 'panel-absoluto'
+    polinomica: 'panel-polinomica'
   };
 
   // 3. Mostrar el panel correspondiente
@@ -268,12 +267,6 @@ function actualizarGrafica() {
     let c = parseFloat(document.getElementById('poly-c').value) || 0;
     let d = parseFloat(document.getElementById('poly-d').value) || 0;
     graficarFuncion((x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d, '#ef4444');
-  }
-  else if (sel === 'absoluto') {
-    let a = parseFloat(document.getElementById('abs-a').value) || 0;
-    let b = parseFloat(document.getElementById('abs-b').value) || 0;
-    let c = parseFloat(document.getElementById('abs-c').value) || 0;
-    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
   }
 }
 
@@ -518,52 +511,4 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
   }
 
   return html;
-}
-
-/* =====================================================================
-   IMPLEMENTACIÓN: ECUACIÓN CON VALOR ABSOLUTO |ax + b| = c
-   ===================================================================== */
-function resolverAbsoluto() {
-  const a = parseFloat(document.getElementById('abs-a').value) || 0;
-  const b = parseFloat(document.getElementById('abs-b').value) || 0;
-  const c = parseFloat(document.getElementById('abs-c').value) || 0;
-  const res = document.getElementById('resultado');
-
-  if (a === 0) {
-    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente $$a$$ debe ser distinto de cero.</span>';
-    renderizarMatematicasGlobal();
-    return;
-  }
-
-  let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación:</strong></div>`;
-  pasos += `<div>$$|${a}x + (${b})| = ${c}$$</div>`;
-
-  // Análisis del término independiente c
-  if (c < 0) {
-    pasos += `<div><strong>Paso 2: Análisis del Término Independiente ($c < 0$):</strong></div>`;
-    pasos += `<div style="color:#ef4444; font-weight:bold; margin-top:0.5rem;">Dado que el valor absoluto nunca puede ser negativo ($$${c} < 0$$), la ecuación NO tiene solución en el conjunto de los números reales ($$S = \\emptyset$$).</div>`;
-  } else if (c === 0) {
-    let x = -b / a;
-    pasos += `<div><strong>Paso 2: Caso Único ($c = 0$):</strong></div>`;
-    pasos += `<div>Cuando el término independiente es cero, la ecuación se reduce a una única ecuación lineal:</div>`;
-    pasos += `<div>$$${a}x + (${b}) = 0 \\implies ${a}x = ${-b}$$</div>`;
-    pasos += `<div class="resultado-final">$$x = \\frac{${-b}}{${a}} = ${x.toFixed(4)}$$</div>`;
-  } else {
-    let x1 = (c - b) / a;
-    let x2 = (-c - b) / a;
-
-    pasos += `<div><strong>Paso 2: Aplicar la Propiedad del Valor Absoluto ($c > 0$):</strong></div>`;
-    pasos += `<div>Se generan dos casos lineales independientes ($$ax + b = c$$ y $$ax + b = -c$$):</div>`;
-    
-    pasos += `<div style="margin-top:0.5rem;"><strong>Caso 1 (Positivo):</strong> $$${a}x + (${b}) = ${c}$$</div>`;
-    pasos += `<div>$$${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(2)}$$</div>`;
-    pasos += `<div class="resultado-final">$$x_1 = \\frac{${(c - b).toFixed(2)}}{${a}} = ${x1.toFixed(4)}$$</div>`;
-
-    pasos += `<div style="margin-top:0.5rem;"><strong>Caso 2 (Negativo):</strong> $$${a}x + (${b}) = -${c}$$</div>`;
-    pasos += `<div>$$${a}x = -${c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(2)}$$</div>`;
-    pasos += `<div class="resultado-final">$$x_2 = \\frac{${(-c - b).toFixed(2)}}{${a}} = ${x2.toFixed(4)}$$</div>`;
-  }
-
-  res.innerHTML = pasos;
-  renderizarMatematicasGlobal();
 }
