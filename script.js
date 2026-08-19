@@ -15,23 +15,19 @@ let RANGO = { ...RANGO_BASE };
 function redimensionarCanvas() {
   if (!canvas) return;
   
-  // Obtener el ancho actual en píxeles del contenedor
   const rect = canvas.getBoundingClientRect();
   if (rect.width === 0) return;
 
   const dpr = window.devicePixelRatio || 1;
 
-  // Ajustar la resolución interna del buffer del canvas
   canvas.width = rect.width * dpr;
-  canvas.height = (rect.width * (460 / 700)) * dpr; // Mantener proporción 700x460
+  canvas.height = (rect.width * (460 / 700)) * dpr;
 
-  // Re-escalar el contexto 2D para compensar la densidad de píxeles
   if (ctx) {
     ctx.resetTransform();
     ctx.scale(dpr, dpr);
   }
 
-  // Redibujar el plano con la nueva escala
   actualizarGrafica();
 }
 
@@ -49,30 +45,23 @@ window.addEventListener('load', () => {
   }
   ctx = canvas.getContext('2d');
   
-  // Registrar escuchador para cambios de tamaño de ventana
   window.addEventListener('resize', redimensionarCanvas);
 
-  // Escuchar variaciones en los inputs numéricos para redibujar el plano al instante
   document.querySelectorAll('input[type="number"]').forEach(inp => {
     inp.addEventListener('input', actualizarGrafica);
   });
 
-  // Habilitar Zoom con la Rueda del Ratón (Mouse Wheel)
   canvas.addEventListener('wheel', (e) => {
     e.preventDefault();
-    const factor = e.deltaY > 0 ? 1.15 : 0.85; // Alejar o Acercar
+    const factor = e.deltaY > 0 ? 1.15 : 0.85;
     cambiarZoom(factor);
   }, { passive: false });
 
-  // Inicializar dimensiones dinámicas del canvas
   redimensionarCanvas();
-
-  // Sincronizar el estado inicial del panel, la gráfica y el renderizado matemático
   conmutarPanel();
   renderizarMatematicasGlobal();
 });
 
-// Renderizador automático de fórmulas estáticas y dinámicas
 function renderizarMatematicasGlobal() {
   if (typeof renderMathInElement === 'function') {
     renderMathInElement(document.body, {
@@ -90,7 +79,7 @@ function renderizarMatematicasGlobal() {
    ===================================================================== */
 function cambiarZoom(factor) {
   const rangoX = (RANGO.maxX - RANGO.minX) * factor;
-  if (rangoX < 2 || rangoX > 200) return; // Limitar zoom extremo
+  if (rangoX < 2 || rangoX > 200) return;
 
   const centroX = (RANGO.minX + RANGO.maxX) / 2;
   const centroY = (RANGO.minY + RANGO.maxY) / 2;
@@ -127,35 +116,30 @@ function conmutarPanel() {
   if (!selector) return;
   const sel = selector.value;
 
-  // 1. Ocultar todos los paneles de contenido
   document.querySelectorAll('.panel-contenido').forEach(p => p.classList.add('oculto'));
 
-  // 2. Mapeo del valor del select con el ID del panel
   const mapa = {
     lineal: 'panel-lineal',
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
     polinomica: 'panel-polinomica',
     cuartica: 'panel-cuartica',
+    quintica: 'panel-quintica',
     absoluto: 'panel-absoluto'
   };
 
-  // 3. Mostrar el panel correspondiente
   if (mapa[sel]) {
     const panelActivo = document.getElementById(mapa[sel]);
     if (panelActivo) panelActivo.classList.remove('oculto');
   }
 
-  // 4. Actualizar la leyenda según el tipo de ecuación
   actualizarLeyenda(sel);
 
-  // 5. Restablecer el mensaje del área de resultados
   const res = document.getElementById('resultado');
   if (res) {
     res.innerHTML = 'Seleccione una función y presione <strong>Resolver</strong> para mostrar los cálculos paso a paso.';
   }
 
-  // 6. Redibujar el gráfico interactivo y re-renderizar KaTeX
   actualizarGrafica();
   renderizarMatematicasGlobal();
 }
@@ -198,7 +182,6 @@ function dibujarPlano() {
   if (rangoTotalX > 100) paso = 10;
   if (rangoTotalX < 8) paso = 0.5;
 
-  // 1. Cuadrícula secundaria
   ctx.strokeStyle = '#e2e8f0';
   ctx.lineWidth = 1;
 
@@ -214,13 +197,11 @@ function dibujarPlano() {
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(ancho, y); ctx.stroke();
   }
 
-  // 2. Ejes principales X e Y
   ctx.strokeStyle = '#64748b';
   ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(0, centroY); ctx.lineTo(ancho, centroY); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(centroX, 0); ctx.lineTo(centroX, alto); ctx.stroke();
 
-  // 3. Texto y Números de Escala
   ctx.fillStyle = '#475569';
   ctx.font = '11px sans-serif';
 
@@ -321,6 +302,15 @@ function actualizarGrafica() {
     let e = parseFloat(document.getElementById('quart-e').value) || 0;
     graficarFuncion((x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e, '#ef4444');
   }
+  else if (sel === 'quintica') {
+    let a = parseFloat(document.getElementById('quint-a').value) || 0;
+    let b = parseFloat(document.getElementById('quint-b').value) || 0;
+    let c = parseFloat(document.getElementById('quint-c').value) || 0;
+    let d = parseFloat(document.getElementById('quint-d').value) || 0;
+    let e = parseFloat(document.getElementById('quint-e').value) || 0;
+    let f = parseFloat(document.getElementById('quint-f').value) || 0;
+    graficarFuncion((x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f, '#ef4444');
+  }
   else if (sel === 'absoluto') {
     let a = parseFloat(document.getElementById('abs-a').value) || 0;
     let b = parseFloat(document.getElementById('abs-b').value) || 0;
@@ -419,7 +409,7 @@ function resolverSistema() {
 }
 
 /* =====================================================================
-   LÓGICA MATEMÁTICA: ECUACIÓN CÚBICA Y CUÁRTICA (RUFFINI)
+   LÓGICA MATEMÁTICA: ECUACIONES CÚBICA, CUÁRTICA Y QUÍNTICA (RUFFINI)
    ===================================================================== */
 function obtenerDivisores(num) {
   let divisores = [];
@@ -533,7 +523,6 @@ function resolverPolinomica() {
   renderizarMatematicasGlobal();
 }
 
-/* ECUACIÓN POLINÓMICA DE CUARTO GRADO (CUÁRTICA) */
 function resolverCuartica() {
   const a = parseFloat(document.getElementById('quart-a').value) || 0;
   const b = parseFloat(document.getElementById('quart-b').value) || 0;
@@ -638,6 +627,178 @@ function resolverCuartica() {
 
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
+}
+
+/* ECUACIÓN POLINÓMICA DE QUINTO GRADO (QUÍNTICA) */
+function resolverQuintica() {
+  const a = parseFloat(document.getElementById('quint-a').value) || 0;
+  const b = parseFloat(document.getElementById('quint-b').value) || 0;
+  const c = parseFloat(document.getElementById('quint-c').value) || 0;
+  const d = parseFloat(document.getElementById('quint-d').value) || 0;
+  const e = parseFloat(document.getElementById('quint-e').value) || 0;
+  const f = parseFloat(document.getElementById('quint-f').value) || 0;
+  const res = document.getElementById('resultado');
+
+  if (a === 0) {
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente principal $$a$$ debe ser distinto de cero para ser de quinto grado.</span>';
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Polinómica Quíntica:</strong></div>`;
+  pasos += `<div>$$P(x) = ${a}x^5 + (${b})x^4 + (${c})x^3 + (${d})x^2 + (${e})x + (${f}) = 0$$</div>`;
+
+  if (f === 0) {
+    pasos += `<div><strong>Paso 2: Factorización por Término Común $$x$$:</strong></div>`;
+    pasos += `<div>$$P(x) = x \\cdot (${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e})) = 0$$</div>`;
+    pasos += `<div class="resultado-final">Primera raíz evidente: $$x_1 = 0$$</div>`;
+    pasos += `<div>Para encontrar las raíces restantes, resolvemos la sub-ecuación de cuarto grado:</div>`;
+    
+    res.innerHTML = pasos + resolverCuarticaAuxiliar(a, b, c, d, e, 2);
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  const pList = obtenerDivisores(f);
+  const qList = obtenerDivisores(a);
+  let candidatos = [];
+  pList.forEach(p => qList.forEach(q => {
+    let val = p / q;
+    if (!candidatos.includes(val)) candidatos.push(val);
+  }));
+  candidatos.sort((x, y) => x - y);
+
+  pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
+  pasos += `<div>• Divisores de $$f = ${f}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
+  pasos += `<div>• Posibles raíces ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+
+  const P = (x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f;
+  let r1 = null;
+
+  for (let cand of candidatos) {
+    if (Math.abs(P(cand)) < 0.000001) {
+      r1 = cand;
+      break;
+    }
+  }
+
+  if (r1 === null) {
+    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Nota:</strong> Según el Teorema de Abel-Ruffini, las ecuaciones polinómicas de grado $\\ge 5$ no siempre son solubles mediante radicales si carecen de raíces racionales enteras.</div>`;
+    res.innerHTML = pasos;
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let k1 = r1;
+  let m1 = a * k1;
+  let c2 = b + m1;
+  let m2 = c2 * k1;
+  let c3 = c + m2;
+  let m3 = c3 * k1;
+  let c4 = d + m3;
+  let m4 = c4 * k1;
+  let c5 = e + m4;
+  let m5 = c5 * k1;
+  let residuo1 = f + m5;
+
+  pasos += `<div><strong>Paso 3: Primera División Sintética (Ruffini):</strong></div>`;
+  pasos += `<div>Evaluando $$x = ${k1}$$: $$P(${k1}) = 0$$. Raíz encontrada: <span class="resultado-final">$$x_1 = ${k1}$$</span></div>`;
+  
+  pasos += `<div class="tabla-ruffini-container">
+    <table class="tabla-ruffini">
+      <tr>
+        <td class="col-raiz">x = ${k1}</td>
+        <td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td><td>${e}</td><td>${f}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">↓</td>
+        <td>—</td>
+        <td>${m1 >= 0 ? '+' + m1 : m1}</td>
+        <td>${m2 >= 0 ? '+' + m2 : m2}</td>
+        <td>${m3 >= 0 ? '+' + m3 : m3}</td>
+        <td>${m4 >= 0 ? '+' + m4 : m4}</td>
+        <td>${m5 >= 0 ? '+' + m5 : m5}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">Cuártico</td>
+        <td><strong>${a}</strong></td>
+        <td><strong>${c2}</strong></td>
+        <td><strong>${c3}</strong></td>
+        <td><strong>${c4}</strong></td>
+        <td><strong>${c5}</strong></td>
+        <td class="residuo-cero">${Math.abs(residuo1) < 0.0001 ? 0 : residuo1}</td>
+      </tr>
+    </table>
+  </div>`;
+
+  pasos += resolverCuarticaAuxiliar(a, c2, c3, c4, c5, 2);
+
+  res.innerHTML = pasos;
+  renderizarMatematicasGlobal();
+}
+
+function resolverCuarticaAuxiliar(a, b, c, d, e, indiceInicio) {
+  let html = `<div style="margin-top:1rem;"><strong>Resolución del Polinomio Cuártico Reducido:</strong></div>`;
+  const P4 = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
+  
+  const pList = obtenerDivisores(e);
+  const qList = obtenerDivisores(a);
+  let candidatos = [];
+  pList.forEach(p => qList.forEach(q => {
+    let val = p / q;
+    if (!candidatos.includes(val)) candidatos.push(val);
+  }));
+
+  let r2 = null;
+  for (let cand of candidatos) {
+    if (Math.abs(P4(cand)) < 0.000001) {
+      r2 = cand;
+      break;
+    }
+  }
+
+  if (r2 === null) {
+    return html + `<div style="color:#b91c1c;">No se encontraron más raíces racionales exactas para la sub-ecuación cuártica.</div>`;
+  }
+
+  let m1 = a * r2;
+  let c2 = b + m1;
+  let m2 = c2 * r2;
+  let c3 = c + m2;
+  let m3 = c3 * r2;
+  let c4 = d + m3;
+  let m4 = c4 * r2;
+  let residuo2 = e + m4;
+
+  html += `<div>Evaluando $$x = ${r2}$$: Raíz obtenida: <span class="resultado-final">$$x_${indiceInicio} = ${r2}$$</span></div>`;
+  html += `<div class="tabla-ruffini-container">
+    <table class="tabla-ruffini">
+      <tr>
+        <td class="col-raiz">x = ${r2}</td>
+        <td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td><td>${e}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">↓</td>
+        <td>—</td>
+        <td>${m1 >= 0 ? '+' + m1 : m1}</td>
+        <td>${m2 >= 0 ? '+' + m2 : m2}</td>
+        <td>${m3 >= 0 ? '+' + m3 : m3}</td>
+        <td>${m4 >= 0 ? '+' + m4 : m4}</td>
+      </tr>
+      <tr>
+        <td class="col-raiz">Cúbico</td>
+        <td><strong>${a}</strong></td>
+        <td><strong>${c2}</strong></td>
+        <td><strong>${c3}</strong></td>
+        <td><strong>${c4}</strong></td>
+        <td class="residuo-cero">${Math.abs(residuo2) < 0.0001 ? 0 : residuo2}</td>
+      </tr>
+    </table>
+  </div>`;
+
+  html += resolverCubicaAuxiliar(a, c2, c3, c4, indiceInicio + 1);
+  return html;
 }
 
 function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
