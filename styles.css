@@ -414,7 +414,6 @@ footer {
 
 #planoCartesiano {
   width: 100% !important;
-  max-width: 700px;
   height: auto !important;
   touch-action: none;
   display: block;
