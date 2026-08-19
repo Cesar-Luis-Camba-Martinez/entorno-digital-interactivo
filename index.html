@@ -50,12 +50,12 @@
   <div class="selector-entorno">
     <label for="tipo-algebra">📐 Seleccione la ecuación algebraica a estudiar:</label>
     <select id="tipo-algebra" onchange="conmutarPanel()" class="select-destacado">
-      <option value="lineal">Ecuación Lineal de Primer Grado</option>
+      <option value="lineal">Ecuación Lineal (Primer Grado)</option>
       <option value="cuadratica" selected>Ecuación Cuadrática (Segundo Grado)</option>
       <option value="sistema">Sistema de Ecuaciones Lineales 2×2</option>
       <option value="polinomica">Ecuación Polinómica de Tercer Grado o Cúbica</option>
       <option value="cuartica">Ecuación Polinómica de Cuarto Grado o Cuártica</option>
-      <option value="quintica">Ecuación Polinómica de Quintto Grado o Quintica</option>
+      <option value="quintica">Ecuación Polinómica de Quinto Grado o Quíntica</option>
       <option value="absoluto">Ecuación con Valor Absoluto</option>
     </select>
   </div>
@@ -199,6 +199,34 @@
         <div class="control"><label for="quart-d">Coeficiente <em>d</em> ($x$):</label><input type="number" id="quart-d" value="2" step="any"></div>
         <div class="control"><label for="quart-e">Término independiente <em>e</em>:</label><input type="number" id="quart-e" value="0" step="any"></div>
         <button class="btn-resolver" onclick="resolverCuartica()">▶ Resolver Ecuación Cuártica</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Panel Polinómica de Quinto Grado (Quíntica) -->
+  <div id="panel-quintica" class="panel-contenido oculto">
+    <section class="tarjeta-info">
+      <h3>Ecuación Polinómica de Quinto Grado (Quíntica)</h3>
+      <p class="descripcion">Expresión algebraica polinómica de grado 5 con coeficientes reales:</p>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Forma Estándar Quíntica:</span>
+        <div class="math-render">$$ax^5 + bx^4 + cx^3 + dx^2 + ex + f = 0 \quad \text{con } a \neq 0$$</div>
+      </div>
+      <div class="contenedor-formula">
+        <span class="etiqueta-formula">Estrategia de Resolución:</span>
+        <div class="math-render">$$\text{Raíz Racional} \rightarrow \text{Ruffini (1° Nivel)} \rightarrow \text{Cuártica / Cúbica / Cuadrática}$$</div>
+      </div>
+    </section>
+    <section class="tarjeta-laboratorio">
+      <h3>🧪 Laboratorio Virtual de: Ecuación Quíntica</h3>
+      <div class="formulario">
+        <div class="control"><label for="quint-a">Coeficiente <em>a</em> ($x^5$):</label><input type="number" id="quint-a" value="1" step="any"></div>
+        <div class="control"><label for="quint-b">Coeficiente <em>b</em> ($x^4$):</label><input type="number" id="quint-b" value="-3" step="any"></div>
+        <div class="control"><label for="quint-c">Coeficiente <em>c</em> ($x^3$):</label><input type="number" id="quint-c" value="-1" step="any"></div>
+        <div class="control"><label for="quint-d">Coeficiente <em>d</em> ($x^2$):</label><input type="number" id="quint-d" value="3" step="any"></div>
+        <div class="control"><label for="quint-e">Coeficiente <em>e</em> ($x$):</label><input type="number" id="quint-e" value="0" step="any"></div>
+        <div class="control"><label for="quint-f">Término indep. <em>f</em>:</label><input type="number" id="quint-f" value="0" step="any"></div>
+        <button class="btn-resolver" onclick="resolverQuintica()">▶ Resolver Ecuación Quíntica</button>
       </div>
     </section>
   </div>
