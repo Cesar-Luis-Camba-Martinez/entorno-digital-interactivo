@@ -1,5 +1,5 @@
 # entorno-digital-interactivo
-Entorno digital interactivo para el aprendizaje de ecuaciones álgebraicas. Solución web interactiva e intuitiva diseñada para facilitar la comprensión de ecuaciones: lineales, cuadráticas, sistemas 2x2, polinómicas y valor absoluto. Integra interfaz responsiva, retroalimentación en tiempo real y componentes prácticos que potencian la enseñanza y la práctica matemática efectiva.
+Entorno digital interactivo para el aprendizaje de ecuaciones álgebraicas. Propuesta de solución web interactiva e intuitiva diseñada para facilitar la comprensión de ecuaciones: lineales, cuadráticas, sistemas 2x2, polinómicas y valor absoluto. Integra: interfaz responsiva, retroalimentación en tiempo real y componentes prácticos que potencian la enseñanza y la práctica matemática efectiva.
 
 # Entorno Digital Interactivo para el Aprendizaje de Álgebra
 
