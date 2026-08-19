@@ -108,7 +108,7 @@ header p {
   margin-bottom: 1.5rem;
 }
 
-/* Tarjetas Informativas y Laboratorio */
+/* Tarjetas Informativas y Laboratorio virtual */
 .tarjeta-info, .tarjeta-laboratorio {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
