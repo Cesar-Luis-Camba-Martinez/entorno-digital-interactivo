@@ -30,6 +30,24 @@
       overflow-x: auto;
       overflow-y: hidden;
     }
+
+    /* --- AQUÍ ESTÁ EL AJUSTE EXACTO PARA EL PLANO CARTESIANO Y CANVAS --- */
+    .canvas-wrapper {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    #planoCartesiano {
+      width: 100% !important;
+      max-width: 700px;
+      height: auto !important;
+      touch-action: none;
+    }
   </style>
 </head>
 <body>
