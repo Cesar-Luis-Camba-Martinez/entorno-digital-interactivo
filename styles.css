@@ -270,23 +270,6 @@ header p {
   border: 1px solid #e2e8f0;
 }
 
-.canvas-wrapper {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  background: #fafafa;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  padding: 0.5rem;
-}
-
-canvas {
-  background: #ffffff;
-  border-radius: 6px;
-  max-width: 100%;
-  height: auto;
-}
-
 .leyenda {
   display: flex;
   gap: 1.5rem;
