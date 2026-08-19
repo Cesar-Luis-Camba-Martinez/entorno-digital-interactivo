@@ -10,6 +10,32 @@ const RANGO_BASE = { minX: -10, maxX: 10, minY: -10, maxY: 10 };
 let RANGO = { ...RANGO_BASE };
 
 /* =====================================================================
+   AJUSTE DE RESOLUCIÓN Y REDIMENSIONAMIENTO RESPONSIVO DEL CANVAS
+   ===================================================================== */
+function redimensionarCanvas() {
+  if (!canvas) return;
+  
+  // Obtener el ancho actual en píxeles del contenedor
+  const rect = canvas.getBoundingClientRect();
+  if (rect.width === 0) return;
+
+  const dpr = window.devicePixelRatio || 1;
+
+  // Ajustar la resolución interna del buffer del canvas
+  canvas.width = rect.width * dpr;
+  canvas.height = (rect.width * (460 / 700)) * dpr; // Mantener proporción 700x460
+
+  // Re-escalar el contexto 2D para compensar la densidad de píxeles
+  if (ctx) {
+    ctx.resetTransform();
+    ctx.scale(dpr, dpr);
+  }
+
+  // Redibujar el plano con la nueva escala
+  actualizarGrafica();
+}
+
+/* =====================================================================
    INICIALIZACIÓN Y EVENTOS DE INTERACCIÓN
    ===================================================================== */
 window.addEventListener('load', () => {
@@ -23,6 +49,9 @@ window.addEventListener('load', () => {
   }
   ctx = canvas.getContext('2d');
   
+  // Registrar escuchador para cambios de tamaño de ventana
+  window.addEventListener('resize', redimensionarCanvas);
+
   // Escuchar variaciones en los inputs numéricos para redibujar el plano al instante
   document.querySelectorAll('input[type="number"]').forEach(inp => {
     inp.addEventListener('input', actualizarGrafica);
@@ -34,6 +63,9 @@ window.addEventListener('load', () => {
     const factor = e.deltaY > 0 ? 1.15 : 0.85; // Alejar o Acercar
     cambiarZoom(factor);
   }, { passive: false });
+
+  // Inicializar dimensiones dinámicas del canvas
+  redimensionarCanvas();
 
   // Sincronizar el estado inicial del panel, la gráfica y el renderizado matemático
   conmutarPanel();
@@ -141,11 +173,22 @@ function actualizarLeyenda(tipo) {
 /* =====================================================================
    MOTOR GRÁFICO (CANVAS API CON ADAPTABILIDAD DINÁMICA DE PASO)
    ===================================================================== */
+function obtenerDimensionesEfectivas() {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    ancho: rect.width || 700,
+    alto: (rect.width ? rect.width * (460 / 700) : 460)
+  };
+}
+
 function dibujarPlano() {
   if (!ctx || !canvas) return;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const scaleX = canvas.width / (RANGO.maxX - RANGO.minX);
-  const scaleY = canvas.height / (RANGO.maxY - RANGO.minY);
+  
+  const { ancho, alto } = obtenerDimensionesEfectivas();
+  ctx.clearRect(0, 0, ancho, alto);
+
+  const scaleX = ancho / (RANGO.maxX - RANGO.minX);
+  const scaleY = alto / (RANGO.maxY - RANGO.minY);
   const centroX = -RANGO.minX * scaleX;
   const centroY = RANGO.maxY * scaleY;
 
@@ -162,20 +205,20 @@ function dibujarPlano() {
   const inicioX = Math.floor(RANGO.minX / paso) * paso;
   for (let i = inicioX; i <= RANGO.maxX; i += paso) {
     let x = (i - RANGO.minX) * scaleX;
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, alto); ctx.stroke();
   }
 
   const inicioY = Math.floor(RANGO.minY / paso) * paso;
   for (let i = inicioY; i <= RANGO.maxY; i += paso) {
     let y = (RANGO.maxY - i) * scaleY;
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(ancho, y); ctx.stroke();
   }
 
   // 2. Ejes principales X e Y
   ctx.strokeStyle = '#64748b';
   ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(0, centroY); ctx.lineTo(canvas.width, centroY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(centroX, 0); ctx.lineTo(centroX, canvas.height); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, centroY); ctx.lineTo(ancho, centroY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(centroX, 0); ctx.lineTo(centroX, alto); ctx.stroke();
 
   // 3. Texto y Números de Escala
   ctx.fillStyle = '#475569';
@@ -198,21 +241,23 @@ function dibujarPlano() {
   }
 
   ctx.font = 'bold 12px sans-serif';
-  ctx.fillText('X', canvas.width - 15, centroY - 15);
+  ctx.fillText('X', ancho - 15, centroY - 15);
   ctx.fillText('Y', centroX + 12, 15);
 }
 
 function graficarFuncion(funcion, color) {
   if (!ctx || !canvas) return;
-  const scaleX = canvas.width / (RANGO.maxX - RANGO.minX);
-  const scaleY = canvas.height / (RANGO.maxY - RANGO.minY);
+  const { ancho, alto } = obtenerDimensionesEfectivas();
+
+  const scaleX = ancho / (RANGO.maxX - RANGO.minX);
+  const scaleY = alto / (RANGO.maxY - RANGO.minY);
 
   ctx.strokeStyle = color;
   ctx.lineWidth = 2.5;
   ctx.beginPath();
   
   let iniciado = false;
-  for (let px = 0; px <= canvas.width; px++) {
+  for (let px = 0; px <= ancho; px++) {
     let mathX = RANGO.minX + (px / scaleX);
     let mathY = funcion(mathX);
     
@@ -319,8 +364,8 @@ function calcularEcuacion() {
   }
 
   let discriminante = (b * b) - (4 * a * c);
-  let pasos = `<div><strong>Paso 1:</strong> Estructurar los valores base: $$a = ${a}, \\; b = ${b}, \\; c = ${c}$$</div>`;
-  pasos += `<div><strong>Paso 2:</strong> Calcular el Discriminante: $$\Delta = (${b})^2 - 4(${a})(${c}) = ${discriminante.toFixed(2)}$$</div>`;
+  let pasos = `<div><strong>Paso 1:</strong> Estructurar los valores base: $$a = ${a},\\; b = ${b},\\; c = ${c}$$</div>`;
+  pasos += `<div><strong>Paso 2:</strong> Calcular el Discriminante: $$\\Delta = (${b})^2 - 4(${a})(${c}) = ${discriminante.toFixed(2)}$$</div>`;
 
   if (discriminante > 0) {
     let x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
@@ -330,12 +375,12 @@ function calcularEcuacion() {
               <div class="resultado-final">$$x_2 = \\frac{-(${b}) - \\sqrt{${discriminante.toFixed(2)}}}{2(${a})} = ${x2.toFixed(4)}$$</div>`;
   } else if (discriminante === 0) {
     let x = -b / (2 * a);
-    pasos += `<div><strong>Paso 3:</strong> Dado que $$\Delta = 0$$, se genera una raíz real única de multiplicidad 2:</div>
+    pasos += `<div><strong>Paso 3:</strong> Dado que $$\\Delta = 0$$, se genera una raíz real única de multiplicidad 2:</div>
               <div class="resultado-final">$$x = \\frac{-(${b})}{2(${a})} = ${x.toFixed(4)}$$</div>`;
   } else {
     let parteReal = -b / (2 * a);
     let parteImaginaria = Math.sqrt(-discriminante) / (2 * a);
-    pasos += `<div><strong>Paso 3:</strong> El discriminante es negativo ($$\Delta < 0$$). Las raíces pertenecen al campo complejo:</div>
+    pasos += `<div><strong>Paso 3:</strong> El discriminante es negativo ($$\\Delta < 0$$). Las raíces pertenecen al campo complejo:</div>
               <div class="resultado-final">$$x_1 = ${parteReal.toFixed(2)} + ${parteImaginaria.toFixed(2)}i$$</div>
               <div class="resultado-final">$$x_2 = ${parteReal.toFixed(2)} - ${parteImaginaria.toFixed(2)}i$$</div>`;
   }
@@ -428,7 +473,7 @@ function resolverPolinomica() {
   pasos += `<div><strong>Paso 2: Aplicación del Teorema de la Raíz Racional:</strong></div>`;
   pasos += `<div>• Divisores de $$d = ${d}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
   pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Posibles raíces ($\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Posibles raíces ($\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
 
   const P = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
   let raizEncontrada = null;
@@ -531,7 +576,7 @@ function resolverCuartica() {
   pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
   pasos += `<div>• Divisores de $$e = ${e}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
   pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Raíces racionales candidatas ($\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Raíces racionales candidatas ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
 
   const P = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
   let r1 = null;
@@ -659,7 +704,7 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
   html += `<div>Aplicando la fórmula general a $$${a2}x^2 + (${b2})x + (${c2}) = 0$$:</div>`;
   
   let disc = (b2 * b2) - (4 * a2 * c2);
-  html += `<div>Cálculo del Discriminante: $$\Delta = (${b2})^2 - 4(${a2})(${c2}) = ${disc.toFixed(2)}$$</div>`;
+  html += `<div>Cálculo del Discriminante: $$\\Delta = (${b2})^2 - 4(${a2})(${c2}) = ${disc.toFixed(2)}$$</div>`;
 
   if (disc > 0) {
     let x2 = (-b2 + Math.sqrt(disc)) / (2 * a2);
@@ -727,7 +772,7 @@ function resolverAbsoluto() {
   pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
 
   pasos += `<div style="margin-top:0.5rem;"><strong>Ecuación 2 ($$ax + b = -c$$):</strong></div>`;
-  pasos += `<div>$$${a}x + (${b}) = -${c} \\implies ${a}x = ${-c - b} \\implies x_2 = \\frac{${-c - b}}{${a}}$$</div>`;
+  pasos += `<div>$$${a}x + (${b}) = -${c} \\implies ${a}x = ${-c - b} \\implies x_2 = \\frac{-${c - b}}{${a}}$$</div>`;
   pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
 
   res.innerHTML = pasos;
