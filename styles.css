@@ -394,3 +394,23 @@ footer {
   color: #64748b;
   border-top: 1px solid var(--gris-borde);
 }
+
+/* =====================================================================
+   AJUSTE DE RESPONSIVIDAD E INTERACCIÓN PARA EL PLANO CARTESIANO (CANVAS)
+   ===================================================================== */
+.canvas-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#planoCartesiano {
+  width: 100% !important;
+  max-width: 700px;
+  height: auto !important;
+  touch-action: none;
+}
