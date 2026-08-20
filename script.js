@@ -411,7 +411,7 @@ function resolverFraccionaria() {
 
   if (c === 0) {
     pasos += `<div><strong>Paso 2: Análisis del Numerador:</strong></div>`;
-    pasos += `<div>Dado que $$c = 0$$, la ecuación se simplifica a $$\\frac{${a}}{x + (${b})} = 0$$, lo cual no tiene solución ($$${a} \neq 0$$).</div>`;
+    pasos += `<div>Dado que $$c = 0$$, la ecuación se simplifica a $$\\frac{${a}}{x + (${b})} = 0$$, lo cual no tiene solución ($$${a} \\neq 0$$).</div>`;
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
@@ -425,15 +425,15 @@ function resolverFraccionaria() {
   pasos += `<div>$$\\frac{${a}}{x + (${b})} = ${-c}$$</div>`;
   
   pasos += `<div><strong>Paso 3: Multiplicar por el Denominador e Invertir la Ecuación:</strong></div>`;
-  pasos += `<div>$$${a} = ${-c}(x + (${b})) \implies x + (${b}) = \\frac{${a}}{${-c}} \implies x + (${b}) = ${numPaso2.toFixed(4)}$$</div>`;
+  pasos += `<div>$$${a} = ${-c}(x + (${b})) \\implies x + (${b}) = \\frac{${a}}{${-c}} \\implies x + (${b}) = ${numPaso2.toFixed(4)}$$</div>`;
 
   pasos += `<div><strong>Paso 4: Despeje Final de $$x$$:</strong></div>`;
   pasos += `<div>$$x = ${numPaso2.toFixed(4)} - (${b})$$</div>`;
 
   if (Math.abs(x - restriccion) < 0.0001) {
-    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($$x = ${x.toFixed(4)}$$) coincide con la restricción del dominio ($$x \neq ${restriccion}$$). Por lo tanto, la ecuación no tiene solución válida.</div>`;
+    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($$x = ${x.toFixed(4)}$$) coincide con la restricción del dominio ($$x \\neq ${restriccion}$$). Por lo tanto, la ecuación no tiene solución válida.</div>`;
   } else {
-    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$ (Solución válida, pues $$x \neq ${restriccion}$$)</div>`;
+    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$ (Solución válida, pues $$x \\neq ${restriccion}$$)</div>`;
   }
 
   res.innerHTML = pasos;
