@@ -560,9 +560,9 @@ function resolverPolinomica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Aplicación del Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Divisores de $$d = ${d}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
-  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Posibles raíces ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$d = ${d}$$ ($$p$$): \\{${pList.join(', ')} \\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')} \\}</div>`;
+  pasos += `<div>• Posibles raíces ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')} \\}</div>`;
 
   const P = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
   let raizEncontrada = null;
@@ -662,9 +662,9 @@ function resolverCuartica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Divisores de $$e = ${e}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
-  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Raíces racionales candidatas ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$e = ${e}$$ ($$p$$): \\{${pList.join(', ')} \\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')} \\}</div>`;
+  pasos += `<div>• Raíces racionales candidatas ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')} \\}</div>`;
 
   const P = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
   let r1 = null;
@@ -767,9 +767,9 @@ function resolverQuintica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Divisores de $$f = ${f}$$ ($$p$$): \\{${pList.join(', ')}\\}</div>`;
-  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')}\\}</div>`;
-  pasos += `<div>• Posibles raíces ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\}</div>`;
+  pasos += `<div>• Divisores de $$f = ${f}$$ ($$p$$): \\{${pList.join(', ')} \\}</div>`;
+  pasos += `<div>• Divisores de $$a = ${a}$$ ($$q$$): \\{${qList.join(', ')} \\}</div>`;
+  pasos += `<div>• Posibles raíces ($\\\\pm p/q$): \\{${candidatos.map(v => Number(v.toFixed(2))).join(', ')} \\}</div>`;
 
   const P = (x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f;
   let r1 = null;
