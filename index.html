@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entorno Digital de Álgebra - UEFGJ</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- KaTeX JS & Auto-render extension -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-container">
+      <h1>Entorno Digital de Álgebra</h1>
+      <p class="subtitle">Laboratorio Interactivo de Resolución de Ecuaciones — UEFGJ</p>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Selector de Grado de Ecuación -->
+    <section class="card selector-card">
+      <h2>1. Selecciona el Tipo de Ecuación</h2>
+      <div class="control-group">
+        <label for="tipoEcuacion"><strong>Grado / Método:</strong></label>
+        <select id="tipoEcuacion" onchange="cambiarTipoEcuacion()">
+          <option value="lineal">Lineal (1.er Grado: ax + b = 0)</option>
+          <option value="cuadratica">Cuadrática (2.º Grado: ax² + bx + c = 0)</option>
+          <option value="cubica">Cúbica (3.er Grado: ax³ + bx² + cx + d = 0)</option>
+          <option value="cuartica">Cuártica (4.º Grado: ax⁴ + bx³ + cx² + dx + e = 0)</option>
+          <option value="quintica">Quíntica (5.º Grado: ax⁵ + bx⁴ + cx³ + dx² + ex + f = 0)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Entrada de Coeficientes -->
+    <section class="card input-card">
+      <h2>2. Ingrese los Coeficientes</h2>
+      <form id="formEcuacion" onsubmit="event.preventDefault(); resolverEcuacion();">
+        <div id="coeficientesContainer" class="inputs-grid">
+          <!-- Los campos de entrada se generan dinámicamente con JS -->
+        </div>
+
+        <div class="action-bar">
+          <button type="submit" class="btn btn-primary">Resolver Ecuación</button>
+          <button type="button" class="btn btn-secondary" onclick="limpiarTodo()">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Visualización de la Ecuación Formateada -->
+    <section class="card display-card">
+      <h2>3. Ecuación Ingresada</h2>
+      <div id="ecuacionFormateada" class="math-output">$$0 = 0$$</div>
+    </section>
+
+    <!-- Sección de Pasos de Resolución -->
+    <section class="card result-card">
+      <h2>4. Desarrollo Paso a Paso</h2>
+      <div id="pasosResolucion" class="pasos-container">
+        <p class="placeholder-text">Ingrese los coeficientes y haga clic en "Resolver Ecuación" para ver el procedimiento paso a paso.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Unidad Educativa Fiscomisional Francisco García Jiménez &copy; 2026</p>
+    <p class="credits">Desarrollado para el fortalecimiento de competencias algebraicas en Educación General Unificada.</p>
+  </footer>
+
+  <!-- Lógica en JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
