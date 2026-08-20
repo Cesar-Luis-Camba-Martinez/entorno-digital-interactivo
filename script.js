@@ -138,7 +138,7 @@ function conmutarPanel() {
 
   const res = document.getElementById('resultado');
   if (res) {
-    res.innerHTML = 'Seleccione una función y presione <strong>Resolver</strong> para mostrar los cálculos paso a paso.';
+    res.innerHTML = 'Seleccione una ecuación y presione <strong>Resolver</strong> para mostrar los cálculos paso a paso.';
   }
 
   actualizarGrafica();
