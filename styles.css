@@ -98,7 +98,7 @@ header p {
 
 /* Manejo de visibilidad */
 .oculto {
-  display: block !important;
+  display: none !important;
 }
 
 .panel-contenido {
