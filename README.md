@@ -12,6 +12,8 @@ Es una solución web interactiva diseñada para la enseñanza y ejercitación pr
 * **Acceso universal:** Funciona directamente desde el navegador sin necesidad de instalaciones complejas.
 
 ## ¿Cómo pueden comenzar los usuarios?
-1. Clona el repositorio en tu equipo local:
+1.Abre tu terminal (Git Bash, PowerShell, Terminal de macOS/Linux).
+2. Ejecuta el siguiente comando y cona el repositorio en tu equipo local:
    ```bash
-   git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+    git clone https://github.com/Cesar-Luis-Camba-Martinez/entorno-digital-interactivo.git
+   
