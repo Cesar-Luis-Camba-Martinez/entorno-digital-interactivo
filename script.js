@@ -1,5 +1,5 @@
 /* =====================================================================
-   VARIABLES GLOBALES Y ESTADO DEL MOTOR GRÁFICO (CON ZOOM Y PAN)
+   VARIABLES GLOBALES Y ESTADO DEL MOTOR GRÁFICO CON ZOOM Y PAN
    ===================================================================== */
 let canvas, ctx;
 
