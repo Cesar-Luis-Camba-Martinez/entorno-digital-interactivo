@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entorno Digital de Álgebra - UEFGJ</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- KaTeX CSS & JS para renderizado de notación matemática -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    .contenedor-formula {
+      max-width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+    .math-render {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 4px 0;
+      text-align: center;
+    }
+    .math-render .katex-display {
+      margin: 0.5em 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SECCIÓN 1: PÁGINA DE PORTADA Y BIENVENIDA -->
+<div id="seccion-portada" class="seccion-portada">
+  <div class="portada-card">
+    <div class="portada-badge">Entorno Digital Interactivo</div>
+    <h1 class="portada-titulo">🏫 Unidad Educativa Fiscomisional<br><span>Francisco García Jiménez</span></h1>
+    <p class="portada-subtitulo">Bienvenidos al Entorno digital interactivo para el Aprendizaje y Análisis Numérico-Gráfico de Ecuaciones Algebraicas</p>
+    
+    <div class="portada-grid">
+      <div class="tarjeta-portada">
+        <div class="icon-portada">📐</div>
+        <h3>Área y Asignatura</h3>
+        <p><strong>Área:</strong> Ciencias Matemáticas</p>
+        <p><strong>Campo del conocimiento:</strong> Educación</p>
+        <p><strong>Asignatura:</strong> Matemáticas</p>
+      </div>
+
+      <div class="tarjeta-portada">
+        <div class="icon-portada">🔔</div>
+        <h3>Complejidad del entorno digital interactivo</h3>
+        <p><strong>Nivel de complejidad:</strong> Medio - Avanzado</p>
+      </div>
+
+      <div class="tarjeta-portada">
+        <div class="icon-portada">👨‍🎓</div>
+        <h3>Unidad de estudio</h3>
+        <p><strong>Unidad N°:</strong> Uno</p>
+        <p><strong>Nombre de la Unidad de estudio:</strong> Ecuaciones Algebraicas</p>
+      </div>
+      
+      <div class="tarjeta-portada">
+        <div class="icon-portada">👥</div>
+        <h3>Destinatarios y Beneficiarios</h3>
+        <p><strong>Instrucción:</strong> Secundaria</p>
+        <p><strong>Educación:</strong> Formal</p>
+        <p><strong>Dirigido a:</strong> Estudiantes mayores de 16 años</p>
+        <p><strong>Beneficiarios:</strong> Estudiantes de Tercero de Bachillerato Técnico en Servicios</p>
+        <p><strong>Especialidad:</strong> Informática</p>
+      </div>
+
+      <div class="tarjeta-portada full-width">
+        <div class="icon-portada">🎯</div>
+        <h3>Objetivos de la Unidad de Estudio N° Uno</h3>
+        <p>1. Comprender los fundamentos de la tecnología educativa aplicada al álgebra, mediante la interacción guiada con el entorno digital, para conceptualizar, graficar en tiempo real y resolver ecuaciones algebraicas paso a paso con rigor sintáctico y analítico.</p>
+        <p>2. Desarrollar competencias básicas en el uso del entorno digital interactivo mediante la práctica supervisada, a fin de analizar representaciones gráficas en tiempo real y resolver ecuaciones algebraicas con precisión procedimental.</p>
+        <p>3. Integrar el uso del entorno digital interactivo en el aprendizaje del álgebra mediante la mediación docente, para facilitar la conceptualización, el análisis gráfico inmediato y la resolución paso a paso de ecuaciones algebraicas.</p>
+      </div>
+    </div>
+
+    <div class="portada-modulos">
+      <h4>💡 Módulos y Laboratorios Incluidos:</h4>
+      <div class="tags-modulos">
+        <span class="tag">Ecuación Lineal</span>
+        <span class="tag">Ecuación Fraccionaria</span>
+        <span class="tag">Ecuación Cuadrática</span>
+        <span class="tag">Sistema Lineal 2×2</span>
+        <span class="tag">Ecuación Cúbica</span>
+        <span class="tag">Ecuación Cuártica</span>
+        <span class="tag">Ecuación Quíntica</span>
+        <span class="tag">Valor Absoluto</span>
+      </div>
+    </div>
+
+    <button id="btn-comenzar" class="btn-comenzar" onclick="entrarAlEntorno()">
+      🚀 Ingresar al Entorno Digital Interactivo
+    </button>
+  </div>
+</div>
+
+<!-- SECCIÓN 2: APLICACIÓN Y LABORATORIO INTERACTIVO -->
+<div id="seccion-aplicacion" class="seccion-aplicacion oculto">
+  <header>
+    <div class="header-top">
+      <h1>🏫 Unidad Educativa Fiscomisional Francisco García Jiménez 👩‍🏫</h1>
+      <button class="btn-volver-portada" onclick="volverAPortada()" title="Regresar a la Portada">🏠 Portada</button>
+    </div>
+    
+    <h2>Área del conocimiento: Ciencias matemáticas</h2>
+    <h2>Asignatura: Matemáticas</h2>
+    <h2>Entorno Digital de Aprendizaje sobre: Ecuaciones Algebraicas</h2>
+    <p>Nivel de complejidad: Medio - Avanzado</p>
+    <p>Unidad didáctica 1: Ecuaciones Algebraicas</p>
+    <p>Dirigido a: Estudiantes mayores de 16 años</p>
+    <p>Beneficiarios: Estudiantes de Tercero de Bachillerato Técnico en Servicios de la especialidad de Informática</p>
+    <p>Objetivo de aprendizaje: Los estudiantes utilizarán este entorno digital interactivo para conceptualizar, analizar gráficamente y resolver ecuaciones algebraicas paso a paso.</p>
+  </header>
+
+  <main>
+    <!-- Selector Principal -->
+    <div class="selector-entorno">
+      <label for="tipo-algebra">📐 Seleccione la ecuación algebraica a estudiar:</label>
+      <select id="tipo-algebra" onchange="conmutarPanel()" class="select-destacado">
+        <option value="lineal">Ecuación Lineal (Primer Grado)</option>
+        <option value="fraccionaria">Ecuación Fraccionaria Racional</option>
+        <option value="cuadratica" selected>Ecuación Cuadrática (Segundo Grado)</option>
+        <option value="sistema">Sistema de Ecuaciones Lineales 2×2</option>
+        <option value="polinomica">Ecuación Polinómica de Tercer Grado (Cúbica)</option>
+        <option value="cuartica">Ecuación Polinómica de Cuarto Grado (Cuártica)</option>
+        <option value="quintica">Ecuación Polinómica de Quinto Grado (Quíntica)</option>
+        <option value="absoluto">Ecuación con Valor Absoluto</option>
+      </select>
+    </div>
+
+    <!-- Panel Lineal -->
+    <div id="panel-lineal" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación de Primer Grado</h3>
+        <p class="descripcion">Una ecuación lineal es una igualdad algebraica cuyo exponente máximo de la variable es uno. Representa geométricamente una línea recta continua en el plano cartesiano.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Ecuación Lineal General:</span>
+          <div class="math-render">$$ax + b = 0 \quad \text{con } a \neq 0$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Despeje de la incógnita:</span>
+          <div class="math-render">$$x = \frac{-b}{a}$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Se aplica la propiedad uniforme despejando el término independiente $b$ al miembro opuesto con signo cambiado y dividiendo entre el coeficiente principal $a$.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Lineal</h3>
+        <div class="formulario">
+          <div class="control"><label for="lin-a">Coeficiente <em>a</em>:</label><input type="number" id="lin-a" value="2" step="any"></div>
+          <div class="control"><label for="lin-b">Término independiente <em>b</em>:</label><input type="number" id="lin-b" value="-4" step="any"></div>
+          <button class="btn-resolver" onclick="resolverLineal()">▶ Resolver Ecuación Lineal</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Fraccionaria -->
+    <div id="panel-fraccionaria" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Fraccionaria Racional</h3>
+        <p class="descripcion">Ecuación algebraica donde la incógnita se encuentra en el denominador. Requiere identificar restricciones de dominio para evitar divisiones para cero.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General Reducible:</span>
+          <div class="math-render">$$\frac{a}{x + b} + c = 0$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Restricción de Dominio (Asíntota Vertical):</span>
+          <div class="math-render">$$x + b \neq 0 \implies x \neq -b$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> El valor $x = -b$ genera una discontinuidad esencial (asíntota vertical). Si la solución obtenida coincide con esta restricción, la ecuación carece de solución real.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Fraccionaria</h3>
+        <div class="formulario">
+          <div class="control"><label for="frac-a">Numerador <em>a</em>:</label><input type="number" id="frac-a" value="6" step="any"></div>
+          <div class="control"><label for="frac-b">Desplazamiento <em>b</em> ($x+b$):</label><input type="number" id="frac-b" value="-2" step="any"></div>
+          <div class="control"><label for="frac-c">Término independiente <em>c</em>:</label><input type="number" id="frac-c" value="-3" step="any"></div>
+          <button class="btn-resolver" onclick="resolverFraccionaria()">▶ Resolver Ecuación Fraccionaria</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Cuadrática -->
+    <div id="panel-cuadratica" class="panel-contenido">
+      <section class="tarjeta-info">
+        <h3>Ecuación de Segundo Grado</h3>
+        <p class="descripcion">Expresión de segundo grado cuya representación gráfica es una parábola. Su naturaleza de soluciones depende del signo del discriminante.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Ecuación General:</span>
+          <div class="math-render">$$ax^2 + bx + c = 0 \quad \text{con } a \neq 0$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Discriminante ($\Delta$):</span>
+          <div class="math-render">$$\Delta = b^2 - 4ac$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Fórmula General:</span>
+          <div class="math-render">$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Si $\Delta > 0$ existen dos raíces reales distintas; si $\Delta = 0$ existe una solución real doble; y si $\Delta < 0$ se obtienen dos raíces complejas conjugadas.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Cuadrática</h3>
+        <div class="formulario">
+          <div class="control"><label for="coef-a">Coeficiente <em>a</em> ($x^2$):</label><input type="number" id="coef-a" value="1" step="any"></div>
+          <div class="control"><label for="coef-b">Coeficiente <em>b</em> ($x$):</label><input type="number" id="coef-b" value="-5" step="any"></div>
+          <div class="control"><label for="coef-c">Término independiente <em>c</em>:</label><input type="number" id="coef-c" value="6" step="any"></div>
+          <button class="btn-resolver" onclick="calcularEcuacion()">▶ Resolver Ecuación Cuadrática</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Sistema 2x2 -->
+    <div id="panel-sistema" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Sistema de Ecuaciones Lineales $2 \times 2$</h3>
+        <p class="descripcion">Conjunto de dos ecuaciones de primer grado con dos incógnitas. El punto de intersección entre ambas rectas representa la solución del sistema.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma Estándar del Sistema:</span>
+          <div class="math-render">
+            $$\begin{cases} a_1x + b_1y = c_1 \\ a_2x + b_2y = c_2 \end{cases}$$
+          </div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Se resuelve mediante la Regla de Cramer empleando determinantes algebraicos. Si $\text{Det}(S) = 0$, las rectas son paralelas o coincidentes.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Sistema $2 \times 2$</h3>
+        <div class="formulario">
+          <div class="control-row">
+            <label>Ecuación 1 ($a_1, b_1, c_1$):</label>
+            <div class="input-group">
+              <input type="number" id="sys-a1" value="2" step="any" placeholder="a1"> 
+              <input type="number" id="sys-b1" value="1" step="any" placeholder="b1"> 
+              <input type="number" id="sys-c1" value="5" step="any" placeholder="c1">
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Ecuación 2 ($a_2, b_2, c_2$):</label>
+            <div class="input-group">
+              <input type="number" id="sys-a2" value="1" step="any" placeholder="a2"> 
+              <input type="number" id="sys-b2" value="-1" step="any" placeholder="b2"> 
+              <input type="number" id="sys-c2" value="1" step="any" placeholder="c2">
+            </div>
+          </div>
+          <button class="btn-resolver" onclick="resolverSistema()">▶ Resolver Sistema $2 \times 2$</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Polinómica Tercer Grado (Cúbica) -->
+    <div id="panel-polinomica" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Polinómica de Tercer Grado (Cúbica)</h3>
+        <p class="descripcion">Polinomio de grado 3 que posee al menos una raíz real. Puede presentar hasta tres intersecciones con el eje horizontal.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma Estándar Cúbica:</span>
+          <div class="math-render">$$ax^3 + bx^2 + cx + d = 0 \quad \text{con } a \neq 0$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Estrategia Metodológica:</span>
+          <div class="math-render">$$\text{Teorema Raíz Racional } (\pm p/q) \rightarrow \text{Regla de Ruffini} \rightarrow \text{Ecuación Cuadrática}$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Se evalúan divisores del término independiente $d$ sobre el coeficiente principal $a$. Al hallar una raíz exacta, se reduce el grado a 2 mediante división sintética.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Cúbica</h3>
+        <div class="formulario">
+          <div class="control"><label for="poly-a">Coeficiente <em>a</em> ($x^3$):</label><input type="number" id="poly-a" value="1" step="any"></div>
+          <div class="control"><label for="poly-b">Coeficiente <em>b</em> ($x^2$):</label><input type="number" id="poly-b" value="-6" step="any"></div>
+          <div class="control"><label for="poly-c">Coeficiente <em>c</em> ($x$):</label><input type="number" id="poly-c" value="11" step="any"></div>
+          <div class="control"><label for="poly-d">Término independiente <em>d</em>:</label><input type="number" id="poly-d" value="-6" step="any"></div>
+          <button class="btn-resolver" onclick="resolverPolinomica()">▶ Resolver Ecuación Cúbica</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Polinómica Cuarto Grado (Cuártica) -->
+    <div id="panel-cuartica" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Polinómica de Cuarto Grado (Cuártica)</h3>
+        <p class="descripcion">Polinomio de grado 4 que puede tener hasta cuatro raíces en el campo complejo.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma Estándar Cuártica:</span>
+          <div class="math-render">$$ax^4 + bx^3 + cx^2 + dx + e = 0 \quad \text{con } a \neq 0$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Se aplican reducciones de grado mediante el Teorema de la Raíz Racional y la Regla de Ruffini de manera iterativa.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Cuártica</h3>
+        <div class="formulario">
+          <div class="control"><label for="quart-a">Coeficiente <em>a</em> ($x^4$):</label><input type="number" id="quart-a" value="1" step="any"></div>
+          <div class="control"><label for="quart-b">Coeficiente <em>b</em> ($x^3$):</label><input type="number" id="quart-b" value="-10" step="any"></div>
+          <div class="control"><label for="quart-c">Coeficiente <em>c</em> ($x^2$):</label><input type="number" id="quart-c" value="35" step="any"></div>
+          <div class="control"><label for="quart-d">Coeficiente <em>d</em> ($x$):</label><input type="number" id="quart-d" value="-50" step="any"></div>
+          <div class="control"><label for="quart-e">Término independiente <em>e</em>:</label><input type="number" id="quart-e" value="24" step="any"></div>
+          <button class="btn-resolver" onclick="resolverCuartica()">▶ Resolver Ecuación Cuártica</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Polinómica Quinto Grado (Quíntica) -->
+    <div id="panel-quintica" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Polinómica de Quinto Grado (Quíntica)</h3>
+        <p class="descripcion">Ecuación polinómica de grado 5. Ilustra el Teorema de Abel-Ruffini sobre las limitaciones algebraicas generales.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma Estándar Quíntica:</span>
+          <div class="math-render">$$ax^5 + bx^4 + cx^3 + dx^2 + ex + f = 0 \quad \text{con } a \neq 0$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Si existen raíces racionales, el entorno las calcula paso a paso hasta reducir la expresión.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Quíntica</h3>
+        <div class="formulario">
+          <div class="control"><label for="quint-a">Coeficiente <em>a</em> ($x^5$):</label><input type="number" id="quint-a" value="1" step="any"></div>
+          <div class="control"><label for="quint-b">Coeficiente <em>b</em> ($x^4$):</label><input type="number" id="quint-b" value="-15" step="any"></div>
+          <div class="control"><label for="quint-c">Coeficiente <em>c</em> ($x^3$):</label><input type="number" id="quint-c" value="85" step="any"></div>
+          <div class="control"><label for="quint-d">Coeficiente <em>d</em> ($x^2$):</label><input type="number" id="quint-d" value="-225" step="any"></div>
+          <div class="control"><label for="quint-e">Coeficiente <em>e</em> ($x$):</label><input type="number" id="quint-e" value="274" step="any"></div>
+          <div class="control"><label for="quint-f">Término independiente <em>f</em>:</label><input type="number" id="quint-f" value="-120" step="any"></div>
+          <button class="btn-resolver" onclick="resolverQuintica()">▶ Resolver Ecuación Quíntica</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Panel Valor Absoluto -->
+    <div id="panel-absoluto" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación con Valor Absoluto</h3>
+        <p class="descripcion">Representa la distancia en la recta numérica entre una expresión y el origen.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$|ax + b| = c$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Si $c < 0$, la ecuación no tiene solución ($\mathcal{S} = \emptyset$). Si $c \ge 0$, se derivan las dos condiciones: $ax + b = c$ y $ax + b = -c$.
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Valor Absoluto</h3>
+        <div class="formulario">
+          <div class="control"><label for="abs-a">Coeficiente <em>a</em>:</label><input type="number" id="abs-a" value="2" step="any"></div>
+          <div class="control"><label for="abs-b">Desplazamiento <em>b</em>:</label><input type="number" id="abs-b" value="-3" step="any"></div>
+          <div class="control"><label for="abs-c">Igualdad <em>c</em>:</label><input type="number" id="abs-c" value="5" step="any"></div>
+          <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Gráfica Canvas Interactiva -->
+    <div class="grafica-box-global">
+      <div class="header-grafica">
+        <h4>📊 Plano Cartesiano Interactivo</h4>
+        <div class="controles-zoom">
+          <button class="btn-zoom" onclick="cambiarZoom(0.85)" title="Acercar Zoom">🔍 +</button>
+          <button class="btn-zoom" onclick="cambiarZoom(1.15)" title="Alejar Zoom">🔍 -</button>
+          <button class="btn-zoom" onclick="resetearZoom()" title="Restablecer Vista">🔄 Reset</button>
+          <span id="indicador-zoom" class="badge-zoom">Escala: 1.0x</span>
+        </div>
+      </div>
+      
+      <div class="canvas-wrapper">
+        <canvas id="planoCartesiano" width="700" height="460"></canvas>
+      </div>
+
+      <div id="leyenda" class="leyenda">
+        <span class="leyenda-item"><span class="leyenda-color" style="background:#ef4444;"></span> Gráfica f(x)</span>
+      </div>
+    </div>
+
+    <!-- Resultados paso a paso -->
+    <div class="resultado-box-global">
+      <h4>📝 Procedimiento de Resolución Paso a Paso</h4>
+      <div id="resultado">
+        Seleccione una ecuación y presione <strong>Resolver</strong> para mostrar los cálculos paso a paso.
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Unidad Educativa Fiscomisional Francisco García Jiménez - Entorno Digital de Aprendizaje</p>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
