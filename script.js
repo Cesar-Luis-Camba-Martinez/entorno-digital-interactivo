@@ -1107,21 +1107,21 @@ function resolverAbsoluto() {
     return;
   }
 
-  let pasos = `<div><strong>Explicación:</strong> Resolver de la forma $$|ax + b| = c$$.</div>`;
+  let pasos = `<div><strong>Explicación:</strong> Resolver la ecuación con valor absoluto de la forma $$|ax + b| = c$$.</div>`;
   pasos += `<div><strong>Paso 1: Análisis del término independiente externo $$c = ${c}$$:</strong></div>`;
 
   if (c < 0) {
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Dado que $$c = ${c} < 0$$, la ecuación no posee solución en $$\\mathbb{R}$$ ya que una magnitud de valor absoluto nunca puede ser negativa ($$\\mathcal{S} = \\emptyset$$).</div>`;
   } else if (c === 0) {
     let x = -b / a;
-    pasos += `<div>Dado que $$c = 0$$, se genera una única igualdad: $$${a}x + (${b}) = 0$$</div>`;
-    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div>Dado que $$c = 0$$, la ecuación se reduce a $$${a}x + (${b}) = 0$$.</div>`;
+    pasos += `<div class="resultado-final">$$x = \\frac{${-b}}{${a}} = ${x.toFixed(4)}$$</div>`;
   } else {
     let x1 = (c - b) / a;
     let x2 = (-c - b) / a;
-    pasos += `<div><strong>Paso 2: Descomposición en dos casos algebraicos:</strong></div>`;
-    pasos += `<div>Caso 1 ($$+c$$): $$${a}x + (${b}) = ${c} \\implies x_1 = \\frac{${c} - (${b})}{${a}} = ${x1.toFixed(4)}$$</div>`;
-    pasos += `<div>Caso 2 ($$-c$$): $$${a}x + (${b}) = ${-c} \\implies x_2 = \\frac{${-c} - (${b})}{${a}} = ${x2.toFixed(4)}$$</div>`;
+    pasos += `<div><strong>Paso 2: Descomposición en dos casos ($$c > 0$$):</strong></div>`;
+    pasos += `<div>• <strong>Caso 1 ($$ax + b = c$$):</strong> $$${a}x + (${b}) = ${c} \\implies ${a}x = ${c - b} \\implies x_1 = ${x1.toFixed(4)}$$</div>`;
+    pasos += `<div>• <strong>Caso 2 ($$ax + b = -c$$):</strong> $$${a}x + (${b}) = ${-c} \\implies ${a}x = ${-c - b} \\implies x_2 = ${x2.toFixed(4)}$$</div>`;
     pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
     pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
   }
