@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio Virtual de Ecuaciones Interactivas</title>
+  <!-- MathJax CDN para renderizado de expresiones matemáticas en LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Estilos globales y reseteo */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #1a365d;
+      color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #cbd5e0;
+    }
+
+    /* Navegación por Pestañas */
+    .nav-pestañas {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-pestaña {
+      background-color: #e2e8f0;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2d3748;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-pestaña:hover {
+      background-color: #cbd5e0;
+    }
+
+    .btn-pestaña.activa {
+      background-color: #2b6cb0;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Contenedores de Paneles */
+    .panel-contenido {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 850px) {
+      .panel-contenido {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    /* Estilos de Tarjetas */
+    .tarjeta-info, .tarjeta-laboratorio {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .tarjeta-info h3, .tarjeta-laboratorio h3 {
+      color: #2c5282;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #ebf8ff;
+      padding-bottom: 8px;
+    }
+
+    .descripcion {
+      margin-bottom: 15px;
+      color: #4a5568;
+    }
+
+    .contenedor-formula {
+      background-color: #f7fafc;
+      border-left: 4px solid #3182ce;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .etiqueta-formula {
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #2d3748;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .math-render {
+      font-size: 1.1rem;
+      overflow-x: auto;
+    }
+
+    .nota-explicativa {
+      background-color: #fffaf0;
+      border: 1px solid #feebc8;
+      border-left: 4px solid #dd6b20;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 0.92rem;
+      color: #742a2a;
+      margin-top: 15px;
+    }
+
+    /* Formulario e Controles */
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .control label {
+      font-weight: 600;
+      color: #2d3748;
+      font-size: 0.95rem;
+    }
+
+    .control input {
+      padding: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .control input:focus {
+      outline: none;
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+    }
+
+    .btn-resolver {
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-resolver:hover {
+      background-color: #2c5282;
+    }
+
+    /* Resultados y Visualización */
+    .resultado-seccion {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0fff4;
+      border: 1px solid #c6f6d5;
+      border-radius: 6px;
+    }
+
+    .resultado-seccion.error {
+      background-color: #fff5f5;
+      border-color: #fed7d7;
+      color: #c53030;
+    }
+
+    .titulo-resultado {
+      font-weight: bold;
+      color: #276749;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .paso-demostracion {
+      background: #ffffff;
+      padding: 10px 12px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    canvas {
+      width: 100%;
+      height: 180px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🧪 Laboratorio Virtual de Ecuaciones Interactivas</h1>
+    <p>Exploración conceptual, resolución paso a paso y demostración gráfica</p>
+  </header>
+
+  <!-- Navegación por pestañas -->
+  <nav class="nav-pestañas">
+    <button class="btn-pestaña activa" onclick="activarPanel('panel-absoluto', this)">Valor Absoluto</button>
+    <button class="btn-pestaña" onclick="activarPanel('panel-lineal', this)">Ecuación Lineal</button>
+    <button class="btn-pestaña" onclick="activarPanel('panel-cuadratica', this)">Ecuación Cuadrática</button>
+  </nav>
+
+  <!-- Contenedor Principal -->
+  <main>
+
+    <!-- Panel Valor Absoluto -->
+    <div id="panel-absoluto" class="panel-contenido">
+      <section class="tarjeta-info">
+        <h3>Ecuación con Valor Absoluto</h3>
+        <p class="descripcion">Modela distancias algebraicas sobre la recta real respecto al origen o un punto de referencia.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$|ax + b| = c$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Propiedad Fundamental ($c \ge 0$):</span>
+          <div class="math-render">$$ax + b = c \quad \text{o} \quad ax + b = -c$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Despeje Paso a Paso de las Soluciones ($a \neq 0, c \ge 0$):</span>
+          <div class="math-render">$$\text{Caso 1 (+): } ax + b = c \implies ax = c - b \implies x_1 = \frac{c - b}{a}$$</div>
+          <div class="math-render">$$\text{Caso 2 (-): } ax + b = -c \implies ax = -c - b \implies x_2 = \frac{-c - b}{a}$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Dado que el valor absoluto representa una distancia y por definición $c \ge 0$, la ecuación se descompone en dos casos lineales independientes. Se despeja la variable $x$ al restar el término $b$ en ambos miembros y dividir para el coeficiente $a$. Si $c < 0$, la ecuación carece de solución real ($\mathcal{S} = \emptyset$).
+        </div>
+      </section>
+
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Valor Absoluto</h3>
+        <div class="formulario">
+          <div class="control">
+            <label for="abs-a">Coeficiente <em>a</em> ($x$):</label>
+            <input type="number" id="abs-a" value="2" step="any">
+          </div>
+          <div class="control">
+            <label for="abs-b">Término interior <em>b</em>:</label>
+            <input type="number" id="abs-b" value="-3" step="any">
+          </div>
+          <div class="control">
+            <label for="abs-c">Término externo <em>c</em>:</label>
+            <input type="number" id="abs-c" value="5" step="any">
+          </div>
+          <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
+        </div>
+
+        <div id="res-absoluto" class="resultado-seccion oculto"></div>
+        <canvas id="lienzo-absoluto" width="500" height="180" class="oculto"></canvas>
+      </section>
+    </div>
+
+    <!-- Panel Ecuación Lineal -->
+    <div id="panel-lineal" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Lineal de Primer Grado</h3>
+        <p class="descripcion">Representa una relación de proporcionalidad de primer grado cuya solución es un único valor en la recta real.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$ax + b = 0$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Despeje Algebraico ($a \neq 0$):</span>
+          <div class="math-render">$$ax = -b \implies x = -\frac{b}{a}$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Se traspone el término independiente $b$ restándolo en ambos lados y se divide entre el coeficiente principal $a$.
+        </div>
+      </section>
+
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Lineal</h3>
+        <div class="formulario">
+          <div class="control">
+            <label for="lin-a">Coeficiente <em>a</em> ($x$):</label>
+            <input type="number" id="lin-a" value="4" step="any">
+          </div>
+          <div class="control">
+            <label for="lin-b">Término independiente <em>b</em>:</label>
+            <input type="number" id="lin-b" value="-8" step="any">
+          </div>
+          <button class="btn-resolver" onclick="resolverLineal()">▶ Resolver Ecuación Lineal</button>
+        </div>
+
+        <div id="res-lineal" class="resultado-seccion oculto"></div>
+        <canvas id="lienzo-lineal" width="500" height="180" class="oculto"></canvas>
+      </section>
+    </div>
+
+    <!-- Panel Ecuación Cuadrática -->
+    <div id="panel-cuadratica" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Cuadrática o de Segundo Grado</h3>
+        <p class="descripcion">Modela trayectorias parabólicas y relaciones polinómicas de grado 2.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$ax^2 + bx + c = 0 \quad (a \neq 0)$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Fórmula General:</span>
+          <div class="math-render">$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Discriminante ($\Delta$):</span>
+          <div class="math-render">$$\Delta = b^2 - 4ac$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Si $\Delta > 0$ existen dos soluciones reales distintas; si $\Delta = 0$ existe una única solución real doble; si $\Delta < 0$ las soluciones pertenecen al conjunto de los números complejos.
+        </div>
+      </section>
+
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Cuadrática</h3>
+        <div class="formulario">
+          <div class="control">
+            <label for="cua-a">Coeficiente <em>a</em> ($x^2$):</label>
+            <input type="number" id="cua-a" value="1" step="any">
+          </div>
+          <div class="control">
+            <label for="cua-b">Coeficiente <em>b</em> ($x$):</label>
+            <input type="number" id="cua-b" value="-5" step="any">
+          </div>
+          <div class="control">
+            <label for="cua-c">Término independiente <em>c</em>:</label>
+            <input type="number" id="cua-c" value="6" step="any">
+          </div>
+          <button class="btn-resolver" onclick="resolverCuadratica()">▶ Resolver Ecuación Cuadrática</button>
+        </div>
+
+        <div id="res-cuadratica" class="resultado-seccion oculto"></div>
+        <canvas id="lienzo-cuadratica" width="500" height="180" class="oculto"></canvas>
+      </section>
+    </div>
+
+  </main>
+
+  <script>
+    // Gestión de Pestañas
+    function activarPanel(panelId, boton) {
+      const paneles = document.querySelectorAll('.panel-contenido');
+      paneles.forEach(panel => panel.classList.add('oculto'));
+
+      const botones = document.querySelectorAll('.btn-pestaña');
+      botones.forEach(btn => btn.classList.remove('activa'));
+
+      document.getElementById(panelId).classList.remove('oculto');
+      boton.classList.add('activa');
+
+      // Re-renderizar expresiones MathJax
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    // Función Auxiliar para formatear números
+    function formatearNumero(num) {
+      return Number.isInteger(num) ? num.toString() : num.toFixed(4).replace(/\.?0+$/, '');
+    }
+
+    // 1. RESOLVER ECUACIÓN CON VALOR ABSOLUTO
+    function resolverAbsoluto() {
+      const a = parseFloat(document.getElementById('abs-a').value);
+      const b = parseFloat(document.getElementById('abs-b').value);
+      const c = parseFloat(document.getElementById('abs-c').value);
+
+      const contenedorRes = document.getElementById('res-absoluto');
+      const lienzo = document.getElementById('lienzo-absoluto');
+
+      contenedorRes.classList.remove('oculto', 'error');
+      lienzo.classList.add('oculto');
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = '<strong>Error:</strong> Por favor, ingrese valores numéricos válidos en todos los campos.';
+        return;
+      }
+
+      if (a === 0) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = '<strong>Error:</strong> El coeficiente <em>a</em> no puede ser cero ($a \\neq 0$).';
+        if (window.MathJax) MathJax.typesetPromise();
+        return;
+      }
+
+      // Proceso de resolución
+      if (c < 0) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Sin Solución Real</div>
+          <p>Dado que $c = ${c} < 0$, la ecuación $|${a}x + (${b})| = ${c}$ no tiene solución en el conjunto de los números reales.</p>
+          <p><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\emptyset$</p>
+        `;
+      } else if (c === 0) {
+        const x1 = -b / a;
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Solución Única ($c = 0$)</div>
+          <div class="paso-demostracion">1. Al ser $c = 0$, la expresión dentro del valor absoluto se iguala a cero: $a x + b = 0$.</div>
+          <div class="paso-demostracion">2. Despejando $x$: $x = \\frac{-b}{a} = \\frac{-(${b})}{${a}} = ${formatearNumero(x1)}$.</div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(x1)}\\}$</p>
+        `;
+        dibujarRectaReal([x1]);
+      } else {
+        const x1 = (c - b) / a;
+        const x2 = (-c - b) / a;
+
+        const valMin = Math.min(x1, x2);
+        const valMax = Math.max(x1, x2);
+
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Soluciones Encontradas</div>
+          <div class="paso-demostracion">
+            <strong>Verificación de condición:</strong> $c = ${c} \\ge 0$ (Posee dos casos algebraicos).
+          </div>
+          <div class="paso-demostracion">
+            <strong>Caso 1 (+):</strong> $${a}x + (${b}) = ${c} \\implies ${a}x = ${c} - (${b}) = ${c - b} \\implies x_1 = \\frac{${c - b}}{${a}} = ${formatearNumero(x1)}$
+          </div>
+          <div class="paso-demostracion">
+            <strong>Caso 2 (-):</strong> $${a}x + (${b}) = -${c} \\implies ${a}x = -${c} - (${b}) = ${-c - b} \\implies x_2 = \\frac{${-c - b}}{${a}} = ${formatearNumero(x2)}$
+          </div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(valMin)}, \\, ${formatearNumero(valMax)}\\}$</p>
+        `;
+        dibujarRectaReal([x1, x2]);
+      }
+
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    // 2. RESOLVER ECUACIÓN LINEAL
+    function resolverLineal() {
+      const a = parseFloat(document.getElementById('lin-a').value);
+      const b = parseFloat(document.getElementById('lin-b').value);
+
+      const contenedorRes = document.getElementById('res-lineal');
+      const lienzo = document.getElementById('lienzo-lineal');
+
+      contenedorRes.classList.remove('oculto', 'error');
+      lienzo.classList.add('oculto');
+
+      if (isNaN(a) || isNaN(b)) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = '<strong>Error:</strong> Ingrese valores numéricos válidos.';
+        return;
+      }
+
+      if (a === 0) {
+        if (b === 0) {
+          contenedorRes.innerHTML = '<div class="titulo-resultado">Identidad (Infinitas Soluciones)</div><p>$0x + 0 = 0 \\implies \\mathcal{S} = \\mathbb{R}$</p>';
+        } else {
+          contenedorRes.classList.add('error');
+          contenedorRes.innerHTML = '<div class="titulo-resultado">Inconsistencia (Sin Solución)</div><p>$0x + ' + b + ' = 0 \\implies \\mathcal{S} = \\emptyset$</p>';
+        }
+      } else {
+        const x = -b / a;
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Solución Obtenida</div>
+          <div class="paso-demostracion">1. Transposición de términos: $${a}x = -(${b}) = ${-b}$</div>
+          <div class="paso-demostracion">2. Despeje de la variable: $x = \\frac{${-b}}{${a}} = ${formatearNumero(x)}$</div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(x)}\\}$</p>
+        `;
+        dibujarRectaReal([x]);
+      }
+
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    // 3. RESOLVER ECUACIÓN CUADRÁTICA
+    function resolverCuadratica() {
+      const a = parseFloat(document.getElementById('cua-a').value);
+      const b = parseFloat(document.getElementById('cua-b').value);
+      const c = parseFloat(document.getElementById('cua-c').value);
+
+      const contenedorRes = document.getElementById('res-cuadratica');
+      const lienzo = document.getElementById('lienzo-cuadratica');
+
+      contenedorRes.classList.remove('oculto', 'error');
+      lienzo.classList.add('oculto');
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = '<strong>Error:</strong> Ingrese números válidos.';
+        return;
+      }
+
+      if (a === 0) {
+        contenedorRes.classList.add('error');
+        contenedorRes.innerHTML = '<strong>Error:</strong> El coeficiente $a$ debe ser distinto de cero para ser una ecuación cuadrática.';
+        if (window.MathJax) MathJax.typesetPromise();
+        return;
+      }
+
+      const disc = b * b - 4 * a * c;
+
+      if (disc > 0) {
+        const x1 = (-b + Math.sqrt(disc)) / (2 * a);
+        const x2 = (-b - Math.sqrt(disc)) / (2 * a);
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Dos Soluciones Reales Distintas ($\\\\Delta > 0$)</div>
+          <div class="paso-demostracion"><strong>Discriminante:</strong> $\\Delta = (${b})^2 - 4(${a})(${c}) = ${disc}$</div>
+          <div class="paso-demostracion"><strong>Cálculo $x_1$:</strong> $x_1 = \\frac{-(${b}) + \\sqrt{${disc}}}{2(${a})} = ${formatearNumero(x1)}$</div>
+          <div class="paso-demostracion"><strong>Cálculo $x_2$:</strong> $x_2 = \\frac{-(${b}) - \\sqrt{${disc}}}{2(${a})} = ${formatearNumero(x2)}$</div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(x1)}, \\, ${formatearNumero(x2)}\\}$</p>
+        `;
+        dibujarRectaReal([x1, x2]);
+      } else if (disc === 0) {
+        const x = -b / (2 * a);
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Solución Real Doble ($\\\\Delta = 0$)</div>
+          <div class="paso-demostracion"><strong>Discriminante:</strong> $\\Delta = 0$</div>
+          <div class="paso-demostracion"><strong>Cálculo:</strong> $x = \\frac{-(${b})}{2(${a})} = ${formatearNumero(x)}$</div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(x)}\\}$</p>
+        `;
+        dibujarRectaReal([x]);
+      } else {
+        const real = -b / (2 * a);
+        const imag = Math.sqrt(-disc) / (2 * a);
+        contenedorRes.innerHTML = `
+          <div class="titulo-resultado">Soluciones Complejas Conjugadas ($\\\\Delta < 0$)</div>
+          <div class="paso-demostracion"><strong>Discriminante:</strong> $\\Delta = ${disc} < 0$</div>
+          <div class="paso-demostracion"><strong>Raíces Complejas:</strong> $x = ${formatearNumero(real)} \\pm ${formatearNumero(Math.abs(imag))}i$</div>
+          <p style="margin-top:10px;"><strong>Conjunto Solución:</strong> $\\mathcal{S} = \\{${formatearNumero(real)} + ${formatearNumero(Math.abs(imag))}i, \\, ${formatearNumero(real)} - ${formatearNumero(Math.abs(imag))}i\\}$</p>
+        `;
+      }
+
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    // DIBUJAR RECTA REAL E INDICAR PUNTOS DE SOLUCIÓN EN CANVAS
+    function dibujarRectaReal(puntos) {
+      const panelesActivos = document.querySelectorAll('.panel-contenido:not(.oculto)');
+      if (panelesActivos.length === 0) return;
+
+      const lienzo = panelesActivos[0].querySelector('canvas');
+      if (!lienzo) return;
+
+      lienzo.classList.remove('oculto');
+      const ctx = lienzo.getContext('2d');
+      const width = lienzo.width;
+      const height = lienzo.height;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Dibujar Recta Principal
+      const yCentro = height / 2;
+      ctx.beginPath();
+      ctx.moveTo(30, yCentro);
+      ctx.lineTo(width - 30, yCentro);
+      ctx.strokeStyle = '#2d3748';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Flechas
+      ctx.beginPath();
+      ctx.moveTo(width - 40, yCentro - 6);
+      ctx.lineTo(width - 25, yCentro);
+      ctx.lineTo(width - 40, yCentro + 6);
+      ctx.fillStyle = '#2d3748';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(40, yCentro - 6);
+      ctx.lineTo(25, yCentro);
+      ctx.lineTo(40, yCentro + 6);
+      ctx.fill();
+
+      // Escala gráfica
+      let minVal = Math.min(...puntos, 0) - 2;
+      let maxVal = Math.max(...puntos, 0) + 2;
+      if (minVal === maxVal) { minVal -= 2; maxVal += 2; }
+
+      const padding = 60;
+      const mapearX = (val) => padding + ((val - minVal) / (maxVal - minVal)) * (width - 2 * padding);
+
+      // Dibujar Marca de Origen (0)
+      const xOrigen = mapearX(0);
+      if (xOrigen >= padding && xOrigen <= width - padding) {
+        ctx.beginPath();
+        ctx.moveTo(xOrigen, yCentro - 8);
+        ctx.lineTo(xOrigen, yCentro + 8);
+        ctx.strokeStyle = '#a0aec0';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.font = '12px Segoe UI';
+        ctx.fillStyle = '#718096';
+        ctx.textAlign = 'center';
+        ctx.fillText('0', xOrigen, yCentro + 25);
+      }
+
+      // Dibujar Puntos de Solución
+      puntos.forEach((p, idx) => {
+        const xPos = mapearX(p);
+
+        ctx.beginPath();
+        ctx.arc(xPos, yCentro, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#e53e3e';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.font = 'bold 13px Segoe UI';
+        ctx.fillStyle = '#2b6cb0';
+        ctx.textAlign = 'center';
+        ctx.fillText(`x${puntos.length > 1 ? (idx + 1) : ''} = ${formatearNumero(p)}`, xPos, yCentro - 15);
+      });
+    }
+
+    // Inicializar renderizado de expresiones al cargar
+    window.addEventListener('load', () => {
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    });
+  </script>
+</body>
+</html>
