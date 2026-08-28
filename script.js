@@ -508,10 +508,19 @@ function calcularEcuacion() {
     return;
   }
 
-  let discriminante = (b * b) - (4 * a * c);
+  // Cálculos intermedios paso a paso del discriminante
+  let bCuadrado = b * b;
+  let cuatroAC = 4 * a * c;
+  let discriminante = bCuadrado - cuatroAC;
+
   let pasos = `<div><strong>Explicación:</strong> Se evalúa el discriminante $\\Delta = b^2 - 4ac$ para clasificar la naturaleza de las soluciones.</div>`;
   pasos += `<div><strong>Paso 1: Identificación de coeficientes:</strong> $$a = ${a},\\; b = ${b},\\; c = ${c}$$</div>`;
-  pasos += `<div><strong>Paso 2: Cálculo del Discriminante:</strong> $$\\Delta = (${b})^2 - 4(${a})(${c}) = ${discriminante.toFixed(2)}$$</div>`;
+  
+  // Paso 2 detallado con desglose procedimental
+  pasos += `<div><strong>Paso 2: Cálculo Detallado del Discriminante ($$\\Delta = b^2 - 4ac$$):</strong></div>`;
+  pasos += `<div style="margin-left: 1rem;">• Elevación al cuadrado de $$b$$: $$(${b})^2 = ${bCuadrado.toFixed(2)}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">• Multiplicación de $$4 \\cdot a \\cdot c$$: $$4 \\cdot (${a}) \\cdot (${c}) = ${cuatroAC.toFixed(2)}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">• Sustitución y resta final: $$\\Delta = ${bCuadrado.toFixed(2)} - (${cuatroAC.toFixed(2)}) = ${discriminante.toFixed(2)}$$</div>`;
 
   if (discriminante > 0) {
     let x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
