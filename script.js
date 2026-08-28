@@ -512,33 +512,59 @@ function calcularEcuacion() {
   let bCuadrado = b * b;
   let cuatroAC = 4 * a * c;
   let discriminante = bCuadrado - cuatroAC;
+  let dosA = 2 * a;
+  let menosB = -b;
 
   let pasos = `<div><strong>Explicación:</strong> Se evalúa el discriminante $\\Delta = b^2 - 4ac$ para clasificar la naturaleza de las soluciones.</div>`;
   pasos += `<div><strong>Paso 1: Identificación de coeficientes:</strong> $$a = ${a},\\; b = ${b},\\; c = ${c}$$</div>`;
   
-  // Paso 2 detallado con desglose procedimental
+  // Paso 2: Desglose del discriminante
   pasos += `<div><strong>Paso 2: Cálculo Detallado del Discriminante ($$\\Delta = b^2 - 4ac$$):</strong></div>`;
   pasos += `<div style="margin-left: 1rem;">• Elevación al cuadrado de $$b$$: $$(${b})^2 = ${bCuadrado.toFixed(2)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">• Multiplicación de $$4 \\cdot a \\cdot c$$: $$4 \\cdot (${a}) \\cdot (${c}) = ${cuatroAC.toFixed(2)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">• Sustitución y resta final: $$\\Delta = ${bCuadrado.toFixed(2)} - (${cuatroAC.toFixed(2)}) = ${discriminante.toFixed(2)}$$</div>`;
 
+  // Paso 3: Aplicación detallada de la Fórmula General
   if (discriminante > 0) {
-    let x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
-    let x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
-    pasos += `<div><strong>Paso 3: Aplicación de la Fórmula General ($$\\Delta > 0$$):</strong> Se obtienen dos raíces reales distintas:</div>
-              <div class="resultado-final">$$x_1 = \\frac{-(${b}) + \\sqrt{${discriminante.toFixed(2)}}}{2(${a})} = ${x1.toFixed(4)}$$</div>
-              <div class="resultado-final">$$x_2 = \\frac{-(${b}) - \\sqrt{${discriminante.toFixed(2)}}}{2(${a})} = ${x2.toFixed(4)}$$</div>`;
+    let raizDisc = Math.sqrt(discriminante);
+    let num1 = menosB + raizDisc;
+    let num2 = menosB - raizDisc;
+    let x1 = num1 / dosA;
+    let x2 = num2 / dosA;
+
+    pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta > 0$$):</strong></div>`;
+    pasos += `<div style="margin-left: 1rem;">• Sustitución general: $$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(2)}}}{2(${a})}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada del discriminante: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Cálculo del denominador ($$2a$$): $$2 \\cdot (${a}) = ${dosA.toFixed(2)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_1$$ (Signo positivo $+$):</strong></div>`;
+    pasos += `<div style="margin-left: 2rem;">$$x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = \\frac{${num1.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_2$$ (Signo negativo $-$):</strong></div>`;
+    pasos += `<div style="margin-left: 2rem;">$$x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = \\frac{${num2.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$$</div>`;
+    pasos += `<div class="resultado-final">Soluciones reales distintas: $$x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$$</div>`;
+
   } else if (discriminante === 0) {
-    let x = -b / (2 * a);
-    pasos += `<div><strong>Paso 3: Dado que $$\\Delta = 0$$:</strong> Se genera una única raíz real con multiplicidad 2:</div>
-              <div class="resultado-final">$$x = \\frac{-(${b})}{2(${a})} = ${x.toFixed(4)}$$</div>`;
+    let x = menosB / dosA;
+
+    pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta = 0$$):</strong></div>`;
+    pasos += `<div style="margin-left: 1rem;">• Como $$\\sqrt{0} = 0$$, la fórmula se simplifica a: $$x = \\frac{-b}{2a}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Sustitución de valores: $$x = \\frac{-(${b})}{2(${a})} = \\frac{${menosB.toFixed(2)}}{${dosA.toFixed(2)}}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• División final: $$x = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div class="resultado-final">Solución real doble (multiplicidad 2): $$x = ${x.toFixed(4)}$$</div>`;
+
   } else {
-    let parteReal = -b / (2 * a);
-    let parteImaginaria = Math.sqrt(-discriminante) / (2 * a);
-    pasos += `<div><strong>Paso 3: El discriminante es negativo ($$\\Delta < 0$$):</strong> Las raíces pertenecen al campo de los números complejos ($$\\mathbb{C}$$):</div>
-              <div class="resultado-final">$$x_1 = ${parteReal.toFixed(2)} + ${parteImaginaria.toFixed(2)}i$$</div>
-              <div class="resultado-final">$$x_2 = ${parteReal.toFixed(2)} - ${parteImaginaria.toFixed(2)}i$$</div>`;
+    let absDisc = -discriminante;
+    let raizDisc = Math.sqrt(absDisc);
+    let parteReal = menosB / dosA;
+    let parteImaginaria = raizDisc / dosA;
+
+    pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta < 0$$):</strong></div>`;
+    pasos += `<div style="margin-left: 1rem;">• Identificación de unidad imaginaria: $$\\sqrt{${discriminante.toFixed(2)}} = \\sqrt{${absDisc.toFixed(2)}} \\cdot i = ${raizDisc.toFixed(4)}i$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Sustitución general: $$x = \\frac{${menosB.toFixed(2)} \\pm ${raizDisc.toFixed(4)}i}{${dosA.toFixed(2)}}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Separación de parte real ($$\\frac{-b}{2a}$$): $$\\frac{${menosB.toFixed(2)}}{${dosA.toFixed(2)}} = ${parteReal.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Separación de parte imaginaria ($$\\frac{\\sqrt{-\\Delta}}{2a}$$): $$\\frac{${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${parteImaginaria.toFixed(4)}$$</div>`;
+    pasos += `<div class="resultado-final">Soluciones complejas conjugadas: $$x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$$</div>`;
   }
+
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
 }
