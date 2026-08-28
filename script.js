@@ -1,5 +1,5 @@
 /* =====================================================================
-   VARIABLES GLOBALES Y ESTADO DEL MOTOR GRÁFICO (CON ZOOM Y PAN)
+   VARIABLES GLOBALES Y ESTADO DEL MOTOR GRÁFICO CON ZOOM Y PAN
    ===================================================================== */
 let canvas, ctx;
 
@@ -10,7 +10,7 @@ const RANGO_BASE = { minX: -10, maxX: 10, minY: -10, maxY: 10 };
 let RANGO = { ...RANGO_BASE };
 
 /* =====================================================================
-   CONTROL DE NAVEGACIÓN PORTADA / APLICACIÓN
+   CONTROL DE NAVEGACIÓN: PORTADA / APLICACIÓN
    ===================================================================== */
 function entrarAlEntorno() {
   const portada = document.getElementById('seccion-portada');
