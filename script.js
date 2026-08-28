@@ -1056,7 +1056,11 @@ function resolverAbsoluto() {
   if (c === 0) {
     let x = -b / a;
     pasos += `<div><strong>Paso 2: Caso Único ($$c = 0$$):</strong></div>`;
-    pasos += `<div>$$${a}x + (${b}) = 0 \\implies x = \\frac{${-b}}{${a}}$$</div>`;
+    pasos += `<div>$$${a}x + (${b}) = 0$$</div>`;
+    pasos += `<div><strong>Paso 3: Transposición del Término Independiente $$b$$:</strong></div>`;
+    pasos += `<div>$$${a}x = ${-b}$$</div>`;
+    pasos += `<div><strong>Paso 4: Despeje de $$x$$:</strong></div>`;
+    pasos += `<div>$$x = \\frac{${-b}}{${a}}$$</div>`;
     pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
@@ -1066,15 +1070,20 @@ function resolverAbsoluto() {
   let x1 = (c - b) / a;
   let x2 = (-c - b) / a;
 
-  pasos += `<div><strong>Paso 2: Descomposición por Propiedad del Valor Absoluto ($$c > 0$$):</strong></div>`;
-  pasos += `<div>Se generan dos ecuaciones lineales independientes:</div>`;
-  
-  pasos += `<div style="margin-top:0.5rem;"><strong>Caso Positivo ($$ax + b = c$$):</strong></div>`;
-  pasos += `<div>$$${a}x + (${b}) = ${c} \\implies x_1 = \\frac{${c - b}}{${a}}$$</div>`;
-  pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
+  pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($$c > 0$$):</strong></div>`;
+  pasos += `<div>La ecuación con valor absoluto se descompone en dos ecuaciones lineales:</div>`;
+  pasos += `<div>• Caso 1 (Positivo): $$${a}x + (${b}) = ${c}$$</div>`;
+  pasos += `<div>• Caso 2 (Negativo): $$${a}x + (${b}) = ${-c}$$</div>`;
 
-  pasos += `<div style="margin-top:0.5rem;"><strong>Caso Negativo ($$ax + b = -c$$):</strong></div>`;
-  pasos += `<div>$$${a}x + (${b}) = -${c} \\implies x_2 = \\frac{${-c - b}}{${a}}$$</div>`;
+  pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
+  pasos += `<div>• Caso 1: $$${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$$</div>`;
+  pasos += `<div>• Caso 2: $$${a}x = ${-c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(4)}$$</div>`;
+
+  pasos += `<div><strong>Paso 4: Despeje Final de la Incógnita $$x$$:</strong></div>`;
+  pasos += `<div>• Caso 1: $$x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$$</div>`;
+  pasos += `<div>• Caso 2: $$x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$$</div>`;
+
+  pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
   pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
 
   res.innerHTML = pasos;
