@@ -508,14 +508,21 @@ function calcularEcuacion() {
     return;
   }
 
-  // Cálculos intermedios paso a paso del discriminante
+  // 1. Discriminante y valores base
   let bCuadrado = b * b;
   let cuatroAC = 4 * a * c;
   let discriminante = bCuadrado - cuatroAC;
   let dosA = 2 * a;
   let menosB = -b;
 
-  let pasos = `<div><strong>Explicación:</strong> Se evalúa el discriminante $\\Delta = b^2 - 4ac$ para clasificar la naturaleza de las soluciones.</div>`;
+  // 2. Propiedades de la Parábola (Vértice, Eje de Simetría, Concavidad y Rango)
+  let h = -b / (2 * a);
+  let k = a * h * h + b * h + c;
+  let concavidad = a > 0 ? 'Cóncava hacia arriba ($\\cup$)' : 'Cóncava hacia abajo ($\\cap$)';
+  let tipoExtremo = a > 0 ? 'Mínimo absoluto' : 'Máximo absoluto';
+  let rangoStr = a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`;
+
+  let pasos = `<div><strong>Explicación Analítica:</strong> Se evalúan tanto las raíces algebraicas de la ecuación como las propiedades geométricas de la parábola $f(x) = ${a}x^2 + (${b})x + (${c})$.</div>`;
   pasos += `<div><strong>Paso 1: Identificación de coeficientes:</strong> $$a = ${a},\\; b = ${b},\\; c = ${c}$$</div>`;
   
   // Paso 2: Desglose del discriminante
@@ -524,7 +531,7 @@ function calcularEcuacion() {
   pasos += `<div style="margin-left: 1rem;">• Multiplicación de $$4 \\cdot a \\cdot c$$: $$4 \\cdot (${a}) \\cdot (${c}) = ${cuatroAC.toFixed(2)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">• Sustitución y resta final: $$\\Delta = ${bCuadrado.toFixed(2)} - (${cuatroAC.toFixed(2)}) = ${discriminante.toFixed(2)}$$</div>`;
 
-  // Paso 3: Aplicación detallada de la Fórmula General
+  // Paso 3: Aplicación detallada de la Fórmula General (Raíces)
   if (discriminante > 0) {
     let raizDisc = Math.sqrt(discriminante);
     let num1 = menosB + raizDisc;
@@ -534,22 +541,17 @@ function calcularEcuacion() {
 
     pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta > 0$$):</strong></div>`;
     pasos += `<div style="margin-left: 1rem;">• Sustitución general: $$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(2)}}}{2(${a})}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada del discriminante: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Cálculo del denominador ($$2a$$): $$2 \\cdot (${a}) = ${dosA.toFixed(2)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_1$$ (Signo positivo $+$):</strong></div>`;
-    pasos += `<div style="margin-left: 2rem;">$$x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = \\frac{${num1.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_2$$ (Signo negativo $-$):</strong></div>`;
-    pasos += `<div style="margin-left: 2rem;">$$x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = \\frac{${num2.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_1$$ ($+$):</strong> $$x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_2$$ ($-$) :</strong> $$x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$$</div>`;
     pasos += `<div class="resultado-final">Soluciones reales distintas: $$x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$$</div>`;
 
   } else if (discriminante === 0) {
     let x = menosB / dosA;
 
     pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta = 0$$):</strong></div>`;
-    pasos += `<div style="margin-left: 1rem;">• Como $$\\sqrt{0} = 0$$, la fórmula se simplifica a: $$x = \\frac{-b}{2a}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Sustitución de valores: $$x = \\frac{-(${b})}{2(${a})} = \\frac{${menosB.toFixed(2)}}{${dosA.toFixed(2)}}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• División final: $$x = ${x.toFixed(4)}$$</div>`;
-    pasos += `<div class="resultado-final">Solución real doble (multiplicidad 2): $$x = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Como $$\\sqrt{0} = 0$$: $$x = \\frac{-(${b})}{2(${a})} = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div class="resultado-final">Solución real doble: $$x = ${x.toFixed(4)}$$</div>`;
 
   } else {
     let absDisc = -discriminante;
@@ -558,12 +560,44 @@ function calcularEcuacion() {
     let parteImaginaria = raizDisc / dosA;
 
     pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta < 0$$):</strong></div>`;
-    pasos += `<div style="margin-left: 1rem;">• Identificación de unidad imaginaria: $$\\sqrt{${discriminante.toFixed(2)}} = \\sqrt{${absDisc.toFixed(2)}} \\cdot i = ${raizDisc.toFixed(4)}i$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Sustitución general: $$x = \\frac{${menosB.toFixed(2)} \\pm ${raizDisc.toFixed(4)}i}{${dosA.toFixed(2)}}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Separación de parte real ($$\\frac{-b}{2a}$$): $$\\frac{${menosB.toFixed(2)}}{${dosA.toFixed(2)}} = ${parteReal.toFixed(4)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Separación de parte imaginaria ($$\\frac{\\sqrt{-\\Delta}}{2a}$$): $$\\frac{${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${parteImaginaria.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Unidad imaginaria: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}i$$</div>`;
     pasos += `<div class="resultado-final">Soluciones complejas conjugadas: $$x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$$</div>`;
   }
+
+  // Paso 4: ANÁLISIS PRÁCTICO DE LAS PROPIEDADES DE LA PARÁBOLA
+  pasos += `<div style="margin-top: 1.25rem; border-top: 2px dashed #cbd5e1; padding-top: 0.85rem;"><strong>Paso 4: Análisis Completo de las Propiedades de la Parábola:</strong></div>`;
+  
+  // 1. Vértice
+  pasos += `<div>• <strong>Coordenadas del Vértice $$V(h, k)$$:</strong></div>`;
+  pasos += `<div style="margin-left: 1rem;">$$h = -\\frac{b}{2a} = -\\frac{${b}}{2(${a})} = ${h.toFixed(4)}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$$k = f(${h.toFixed(4)}) = ${a}(${h.toFixed(4)})^2 + (${b})(${h.toFixed(4)}) + (${c}) = ${k.toFixed(4)}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$$\\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$$</div>`;
+
+  // 2. Eje de Simetría
+  pasos += `<div>• <strong>Eje de Simetría:</strong> Recta vertical $$x = ${h.toFixed(4)}$$</div>`;
+
+  // 3. Concavidad y Extremo
+  pasos += `<div>• <strong>Orientación / Concavidad:</strong> Como $$a = ${a} ${a > 0 ? '> 0' : '< 0'}$$, la parábola es ${concavidad} y presenta un <strong>${tipoExtremo}</strong> en $$y = ${k.toFixed(4)}$$.</div>`;
+
+  // 4. Corte Eje Y
+  pasos += `<div>• <strong>Intersección con Eje $$Y$$ ($$x = 0$$):</strong> Punto $$(0, c) = (0, ${c})$$</div>`;
+
+  // 5. Corte Eje X
+  if (discriminante > 0) {
+    let x1 = (menosB + Math.sqrt(discriminante)) / dosA;
+    let x2 = (menosB - Math.sqrt(discriminante)) / dosA;
+    pasos += `<div>• <strong>Intersecciones con Eje $$X$$ ($$y = 0$$):</strong> Puntos $$(${x1.toFixed(4)}, 0)$$ y $$(${x2.toFixed(4)}, 0)$$</div>`;
+  } else if (discriminante === 0) {
+    let x = menosB / dosA;
+    pasos += `<div>• <strong>Intersección con Eje $$X$$ ($$y = 0$$):</strong> Punto de tangencia en $$(${x.toFixed(4)}, 0)$$ (coincide con el Vértice).</div>`;
+  } else {
+    pasos += `<div>• <strong>Intersecciones con Eje $$X$$ ($$y = 0$$):</strong> No existen intersecciones reales con el eje horizontal ($\\Delta < 0$).</div>`;
+  }
+
+  // 6. Dominio y Recorrido
+  pasos += `<div>• <strong>Dominio y Recorrido:</strong></div>`;
+  pasos += `<div style="margin-left: 1rem;">$$\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$$\\text{Rec}(f) = ${rangoStr}$$</div>`;
 
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
