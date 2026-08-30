@@ -443,7 +443,7 @@ function resolverLineal() {
   res.innerHTML = `<div><strong>Explicación:</strong> Para resolver la ecuación lineal $$${a}x + (${b}) = 0$$, se aísla el término con la incógnita y luego se despeja $$x$$.</div>
                    <div><strong>Paso 1: Planteamiento de la ecuación original:</strong> $$${a}x + (${b}) = 0$$</div>
                    <div><strong>Paso 2: Transposición del término independiente:</strong> $$${a}x = ${-b}$$</div>
-                   <div><strong>Paso 3: Despeje formal dividiendo para $$a$$ ($$a = ${a} \\neq 0$$):</strong> $$x = \\frac{${-b}}{${a}}$$</div>
+                   <div><strong>Paso 3: Despeje formal dividiendo para a $$a = ${a} \\neq 0$$</strong> $$x = \\frac{${-b}}{${a}}$$</div>
                    <div class="resultado-final"><strong>Resultado Formateado:</strong> $$x = ${x.toFixed(4)}$$</div>`;
   renderizarMatematicasGlobal();
 }
