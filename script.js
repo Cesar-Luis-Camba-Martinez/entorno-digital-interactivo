@@ -463,7 +463,7 @@ function resolverFraccionaria() {
   let restriccion = -b;
   let pasos = `<div><strong>Explicación Analítica:</strong> Las ecuaciones fraccionarias exigen validar el dominio de definición para evitar indeterminaciones por división para cero.</div>`;
   pasos += `<div><strong>Paso 1: Identificación de la Restricción de Dominio (Asíntota Vertical):</strong></div>`;
-  pasos += `<div>El denominador $x + (${b}) \\neq 0 \\implies x \\neq ${restriccion}$.</div>`;
+  pasos += `<div>El denominador $x + (${b}) \\neq 0 \\implies x \\neq ${restriccion}$</div>`;
 
   if (c === 0) {
     pasos += `<div><strong>Paso 2: Análisis del Numerador:</strong></div>`;
