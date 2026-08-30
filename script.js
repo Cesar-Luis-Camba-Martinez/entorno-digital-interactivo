@@ -1116,7 +1116,7 @@ function resolverAbsoluto() {
 
   if (c < 0) {
     pasos += `<div><strong>Paso 2: Análisis de Restricción del Valor Absoluto:</strong></div>`;
-    pasos += `<div>Puesto que el valor absoluto representa una distancia, no puede ser igual a un número negativo ($$c = ${c} < 0$$).</div>`;
+    pasos += `<div>Puesto que, el valor absoluto representa una distancia, no puede ser igual a un número negativo ($$c = ${c} < 0$$).</div>`;
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$ (Sin solución en $$\\mathbb{R}$$)</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
@@ -1140,10 +1140,10 @@ function resolverAbsoluto() {
   let x1 = (c - b) / a;
   let x2 = (-c - b) / a;
 
-  pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($$c > 0$$):</strong></div>`;
+  pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($c > 0$):</strong></div>`;
   pasos += `<div>La ecuación con valor absoluto se descompone en dos ecuaciones lineales:</div>`;
-  pasos += `<div>• Caso 1 (Positivo): $$${a}x + (${b}) = ${c}$$</div>`;
-  pasos += `<div>• Caso 2 (Negativo): $$${a}x + (${b}) = ${-c}$$</div>`;
+  pasos += `<div>• Caso 1 (Positivo): $${a}x + (${b}) = ${c}$</div>`;
+  pasos += `<div>• Caso 2 (Negativo): $${a}x + (${b}) = ${-c}$</div>`;
 
   pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
   pasos += `<div>• Caso 1: $$${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$$</div>`;
