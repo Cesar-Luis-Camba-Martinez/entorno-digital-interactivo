@@ -483,7 +483,7 @@ function resolverFraccionaria() {
   pasos += `<div><strong>Paso 3: Multiplicación por el Denominador e Inversión:</strong></div>`;
   pasos += `<div>$$${a} = ${-c}(x + (${b})) \\implies x + (${b}) = \\frac{${a}}{${-c}} \\implies x + (${b}) = ${numPaso2.toFixed(4)}$$</div>`;
 
-  pasos += `<div><strong>Paso 4: Despeje Final de $$x$$:</strong></div>`;
+  pasos += `<div><strong>Paso 4: Despeje Final de $x$:</strong></div>`;
   pasos += `<div>$$x = ${numPaso2.toFixed(4)} - (${b})$$</div>`;
 
   if (Math.abs(x - restriccion) < 0.0001) {
