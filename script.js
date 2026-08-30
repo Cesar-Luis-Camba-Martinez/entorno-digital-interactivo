@@ -527,7 +527,7 @@ function calcularEcuacion() {
   
   // Paso 2: Desglose del discriminante
   pasos += `<div><strong>Paso 2: Cálculo Detallado del Discriminante $\\Delta = b^2 - 4ac$</strong></div>`;
-  pasos += `<div style="margin-left: 1rem;">• Elevación al cuadrado de $$b$$: $$(${b})^2 = ${bCuadrado.toFixed(2)}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">• Elevación al cuadrado de $b$: $$(${b})^2 = ${bCuadrado.toFixed(2)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">• Multiplicación de $$4 \\cdot a \\cdot c$$: $$4 \\cdot (${a}) \\cdot (${c}) = ${cuatroAC.toFixed(2)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">• Sustitución y resta final: $$\\Delta = ${bCuadrado.toFixed(2)} - (${cuatroAC.toFixed(2)}) = ${discriminante.toFixed(2)}$$</div>`;
 
