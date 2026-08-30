@@ -627,7 +627,7 @@ function resolverSistema() {
     pasos += `<div><strong>Paso 2: Determinantes de las Incógnitas:</strong></div>
               <div>$$\\text{Det}(X) = \\begin{vmatrix} ${c1} & ${b1} \\\\ ${c2} & ${b2} \\end{vmatrix} = (${c1} \\cdot ${b2}) - (${c2} \\cdot ${b1}) = ${detX}$$</div>
               <div>$$\\text{Det}(Y) = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${a2} \\cdot ${c1}) = ${detY}$$</div>
-              <div><strong>Paso 3: Cálculo del punto de intersección $$(x, y):$$</strong></div>
+              <div><strong>Paso 3: Cálculo del punto de intersección $$(x, y): $$</strong></div>
               <div class="resultado-final">$$x = \\frac{\\text{Det}(X)}{\\text{Det}(S)} = \\frac{${detX}}{${detS}} = ${x.toFixed(4)}$$</div>
               <div class="resultado-final">$$y = \\frac{\\text{Det}(Y)}{\\text{Det}(S)} = \\frac{${detY}}{${detS}} = ${y.toFixed(4)}$$</div>`;
   }
