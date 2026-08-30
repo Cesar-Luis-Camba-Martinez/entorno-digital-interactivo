@@ -1146,12 +1146,12 @@ function resolverAbsoluto() {
   pasos += `<div>• Caso 2 (Negativo): $${a}x + (${b}) = ${-c}$</div>`;
 
   pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
-  pasos += `<div>• Caso 1: $$${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$$</div>`;
-  pasos += `<div>• Caso 2: $$${a}x = ${-c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(4)}$$</div>`;
+  pasos += `<div>• Caso 1: $${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$</div>`;
+  pasos += `<div>• Caso 2: $${a}x = ${-c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(4)}$</div>`;
 
-  pasos += `<div><strong>Paso 4: Despeje Final de la Incógnita $$x$$:</strong></div>`;
-  pasos += `<div>• Caso 1: $$x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$$</div>`;
-  pasos += `<div>• Caso 2: $$x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$$</div>`;
+  pasos += `<div><strong>Paso 4: Despeje Final de la Incógnita $x$:</strong></div>`;
+  pasos += `<div>• Caso 1: $x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$</div>`;
+  pasos += `<div>• Caso 2: $x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$</div>`;
 
   pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
   pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
