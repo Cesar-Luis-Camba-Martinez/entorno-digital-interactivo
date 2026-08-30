@@ -568,7 +568,7 @@ function calcularEcuacion() {
   pasos += `<div style="margin-top: 1.25rem; border-top: 2px dashed #cbd5e1; padding-top: 0.85rem;"><strong>Paso 4: Análisis Completo de las Propiedades de la Parábola:</strong></div>`;
   
   // 1. Vértice
-  pasos += `<div>• <strong>Coordenadas del Vértice $$V(h, k)$$:</strong></div>`;
+  pasos += `<div>• <strong>Coordenadas del Vértice $V(h, k)$:</strong></div>`;
   pasos += `<div style="margin-left: 1rem;">$$h = -\\frac{b}{2a} = -\\frac{${b}}{2(${a})} = ${h.toFixed(4)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">$$k = f(${h.toFixed(4)}) = ${a}(${h.toFixed(4)})^2 + (${b})(${h.toFixed(4)}) + (${c}) = ${k.toFixed(4)}$$</div>`;
   pasos += `<div style="margin-left: 1rem;">$$\\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$$</div>`;
@@ -586,7 +586,7 @@ function calcularEcuacion() {
   if (discriminante > 0) {
     let x1 = (menosB + Math.sqrt(discriminante)) / dosA;
     let x2 = (menosB - Math.sqrt(discriminante)) / dosA;
-    pasos += `<div>• <strong>Intersecciones con Eje $$X$$ ($$y = 0$$):</strong> Puntos $$(${x1.toFixed(4)}, 0)$$ y $$(${x2.toFixed(4)}, 0)$$</div>`;
+    pasos += `<div>• <strong>Intersecciones con Eje $X$ ($$y = 0$$):</strong> Puntos $$(${x1.toFixed(4)}, 0)$$ y $$(${x2.toFixed(4)}, 0)$$</div>`;
   } else if (discriminante === 0) {
     let x = menosB / dosA;
     pasos += `<div>• <strong>Intersección con Eje $X$ ($$y = 0$$):</strong> Punto de tangencia en $$(${x.toFixed(4)}, 0)$$ (coincide con el Vértice).</div>`;
