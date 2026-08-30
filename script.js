@@ -477,7 +477,7 @@ function resolverFraccionaria() {
   let numPaso2 = -a / c;
   let x = numPaso2 - b;
 
-  pasos += `<div><strong>Paso 2: Transposición del Término Independiente $$c$$:</strong></div>`;
+  pasos += `<div><strong>Paso 2: Transposición del Término Independiente $c$:</strong></div>`;
   pasos += `<div>$$\\frac{${a}}{x + (${b})} = ${-c}$$</div>`;
   
   pasos += `<div><strong>Paso 3: Multiplicación por el Denominador e Inversión:</strong></div>`;
