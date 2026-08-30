@@ -686,9 +686,9 @@ function resolverPolinomica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Aplicación del Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Divisores del término independiente $$d = ${d}$$ ($$p$$): $$\\mathcal{\\{}${pList.join(', ')}\\mathcal{\\}}$$</div>`;
-  pasos += `<div>• Divisores del coeficiente principal $$a = ${a}$$ ($$q$$): $$\\mathcal{\\{}${qList.join(', ')}\\mathcal{\\}}$$</div>`;
-  pasos += `<div>• Raíces candidatas ($$\\pm p/q$$): $$\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$$</div>`;
+  pasos += `<div>• Divisores del término independiente $d = ${d}$ ($p$): $$\\mathcal{\\{}${pList.join(', ')}\\mathcal{\\}}$$</div>`;
+  pasos += `<div>• Divisores del coeficiente principal $a = ${a}$ ($q$): $$\\mathcal{\\{}${qList.join(', ')}\\mathcal{\\}}$$</div>`;
+  pasos += `<div>• Raíces candidatas ($\\pm p/q$): $$\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$$</div>`;
 
   const P = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
   let raizEncontrada = null;
