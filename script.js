@@ -716,7 +716,7 @@ function resolverPolinomica() {
   let residuo = d + m3;
 
   pasos += `<div><strong>Paso 3: Evaluación y División Sintética (Regla de Ruffini):</strong></div>`;
-  pasos += `<div>Probando $$x = ${k}$$: $$P(${k}) = 0$$. <span class="resultado-final">$$x_1 = ${k}$$</span> es una raíz exacta.</div>`;
+  pasos += `<div>Probando $x = ${k}$: $P(${k}) = 0$. <span class="resultado-final">$$x_1 = ${k}$$</span> es una raíz exacta.</div>`;
   
   pasos += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
