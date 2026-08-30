@@ -580,7 +580,7 @@ function calcularEcuacion() {
   pasos += `<div>• <strong>Orientación / Concavidad:</strong> Como $a = ${a} ${a > 0 ? '> 0' : '< 0'}$, la parábola es ${concavidad} y presenta un <strong>${tipoExtremo}</strong> en $y = ${k.toFixed(4)}$.</div>`;
 
   // 4. Corte Eje Y
-  pasos += `<div>• <strong>Intersección con Eje $$Y$$ ($$x = 0$$):</strong> Punto $$(0, c) = (0, ${c})$$</div>`;
+  pasos += `<div>• <strong>Intersección con Eje $Y$ ($$x = 0$$):</strong> Punto $$(0, c) = (0, ${c})$$</div>`;
 
   // 5. Corte Eje X
   if (discriminante > 0) {
@@ -589,9 +589,9 @@ function calcularEcuacion() {
     pasos += `<div>• <strong>Intersecciones con Eje $$X$$ ($$y = 0$$):</strong> Puntos $$(${x1.toFixed(4)}, 0)$$ y $$(${x2.toFixed(4)}, 0)$$</div>`;
   } else if (discriminante === 0) {
     let x = menosB / dosA;
-    pasos += `<div>• <strong>Intersección con Eje $$X$$ ($$y = 0$$):</strong> Punto de tangencia en $$(${x.toFixed(4)}, 0)$$ (coincide con el Vértice).</div>`;
+    pasos += `<div>• <strong>Intersección con Eje $X$ ($$y = 0$$):</strong> Punto de tangencia en $$(${x.toFixed(4)}, 0)$$ (coincide con el Vértice).</div>`;
   } else {
-    pasos += `<div>• <strong>Intersecciones con Eje $$X$$ ($$y = 0$$):</strong> No existen intersecciones reales con el eje horizontal ($\\Delta < 0$).</div>`;
+    pasos += `<div>• <strong>Intersecciones con Eje $X$ ($$y = 0$$):</strong> No existen intersecciones reales con el eje horizontal ($\\Delta < 0$).</div>`;
   }
 
   // 6. Dominio y Recorrido
