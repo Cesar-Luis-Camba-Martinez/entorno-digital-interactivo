@@ -1112,7 +1112,7 @@ function resolverAbsoluto() {
   }
 
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación:</strong></div>`;
-  pasos += `<div>$$|${a}x + (${b})| = ${c}$$</div>`;
+  pasos += `<div>$|${a}x + (${b})| = ${c}$</div>`;
 
   if (c < 0) {
     pasos += `<div><strong>Paso 2: Análisis de Restricción del Valor Absoluto:</strong></div>`;
