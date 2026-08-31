@@ -34,6 +34,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Regla utilitaria para ocultar elementos de navegación */
+.oculto {
+  display: none !important;
+}
+
 /* Enfoque accesible para navegación por teclado */
 :focus-visible {
   outline: 3px solid var(--azul-medio);
@@ -194,7 +199,18 @@ body {
   transform: scale(0.98);
 }
 
-/* Encabezado con Botón Volver a la Portada */
+/* =====================================================================
+   ENCABEZADO Y NAVEGACIÓN EN EL ENTORNO DIGITAL
+   ===================================================================== */
+header {
+  background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+  color: var(--blanco);
+  padding: 1.75rem 2rem;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.15);
+}
+
 .header-top {
   display: flex;
   justify-content: space-between;
@@ -203,64 +219,51 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.header-top h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--blanco);
+}
+
 .btn-volver-portada {
   background: rgba(255, 255, 255, 0.2);
   color: var(--blanco);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 0.45rem 0.9rem;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.2s;
   white-space: nowrap;
-  transition: all 0.2s ease;
 }
 
 .btn-volver-portada:hover {
-  background: var(--blanco);
-  color: var(--azul-oscuro);
-}
-
-/* =====================================================================
-   ESTILOS PRINCIPALES DE LA APLICACIÓN Y PANELES
-   ===================================================================== */
-header {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  color: var(--blanco);
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-  font-size: 1.6rem;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 header h2 {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1.05rem;
+  font-weight: 600;
   opacity: 0.95;
 }
 
 header p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   opacity: 0.85;
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
-/* Selector Principal */
+/* Selector Principal de Ecuación */
 .selector-entorno {
   background: var(--blanco);
   padding: 1.25rem;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--gris-borde);
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .selector-entorno label {
@@ -270,199 +273,162 @@ header p {
 }
 
 .select-destacado {
-  padding: 0.6rem 1rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--azul-oscuro);
-  background-color: var(--azul-claro);
+  background: var(--azul-claro);
   border: 2px solid var(--azul-medio);
   border-radius: 8px;
-  outline: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  flex: 1;
-  min-width: 280px;
+  outline: none;
 }
 
-.select-destacado:hover, .select-destacado:focus {
-  border-color: var(--azul-oscuro);
-  background-color: #dbeafe;
-}
-
-/* Visibilidad de Paneles */
-.oculto {
-  display: none !important;
-}
-
+/* Tarjetas de Información e Insumos */
 .panel-contenido {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
-/* Tarjetas de Información y Laboratorio */
+@media (max-width: 850px) {
+  .panel-contenido {
+    grid-template-columns: 1fr;
+  }
+}
+
 .tarjeta-info, .tarjeta-laboratorio {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
-  border-radius: 10px;
-  padding: 1.25rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  border-radius: 12px;
+  padding: 1.5rem;
 }
 
 .tarjeta-info h3, .tarjeta-laboratorio h3 {
   color: var(--azul-oscuro);
   font-size: 1.2rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.75rem;
   border-bottom: 2px solid var(--azul-claro);
   padding-bottom: 0.4rem;
 }
 
 .descripcion {
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
+  font-size: 0.93rem;
   color: #475569;
+  margin-bottom: 1rem;
 }
 
 .contenedor-formula {
   background: var(--azul-claro);
-  padding: 0.75rem 1rem;
+  border: 1px solid #bfdbfe;
   border-radius: 8px;
+  padding: 0.75rem;
   margin-bottom: 0.75rem;
-  border-left: 4px solid var(--azul-medio);
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.math-render {
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 4px 0;
-  text-align: center;
-}
-
-.math-render .katex-display {
-  margin: 0.5em 0;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 .etiqueta-formula {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--azul-oscuro);
+  text-transform: uppercase;
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.math-render {
+  text-align: center;
+  font-size: 1.1rem;
+  overflow-x: auto;
 }
 
 .nota-explicativa {
   font-size: 0.85rem;
-  background-color: #f1f5f9;
-  border-left: 3px solid #64748b;
-  padding: 0.5rem 0.75rem;
+  background: #fffbe3;
+  border-left: 4px solid #f59e0b;
+  padding: 0.75rem;
   border-radius: 4px;
-  margin-top: 0.75rem;
-  color: #334155;
+  color: #78350f;
+  margin-top: 1rem;
 }
 
-/* Formulario de Entrada */
+/* Formulario de Parámetros */
 .formulario {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.85rem;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 
 .control {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .control label {
+  font-size: 0.88rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  color: var(--gris-texto);
 }
 
-.control input, .input-group input {
-  padding: 0.45rem 0.7rem;
+.control input[type="number"] {
+  padding: 0.55rem 0.75rem;
   border: 1px solid var(--gris-borde);
   border-radius: 6px;
-  width: 90px;
-  font-size: 1rem;
-  text-align: center;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.control input:focus, .input-group input:focus {
-  border-color: var(--azul-medio);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  font-size: 0.95rem;
   outline: none;
+  transition: border-color 0.2s;
 }
 
-.control-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.control-row label {
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.input-group {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.input-group input {
-  flex: 1;
-  width: 100%;
+.control input[type="number"]:focus {
+  border-color: var(--azul-medio);
 }
 
 .btn-resolver {
-  margin-top: 0.5rem;
-  padding: 0.75rem 1.2rem;
-  background-color: var(--azul-medio);
+  background: var(--azul-medio);
   color: var(--blanco);
   font-weight: 700;
   font-size: 1rem;
+  padding: 0.8rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
 }
 
 .btn-resolver:hover {
-  background-color: var(--azul-oscuro);
+  background: var(--azul-oscuro);
 }
 
-.btn-resolver:active {
-  transform: scale(0.98);
-}
-
-/* Gráfica Canvas */
+/* =====================================================================
+   SECCIÓN GRÁFICA Y CANVAS
+   ===================================================================== */
 .grafica-box-global {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
-  border-radius: 10px;
-  padding: 1.25rem;
+  border-radius: 12px;
+  padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
-.header-grafica {
+.grafica-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.header-grafica h4 {
+.grafica-header h4 {
   color: var(--azul-oscuro);
   font-size: 1.1rem;
 }
@@ -470,57 +436,56 @@ header p {
 .controles-zoom {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .btn-zoom {
   background: var(--azul-claro);
   color: var(--azul-oscuro);
-  border: 1px solid #cbd5e1;
-  padding: 0.35rem 0.65rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 4px;
+  border: 1px solid #bfdbfe;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-size: 0.85rem;
 }
 
 .btn-zoom:hover {
-  background: var(--azul-medio);
-  color: var(--blanco);
-  border-color: var(--azul-medio);
+  background: #dbeafe;
 }
 
 .badge-zoom {
-  font-size: 0.8rem;
-  color: var(--gris-texto);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
   background: #f1f5f9;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #e2e8f0;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
 }
 
 .canvas-wrapper {
   width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
   overflow: hidden;
-  border-radius: 6px;
-  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
 }
 
 #planoCartesiano {
-  display: block;
   width: 100%;
-  height: auto;
   max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .leyenda {
   display: flex;
   gap: 1.5rem;
-  justify-content: center;
   margin-top: 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  justify-content: center;
 }
 
 .leyenda-item {
@@ -536,14 +501,15 @@ header p {
   display: inline-block;
 }
 
-/* Resultados y Procedimiento Paso a Paso */
+/* =====================================================================
+   RESULTADOS Y TABLA DE RUFFINI
+   ===================================================================== */
 .resultado-box-global {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .resultado-box-global h4 {
@@ -551,7 +517,7 @@ header p {
   font-size: 1.1rem;
   margin-bottom: 1rem;
   border-bottom: 2px solid var(--azul-claro);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
 #resultado {
@@ -559,21 +525,15 @@ header p {
   line-height: 1.7;
 }
 
-#resultado > div {
-  margin-bottom: 0.75rem;
-}
-
 .resultado-final {
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #166534;
-  padding: 0.6rem 1rem;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 0.85rem;
   border-radius: 8px;
-  font-weight: 700;
-  margin-top: 0.5rem;
-  display: inline-block;
-  width: 100%;
-  box-sizing: border-box;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* Tabla de División Sintética (Regla de Ruffini) */
@@ -623,42 +583,4 @@ footer {
   color: #64748b;
   border-top: 1px solid var(--gris-borde);
   margin-top: 2rem;
-}
-
-/* Adaptabilidad Responsiva */
-@media (max-width: 640px) {
-  body {
-    padding: 0.75rem;
-  }
-
-  .portada-card {
-    padding: 1.5rem 1rem;
-  }
-
-  .portada-titulo {
-    font-size: 1.5rem;
-  }
-
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .selector-entorno {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .select-destacado {
-    min-width: 100%;
-  }
-
-  .control {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .control input {
-    width: 100%;
-  }
 }
