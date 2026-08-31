@@ -716,7 +716,7 @@ function resolverPolinomica() {
   let residuo = d + m3;
 
   pasos += `<div><strong>Paso 3: Evaluación y División Sintética (Regla de Ruffini):</strong></div>`;
-  pasos += `<div>Probando $x = ${k}$: $P(${k}) = 0$. <span class="resultado-final">$$x_1 = ${k}$$</span> es una raíz exacta.</div>`;
+  pasos += `<div>Probando $x = ${k}$: $P(${k}) = 0$. <span class="resultado-final">$x_1 = ${k}$ es una raíz exacta.</span></div>`;
   
   pasos += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
@@ -784,7 +784,7 @@ function resolverCuartica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Raíces candidatas ($$\\pm p/q$$): $$\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$$</div>`;
+  pasos += `<div>• Raíces candidatas ($\\pm p/q$): $\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$</div>`;
 
   const P = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
   let r1 = null;
@@ -814,7 +814,7 @@ function resolverCuartica() {
   let residuo1 = e + m4;
 
   pasos += `<div><strong>Paso 3: Primera División Sintética (Ruffini):</strong></div>`;
-  pasos += `<div>Raíz hallada: <span class="resultado-final">$$x_1 = ${k1}$$</span></div>`;
+  pasos += `<div>Raíz hallada: <span class="resultado-final">$x_1 = ${k1}$</span></div>`;
   
   pasos += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
@@ -865,9 +865,9 @@ function resolverQuintica() {
   pasos += `<div>$$P(x) = ${a}x^5 + (${b})x^4 + (${c})x^3 + (${d})x^2 + (${e})x + (${f}) = 0$$</div>`;
 
   if (f === 0) {
-    pasos += `<div><strong>Paso 2: Factorización por Término Común $$x$$:</strong></div>`;
-    pasos += `<div>$$P(x) = x \\cdot (${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e})) = 0$$</div>`;
-    pasos += `<div class="resultado-final">Primera raíz evidente: $$x_1 = 0$$</div>`;
+    pasos += `<div><strong>Paso 2: Factorización por Término Común $x$:</strong></div>`;
+    pasos += `<div>$P(x) = x \\cdot (${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e})) = 0$</div>`;
+    pasos += `<div class="resultado-final">Primera raíz evidente: $x_1 = 0$</div>`;
     res.innerHTML = pasos + resolverCuarticaAuxiliar(a, b, c, d, e, 2);
     renderizarMatematicasGlobal();
     return;
@@ -883,7 +883,7 @@ function resolverQuintica() {
   candidatos.sort((x, y) => x - y);
 
   pasos += `<div><strong>Paso 2: Teorema de la Raíz Racional:</strong></div>`;
-  pasos += `<div>• Raíces candidatas ($$\\pm p/q$$): $$\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$$</div>`;
+  pasos += `<div>• Raíces candidatas ($\\pm p/q$): $\\mathcal{\\{}${candidatos.map(v => Number(v.toFixed(2))).join(', ')}\\mathcal{\\}}$</div>`;
 
   const P = (x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f;
   let r1 = null;
@@ -896,7 +896,7 @@ function resolverQuintica() {
   }
 
   if (r1 === null) {
-    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Fundamento Teórico (Teorema de Abel-Ruffini):</strong> Las ecuaciones de grado $$\\ge 5$$ carecen de fórmulas algebraicas generales por radicales si no presentan raíces racionales exactas.</div>`;
+    pasos += `<div style="color:#b91c1c; margin-top:0.5rem;"><strong>Fundamento Teórico (Teorema de Abel-Ruffini):</strong> Las ecuaciones de grado $\\ge 5$ carecen de fórmulas algebraicas generales por radicales si no presentan raíces racionales exactas.</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
@@ -915,7 +915,7 @@ function resolverQuintica() {
   let residuo1 = f + m5;
 
   pasos += `<div><strong>Paso 3: División Sintética (Ruffini):</strong></div>`;
-  pasos += `<div>Raíz hallada: <span class="resultado-final">$$x_1 = ${k1}$$</span></div>`;
+  pasos += `<div>Raíz hallada: <span class="resultado-final">$x_1 = ${k1}$</span></div>`;
   
   pasos += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
@@ -982,7 +982,7 @@ function resolverCuarticaAuxiliar(a, b, c, d, e, indiceInicio) {
   let m4 = c4 * r2;
   let residuo2 = e + m4;
 
-  html += `<div>Evaluando $$x = ${r2}$$: Raíz obtenida: <span class="resultado-final">$$x_${indiceInicio} = ${r2}$$</span></div>`;
+  html += `<div>Evaluando $x = ${r2}$: Raíz obtenida: <span class="resultado-final">$x_${indiceInicio} = ${r2}$</span></div>`;
   html += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
       <tr>
@@ -1043,7 +1043,7 @@ function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
   let m3 = c3 * r2;
   let residuo2 = d + m3;
 
-  html += `<div>Evaluando $$x = ${r2}$$: Raíz obtenida: <span class="resultado-final">$$x_${indiceInicio} = ${r2}$$</span></div>`;
+  html += `<div>Evaluando $x = ${r2}$: Raíz obtenida: <span class="resultado-final">$x_${indiceInicio} = ${r2}$</span></div>`;
   html += `<div class="tabla-ruffini-container">
     <table class="tabla-ruffini">
       <tr>
@@ -1073,24 +1073,24 @@ function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
 
 function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
   let html = `<div style="margin-top:0.75rem;"><strong>Resolución de la Ecuación Cuadrática Residual:</strong></div>`;
-  html += `<div>Aplicando la fórmula general a $$${a2}x^2 + (${b2})x + (${c2}) = 0$$:</div>`;
+  html += `<div>Aplicando la fórmula general a $${a2}x^2 + (${b2})x + (${c2}) = 0$:</div>`;
   
   let disc = (b2 * b2) - (4 * a2 * c2);
-  html += `<div>Discriminante: $$\\Delta = (${b2})^2 - 4(${a2})(${c2}) = ${disc.toFixed(2)}$$</div>`;
+  html += `<div>Discriminante: $\\Delta = (${b2})^2 - 4(${a2})(${c2}) = ${disc.toFixed(2)}$</div>`;
 
   if (disc > 0) {
     let x2 = (-b2 + Math.sqrt(disc)) / (2 * a2);
     let x3 = (-b2 - Math.sqrt(disc)) / (2 * a2);
-    html += `<div class="resultado-final">$$x_${indiceInicio} = \\frac{-(${b2}) + \\sqrt{${disc.toFixed(2)}}}{2(${a2})} = ${x2.toFixed(4)}$$</div>`;
-    html += `<div class="resultado-final">$$x_${indiceInicio + 1} = \\frac{-(${b2}) - \\sqrt{${disc.toFixed(2)}}}{2(${a2})} = ${x3.toFixed(4)}$$</div>`;
+    html += `<div class="resultado-final">$x_${indiceInicio} = \\frac{-(${b2}) + \\sqrt{${disc.toFixed(2)}}}{2(${a2})} = ${x2.toFixed(4)}$</div>`;
+    html += `<div class="resultado-final">$x_${indiceInicio + 1} = \\frac{-(${b2}) - \\sqrt{${disc.toFixed(2)}}}{2(${a2})} = ${x3.toFixed(4)}$</div>`;
   } else if (disc === 0) {
     let x2 = -b2 / (2 * a2);
-    html += `<div class="resultado-final">$$x_${indiceInicio} = x_${indiceInicio + 1} = ${x2.toFixed(4)}$$ (Raíz de multiplicidad 2)</div>`;
+    html += `<div class="resultado-final">$x_${indiceInicio} = x_${indiceInicio + 1} = ${x2.toFixed(4)}$ (Raíz de multiplicidad 2)</div>`;
   } else {
     let pReal = -b2 / (2 * a2);
     let pImag = Math.sqrt(-disc) / (2 * a2);
-    html += `<div class="resultado-final">$$x_${indiceInicio} = ${pReal.toFixed(2)} + ${pImag.toFixed(2)}i$$</div>`;
-    html += `<div class="resultado-final">$$x_${indiceInicio + 1} = ${pReal.toFixed(2)} - ${pImag.toFixed(2)}i$$</div>`;
+    html += `<div class="resultado-final">$x_${indiceInicio} = ${pReal.toFixed(2)} + ${pImag.toFixed(2)}i$</div>`;
+    html += `<div class="resultado-final">$x_${indiceInicio + 1} = ${pReal.toFixed(2)} - ${pImag.toFixed(2)}i$</div>`;
   }
 
   return html;
