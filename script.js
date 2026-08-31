@@ -664,7 +664,7 @@ function resolverPolinomica() {
   }
 
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Cúbica:</strong></div>`;
-  pasos += `<div>$$P(x) = ${a}x^3 + (${b})x^2 + (${c})x + (${d}) = 0$$</div>`;
+  pasos += `<div>$P(x) = ${a}x^3 + (${b})x^2 + (${c})x + (${d}) = 0$</div>`;
 
   if (d === 0) {
     pasos += `<div><strong>Paso 2: Factorización por Término Común $$x$$:</strong></div>`;
@@ -741,7 +741,7 @@ function resolverPolinomica() {
     </table>
   </div>`;
 
-  pasos += `<div>Polinomio cuadrático reducido: $$(${a})x^2 + (${coef2})x + (${coef3}) = 0$$</div>`;
+  pasos += `<div>Polinomio cuadrático reducido: $(${a})x^2 + (${coef2})x + (${coef3}) = 0$</div>`;
   pasos += resolverCuadraticaResidual(a, coef2, coef3, 2);
 
   res.innerHTML = pasos;
