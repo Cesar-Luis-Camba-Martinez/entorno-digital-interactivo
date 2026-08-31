@@ -147,7 +147,7 @@ function conmutarPanel() {
     fraccionaria: 'panel-fraccionaria',
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
-    absoluto: 'panel-absoluto'
+    absoluto: 'panel-absoluto',
     polinomica: 'panel-polinomica',
     cuartica: 'panel-cuartica',
     quintica: 'panel-quintica',
