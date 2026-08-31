@@ -467,8 +467,8 @@ function resolverFraccionaria() {
 
   if (c === 0) {
     pasos += `<div><strong>Paso 2: Análisis del Numerador:</strong></div>`;
-    pasos += `<div>Dado que $$c = 0$$, la ecuación se reduce a $$\\frac{${a}}{x + (${b})} = 0$$, la cual no posee solución en $$\\mathbb{R}$$ pues $$${a} \\neq 0$$.</div>`;
-    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$</div>`;
+    pasos += `<div>Dado que $c = 0$, la ecuación se reduce a $\\frac{${a}}{x + (${b})} = 0$, la cual no posee solución en $\\mathbb{R}$ pues $${a} \\neq 0$.</div>`;
+    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $\\mathcal{S} = \\emptyset$</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
@@ -489,7 +489,7 @@ function resolverFraccionaria() {
   if (Math.abs(x - restriccion) < 0.0001) {
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($$x = ${x.toFixed(4)}$$) coincide con la restricción del dominio ($$x \\neq ${restriccion}$$). Por lo tanto, la ecuación no tiene solución válida en $$\\mathbb{R}$$.</div>`;
   } else {
-    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$ La solución válida es $$x \\neq ${restriccion}$$</div>`;
+    pasos += `<div class="resultado-final">$x = ${x.toFixed(4)}$ La solución válida es: $x \\neq ${restriccion}$</div>`;
   }
 
   res.innerHTML = pasos;
