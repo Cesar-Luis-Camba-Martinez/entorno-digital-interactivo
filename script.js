@@ -1155,7 +1155,8 @@ function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
   return html;
 }
 
-function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
+function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) 
+{
   let html = `<div style="margin-top:0.75rem;"><strong>Resolución de la Ecuación Cuadrática Residual:</strong></div>`;
   html += `<div>Aplicando la fórmula general a $${a2}x^2 + (${b2})x + (${c2}) = 0$:</div>`;
   
@@ -1176,6 +1177,188 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
     html += `<div class="resultado-final">$x_${indiceInicio} = ${pReal.toFixed(2)} + ${pImag.toFixed(2)}i$</div>`;
     html += `<div class="resultado-final">$x_${indiceInicio + 1} = ${pReal.toFixed(2)} - ${pImag.toFixed(2)}i$</div>`;
   }
-
   return html;
+}
+
+/**
+ * Resuelve analítica y numéricamente una ecuación polinómica de sexto grado:
+ * a*x^6 + b*x^5 + c*x^4 + d*x^3 + e*x^2 + f*x + g = 0
+ * * Fuentes explícitas de metodología:
+ * - Teorema de Abel-Ruffini (Imposibilidad de fórmula general por radicales).
+ * - Teorema de la Raíz Racional para divisores de (g / a).
+ * - Algoritmo de División Sintética (Regla de Ruffini).
+ * - Método numérico de Bisección (Teorema de Bolzano) para raíces irracionales.
+ */
+function resolverSextica(a, b, c, d, e, f, g) {
+  if (a === 0) {
+    return `<div class="alerta-error">El coeficiente $a$ ($x^6$) no puede ser igual a 0 en una ecuación de sexto grado. Se reduce a una ecuación de quinto grado o inferior.</div>`;
+  }
+
+  let html = `<div class="analisis-seccion">`;
+  html += `<h3>Ecuación Séxtica Planteada:</h3>`;
+  html += `<div class="formula-destacada">$$(${a})x^6 + (${b})x^5 + (${c})x^4 + (${d})x^3 + (${e})x^2 + (${f})x + (${g}) = 0$$</div>`;
+  
+  html += `<p><strong>Marco Teórico:</strong> Según el <em>Teorema de Abel-Ruffini (Abel, 1826)</em>, no existe una fórmula general por radicales para resolver ecuaciones polinómicas de grado $n \\ge 5$. Por tanto, aplicaremos el <strong>Teorema de la Raíz Racional</strong> y la <strong>División Sintética (Regla de Ruffini)</strong> para identificar factores exactos, combinados con aproximación numérica por el <strong>Teorema de Bolzano</strong>.</p>`;
+
+  // 1. Obtención de divisores de g y a (Teorema de la Raíz Racional)
+  const divisoresG = obtenerDivisoresEnteros(Math.abs(g));
+  const divisoresA = obtenerDivisoresEnteros(Math.abs(a));
+  
+  let posiblesRaices = new Set();
+  divisoresG.forEach(p => {
+    divisoresA.forEach(q => {
+      posiblesRaices.add(p / q);
+      posiblesRaices.add(-p / q);
+    });
+  });
+
+  const candidatos = Array.from(posiblesRaices).sort((x, y) => Math.abs(x) - Math.abs(y));
+  
+  let raizEncontrada = null;
+  let residuoSintetico = [];
+
+  // Probar candidatos por división sintética
+  for (let r of candidatos) {
+    let evalSintetica = evaluarRuffiniSextica(a, b, c, d, e, f, g, r);
+    if (Math.abs(evalSintetica.residuo) < 1e-7) {
+      raizEncontrada = r;
+      residuoSintetico = evalSintetica.cocientes;
+      break;
+    }
+  }
+
+  if (raizEncontrada !== null) {
+    html += `<div class="paso-box">`;
+    html += `<h4>Paso 1: Identificación de Raíz Racional Exacta</h4>`;
+    html += `<p>Aplicando el Teorema de la Raíz Racional, evaluamos $r = ${raizEncontrada}$:</p>`;
+    
+    // Generación de Tabla de Ruffini
+    html += construirTablaRuffiniHTML([a, b, c, d, e, f, g], raizEncontrada, residuoSintetico);
+    
+    html += `<p class="explicacion">Como el residuo es $0$, $x_1 = ${raizEncontrada}$ es una raíz exacta de la ecuación, reduciendo el polinomio a 5.º grado (Quíntico residual):</p>`;
+    html += `<div class="formula-destacada">$$(${residuoSintetico[0]})x^5 + (${residuoSintetico[1]})x^4 + (${residuoSintetico[2]})x^3 + (${residuoSintetico[3]})x^2 + (${residuoSintetico[4]})x + (${residuoSintetico[5]}) = 0$$</div>`;
+    html += `</div>`;
+
+    // Resolver quíntica residual
+    if (typeof resolverQuintica === 'function') {
+      html += `<div style="margin-top:1rem;"><strong>Resolución del Polinomio Quíntico Residual:</strong></div>`;
+      html += resolverQuintica(
+        residuoSintetico[0], 
+        residuoSintetico[1], 
+        residuoSintetico[2], 
+        residuoSintetico[3], 
+        residuoSintetico[4], 
+        residuoSintetico[5]
+      );
+    }
+  } else {
+    html += `<div class="paso-box">`;
+    html += `<h4>Aproximación Numérica por Intervalos (Teorema de Bolzano / Bisección)</h4>`;
+    html += `<p>No se hallaron raíces racionales enteras o fraccionarias simples en el conjunto de prueba. Se procede a la localización de raíces reales por análisis de cambio de signo en el intervalo $[-10, 10]$:</p>`;
+    
+    const raicesAproximadas = hallarRaicesBiseccionSextica(a, b, c, d, e, f, g, -10, 10, 0.2);
+    
+    if (raicesAproximadas.length > 0) {
+      html += `<ul class="lista-resultados">`;
+      raicesAproximadas.forEach((r, idx) => {
+        html += `<li class="resultado-final">Raíz real aprox. $x_${idx + 1} \\approx ${r.toFixed(4)}$ (Aproximación por Bisección, precisión $10^{-5}$)</li>`;
+      });
+      html += `</ul>`;
+    } else {
+      html += `<p class="alerta-advertencia">No se detectaron raíces reales en el intervalo $[-10, 10]$. Es posible que todas las soluciones sean complejas conjugadas $x \\in \\mathbb{C}$.</p>`;
+    }
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+/**
+ * Función auxiliar para calcular la división sintética (Ruffini) en grado 6
+ */
+function evaluarRuffiniSextica(a, b, c, d, e, f, g, r) {
+  let c1 = a;
+  let c2 = b + (c1 * r);
+  let c3 = c + (c2 * r);
+  let c4 = d + (c3 * r);
+  let c5 = e + (c4 * r);
+  let c6 = f + (c5 * r);
+  let residuo = g + (c6 * r);
+  return { cocientes: [c1, c2, c3, c4, c5, c6], residuo: residuo };
+}
+
+/**
+ * Obtención de divisores enteros fácticos de un número N
+ */
+function obtenerDivisoresEnteros(n) {
+  let divisores = [];
+  let num = Math.round(n);
+  if (num === 0) return [1];
+  for (let i = 1; i <= num; i++) {
+    if (num % i === 0) divisores.push(i);
+  }
+  return divisores;
+}
+
+/**
+ * Genera la tabla HTML interactiva para la representación de la Regla de Ruffini
+ */
+function construirTablaRuffiniHTML(coefs, r, residuoCocientes) {
+  let html = `<div class="tabla-ruffini-container"><table class="tabla-ruffini">`;
+  
+  // Fila 1: Coeficientes originales
+  html += `<tr><td></td>`;
+  coefs.forEach(c => { html += `<td>${c}</td>`; });
+  html += `</tr>`;
+
+  // Fila 2: Multiplicaciones
+  html += `<tr><td class="col-raiz">r = ${r}</td><td></td>`;
+  for (let i = 0; i < residuoCocientes.length - 1; i++) {
+    html += `<td>${(residuoCocientes[i] * r).toFixed(2)}</td>`;
+  }
+  html += `<td>${(residuoCocientes[residuoCocientes.length - 1] * r).toFixed(2)}</td></tr>`;
+
+  // Fila 3: Resultados
+  html += `<tr><td></td>`;
+  residuoCocientes.forEach(c => { html += `<td><strong>${c.toFixed(2)}</strong></td>`; });
+  html += `<td class="residuo-cero">0.00</td></tr>`;
+
+  html += `</table></div>`;
+  return html;
+}
+
+/**
+ * Búsqueda de raíces reales por el Método de Bisección (Teorema de Bolzano)
+ */
+function hallarRaicesBiseccionSextica(a, b, c, d, e, f, g, min, max, paso) {
+  const evalF = (x) => a * Math.pow(x, 6) + b * Math.pow(x, 5) + c * Math.pow(x, 4) + d * Math.pow(x, 3) + e * Math.pow(x, 2) + f * x + g;
+  let raices = [];
+
+  for (let x = min; x < max; x += paso) {
+    let x1 = x;
+    let x2 = x + paso;
+    let y1 = evalF(x1);
+    let y2 = evalF(x2);
+
+    if (y1 * y2 <= 0) {
+      // Método de Bisección en el subintervalo [x1, x2]
+      let aSub = x1, bSub = x2, m = aSub;
+      for (let iter = 0; iter < 30; iter++) {
+        m = (aSub + bSub) / 2;
+        let yM = evalF(m);
+        if (Math.abs(yM) < 1e-6) break;
+        if (evalF(aSub) * yM < 0) {
+          bSub = m;
+        } else {
+          aSub = m;
+        }
+      }
+      // Evitar duplicados
+      if (!raices.some(r => Math.abs(r - m) < 1e-3)) {
+        raices.push(m);
+      }
+    }
+  }
+  return raices;
 }
