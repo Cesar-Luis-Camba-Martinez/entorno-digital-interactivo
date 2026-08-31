@@ -71,10 +71,11 @@
         <span class="tag">Ecuación Fraccionaria</span>
         <span class="tag">Ecuación Cuadrática</span>
         <span class="tag">Sistema Lineal 2×2</span>
+        <span class="tag">Valor Absoluto</span>
         <span class="tag">Ecuación Cúbica</span>
         <span class="tag">Ecuación Cuártica</span>
         <span class="tag">Ecuación Quíntica</span>
-        <span class="tag">Valor Absoluto</span>
+        <span class="tag">Ecuación de Sexto grado</span>
       </div>
     </div>
 
@@ -113,10 +114,11 @@
         <option value="fraccionaria">Ecuación Fraccionaria</option>
         <option value="cuadratica" selected>Ecuación Cuadrática (Segundo Grado)</option>
         <option value="sistema">Sistema de Ecuaciones Lineales 2×2</option>
+        <option value="absoluto">Ecuación con Valor Absoluto</option>
         <option value="polinomica">Ecuación Polinómica de Tercer Grado (Cúbica)</option>
         <option value="cuartica">Ecuación Polinómica de Cuarto Grado (Cuártica)</option>
         <option value="quintica">Ecuación Polinómica de Quinto Grado (Quíntica)</option>
-        <option value="absoluto">Ecuación con Valor Absoluto</option>
+        <option value="absoluto">Ecuación de Sexto grado</option>
       </select>
     </div>
 
@@ -290,6 +292,34 @@
       </section>
     </div>
 
+    <!-- Panel Valor Absoluto -->
+    <div id="panel-absoluto" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación con Valor Absoluto</h3>
+        <p class="descripcion">Modela distancias algebraicas sobre la recta real respecto al origen o un punto de referencia.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$|ax + b| = c$$</div>
+        </div>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Propiedad Fundamental ($c \ge 0$):</span>
+          <div class="math-render">$$ax + b = c \quad \text{o} \quad ax + b = -c$$</div>
+        </div>
+        <div class="nota-explicativa">
+          <strong>Fundamento Pedagógico:</strong> Puesto que una magnitud absoluta es no negativa, si $c < 0$, la ecuación es imposible y carece de solución real ($\mathcal{S} = \emptyset$).
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Valor Absoluto</h3>
+        <div class="formulario">
+          <div class="control"><label for="abs-a">Coeficiente <em>a</em> ($x$):</label><input type="number" id="abs-a" value="2" step="any" autocomplete="off"></div>
+          <div class="control"><label for="abs-b">Término interior <em>b</em>:</label><input type="number" id="abs-b" value="-3" step="any" autocomplete="off"></div>
+          <div class="control"><label for="abs-c">Término externo <em>c</em>:</label><input type="number" id="abs-c" value="5" step="any" autocomplete="off"></div>
+          <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
+        </div>
+      </section>
+    </div>
+
     <!-- Panel Polinómica Tercer Grado (Cúbica) -->
     <div id="panel-polinomica" class="panel-contenido oculto">
       <section class="tarjeta-info">
@@ -370,34 +400,11 @@
       </section>
     </div>
 
-    <!-- Panel Valor Absoluto -->
-    <div id="panel-absoluto" class="panel-contenido oculto">
-      <section class="tarjeta-info">
-        <h3>Ecuación con Valor Absoluto</h3>
-        <p class="descripcion">Modela distancias algebraicas sobre la recta real respecto al origen o un punto de referencia.</p>
-        <div class="contenedor-formula">
-          <span class="etiqueta-formula">Forma General:</span>
-          <div class="math-render">$$|ax + b| = c$$</div>
-        </div>
-        <div class="contenedor-formula">
-          <span class="etiqueta-formula">Propiedad Fundamental ($c \ge 0$):</span>
-          <div class="math-render">$$ax + b = c \quad \text{o} \quad ax + b = -c$$</div>
-        </div>
-        <div class="nota-explicativa">
-          <strong>Fundamento Pedagógico:</strong> Puesto que una magnitud absoluta es no negativa, si $c < 0$, la ecuación es imposible y carece de solución real ($\mathcal{S} = \emptyset$).
-        </div>
-      </section>
-      <section class="tarjeta-laboratorio">
-        <h3>🧪 Laboratorio Virtual: Valor Absoluto</h3>
-        <div class="formulario">
-          <div class="control"><label for="abs-a">Coeficiente <em>a</em> ($x$):</label><input type="number" id="abs-a" value="2" step="any" autocomplete="off"></div>
-          <div class="control"><label for="abs-b">Término interior <em>b</em>:</label><input type="number" id="abs-b" value="-3" step="any" autocomplete="off"></div>
-          <div class="control"><label for="abs-c">Término externo <em>c</em>:</label><input type="number" id="abs-c" value="5" step="any" autocomplete="off"></div>
-          <button class="btn-resolver" onclick="resolverAbsoluto()">▶ Resolver Valor Absoluto</button>
-        </div>
-      </section>
-    </div>
+    <!-- Panel Polinómica de Sexto Grado -->
+    
 
+
+    
     <!-- Sección de Gráfica Interactiva Canvas -->
     <section class="grafica-box-global">
       <div class="header-grafica">
