@@ -574,7 +574,7 @@ function calcularEcuacion() {
   pasos += `<div style="margin-left: 1rem;">$$\\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$$</div>`;
 
   // 2. Eje de Simetría
-  pasos += `<div>• <strong>Eje de Simetría:</strong> Recta vertical $$x = ${h.toFixed(4)}$$</div>`;
+  pasos += `<div>• <strong>Eje de Simetría:</strong> Recta vertical $x = ${h.toFixed(4)}$</div>`;
 
   // 3. Concavidad y Extremo
   pasos += `<div>• <strong>Orientación / Concavidad:</strong> Como $a = ${a} ${a > 0 ? '> 0' : '< 0'}$, la parábola es ${concavidad} y presenta un <strong>${tipoExtremo}</strong> en $y = ${k.toFixed(4)}$.</div>`;
