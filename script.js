@@ -394,6 +394,12 @@ function actualizarGrafica() {
     if (b1 !== 0) graficarFuncion((x) => (c1 - a1 * x) / b1, '#2563eb');
     if (b2 !== 0) graficarFuncion((x) => (c2 - a2 * x) / b2, '#10b981');
   }
+   else if (sel === 'absoluto') {
+    let a = parseFloat(document.getElementById('abs-a').value) || 0;
+    let b = parseFloat(document.getElementById('abs-b').value) || 0;
+    let c = parseFloat(document.getElementById('abs-c').value) || 0;
+    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
+  }
   else if (sel === 'polinomica') {
     let a = parseFloat(document.getElementById('poly-a').value) || 0;
     let b = parseFloat(document.getElementById('poly-b').value) || 0;
@@ -418,12 +424,25 @@ function actualizarGrafica() {
     let f = parseFloat(document.getElementById('quint-f').value) || 0;
     graficarFuncion((x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f, '#ef4444');
   }
-  else if (sel === 'absoluto') {
-    let a = parseFloat(document.getElementById('abs-a').value) || 0;
-    let b = parseFloat(document.getElementById('abs-b').value) || 0;
-    let c = parseFloat(document.getElementById('abs-c').value) || 0;
-    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
-  }
+  else if (sel === 'sextica') {
+    let a = parseFloat(document.getElementById('sext-a').value) || 0;
+    let b = parseFloat(document.getElementById('sext-b').value) || 0;
+    let c = parseFloat(document.getElementById('sext-c').value) || 0;
+    let d = parseFloat(document.getElementById('sext-d').value) || 0;
+    let e = parseFloat(document.getElementById('sext-e').value) || 0;
+    let f = parseFloat(document.getElementById('sext-f').value) || 0;
+    let g = parseFloat(document.getElementById('sext-g').value) || 0;
+
+    graficarFuncion((x) => 
+      a * Math.pow(x, 6) + 
+      b * Math.pow(x, 5) + 
+      c * Math.pow(x, 4) + 
+      d * Math.pow(x, 3) + 
+      e * Math.pow(x, 2) + 
+      f * x + g, 
+      '#ef4444'
+    );
+   }
 }
 
 /* =====================================================================
