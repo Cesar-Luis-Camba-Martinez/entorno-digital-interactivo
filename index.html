@@ -401,9 +401,29 @@
     </div>
 
     <!-- Panel Polinómica de Sexto Grado -->
-    
-
-
+    <div id="panel-sextica" class="panel-contenido oculto">
+      <section class="tarjeta-info">
+        <h3>Ecuación Polinómica de Sexto Grado (Séxtica)</h3>
+        <p class="descripcion">Ecuación de grado seis que posee exactamente 6 raíces en el plano complejo.</p>
+        <div class="contenedor-formula">
+          <span class="etiqueta-formula">Forma General:</span>
+          <div class="math-render">$$ax^6 + bx^5 + cx^4 + dx^3 + ex^2 + fx + g = 0$$</div>
+        </div>
+      </section>
+      <section class="tarjeta-laboratorio">
+        <h3>🧪 Laboratorio Virtual: Ecuación Séxtica</h3>
+        <div class="formulario">
+          <div class="control"><label for="sext-a">Coeficiente <em>a</em> ($x^6$):</label><input type="number" id="sext-a" value="1" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-b">Coeficiente <em>b</em> ($x^5$):</label><input type="number" id="sext-b" value="-21" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-c">Coeficiente <em>c</em> ($x^4$):</label><input type="number" id="sext-c" value="175" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-d">Coeficiente <em>d</em> ($x^3$):</label><input type="number" id="sext-d" value="-735" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-e">Coeficiente <em>e</em> ($x^2$):</label><input type="number" id="sext-e" value="1624" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-f">Coeficiente <em>f</em> ($x$):</label><input type="number" id="sext-f" value="-1764" step="any" autocomplete="off"></div>
+          <div class="control"><label for="sext-g">Término <em>g</em>:</label><input type="number" id="sext-g" value="720" step="any" autocomplete="off"></div>
+          <button class="btn-resolver" onclick="resolverSextica()">▶ Resolver Ecuación Séxtica</button>
+        </div>
+      </section>
+    </div>
     
     <!-- Sección de Gráfica Interactiva Canvas -->
     <section class="grafica-box-global">
