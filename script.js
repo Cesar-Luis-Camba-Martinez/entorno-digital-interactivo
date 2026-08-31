@@ -478,13 +478,13 @@ function resolverFraccionaria() {
   let x = numPaso2 - b;
 
   pasos += `<div><strong>Paso 2: Transposición del Término Independiente $c$:</strong></div>`;
-  pasos += `<div>$$\\frac{${a}}{x + (${b})} = ${-c}$$</div>`;
+  pasos += `<div>$\\frac{${a}}{x + (${b})} = ${-c}$</div>`;
   
   pasos += `<div><strong>Paso 3: Multiplicación por el Denominador e Inversión:</strong></div>`;
-  pasos += `<div>$$${a} = ${-c}(x + (${b})) \\implies x + (${b}) = \\frac{${a}}{${-c}} \\implies x + (${b}) = ${numPaso2.toFixed(4)}$$</div>`;
+  pasos += `<div>$${a} = ${-c}(x + (${b})) \\implies x + (${b}) = \\frac{${a}}{${-c}} \\implies x + (${b}) = ${numPaso2.toFixed(4)}$</div>`;
 
   pasos += `<div><strong>Paso 4: Despeje Final de $x$:</strong></div>`;
-  pasos += `<div>$$x = ${numPaso2.toFixed(4)} - (${b})$$</div>`;
+  pasos += `<div>$x = ${numPaso2.toFixed(4)} - (${b})$</div>`;
 
   if (Math.abs(x - restriccion) < 0.0001) {
     pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($$x = ${x.toFixed(4)}$$) coincide con la restricción del dominio ($$x \\neq ${restriccion}$$). Por lo tanto, la ecuación no tiene solución válida en $$\\mathbb{R}$$.</div>`;
