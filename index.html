@@ -401,6 +401,56 @@
     </div>
     
     <!-- Panel Polinómica de Sexto Grado -->
+    <div id="panel-sextica" class="panel-contenido oculto">
+  <section class="tarjeta-info">
+    <h3>Ecuación Polinómica de Sexto Grado (Sextica)</h3>
+    <p class="descripcion">
+      Una ecuación polinómica de sexto grado tiene la forma $a x^6 + b x^5 + c x^4 + d x^3 + e x^2 + f x + g = 0$ con $a \neq 0$. Por el Teorema Fundamental del Álgebra, posee exactamente 6 raíces en el campo complejo (contando multiplicidades) y hasta 6 raíces reales.
+    </p>
+    <div class="contenedor-formula">
+      <span class="etiqueta-formula">Forma General de Sexto Grado:</span>
+      <div class="math-render">$$a x^6 + b x^5 + c x^4 + d x^3 + e x^2 + f x + g = 0 \quad \text{con } a \neq 0$$</div>
+    </div>
+    <div class="nota-explicativa">
+      <strong>Fundamento Pedagógico:</strong> Según el Teorema de Abel-Ruffini, las ecuaciones polinómicas de grado mayor o igual a 5 no poseen fórmula general por radicales. Por ello, la resolución requiere combinar la búsqueda de raíces racionales (División Sintética / Regla de Ruffini) con métodos numéricos de aproximación para aislar y calcular sus raíces reales.
+    </div>
+  </section>
+
+  <section class="tarjeta-laboratorio">
+    <h3>🧪 Laboratorio Virtual: Ecuación Polinómica de Sexto Grado</h3>
+    <div class="formulario">
+      <div class="control">
+        <label for="sext-a">Coeficiente <em>a</em> ($x^6$):</label>
+        <input type="number" id="sext-a" value="1" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-b">Coeficiente <em>b</em> ($x^5$):</label>
+        <input type="number" id="sext-b" value="0" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-c">Coeficiente <em>c</em> ($x^4$):</label>
+        <input type="number" id="sext-c" value="-7" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-d">Coeficiente <em>d</em> ($x^3$):</label>
+        <input type="number" id="sext-d" value="0" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-e">Coeficiente <em>e</em> ($x^2$):</label>
+        <input type="number" id="sext-e" value="14" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-f">Coeficiente <em>f</em> ($x^1$):</label>
+        <input type="number" id="sext-f" value="0" step="any" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="sext-g">Término ind. <em>g</em> ($x^0$):</label>
+        <input type="number" id="sext-g" value="-8" step="any" autocomplete="off">
+      </div>
+      <button class="btn-resolver" onclick="resolverSextica()">▶ Resolver Ecuación de Sexto Grado</button>
+    </div>
+  </section>
+</div>
     
     
     
