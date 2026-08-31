@@ -540,10 +540,10 @@ function calcularEcuacion() {
     let x2 = num2 / dosA;
 
     pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General $\\Delta > 0$</strong></div>`;
-    pasos += `<div style="margin-left: 1rem;">• Sustitución general: $$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(2)}}}{2(${a})}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_1$$ ($+$):</strong> $$x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$$</div>`;
-    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $$x_2$$ ($-$) :</strong> $$x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Sustitución general: $x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(2)}}}{2(${a})}$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada: $\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $x_1$ ($+$):</strong> $x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $x_2$ ($-$) :</strong> $x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$</div>`;
     pasos += `<div class="resultado-final">Soluciones reales distintas: $$x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$$</div>`;
 
   } else if (discriminante === 0) {
