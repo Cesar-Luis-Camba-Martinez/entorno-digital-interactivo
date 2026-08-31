@@ -147,10 +147,11 @@ function conmutarPanel() {
     fraccionaria: 'panel-fraccionaria',
     cuadratica: 'panel-cuadratica',
     sistema: 'panel-sistema',
+    absoluto: 'panel-absoluto'
     polinomica: 'panel-polinomica',
     cuartica: 'panel-cuartica',
     quintica: 'panel-quintica',
-    absoluto: 'panel-absoluto'
+    sextica: 'panel-sextica',
   };
 
   if (mapa[sel]) {
@@ -393,6 +394,14 @@ function actualizarGrafica() {
     if (b1 !== 0) graficarFuncion((x) => (c1 - a1 * x) / b1, '#2563eb');
     if (b2 !== 0) graficarFuncion((x) => (c2 - a2 * x) / b2, '#10b981');
   }
+
+     else if (sel === 'absoluto') {
+    let a = parseFloat(document.getElementById('abs-a').value) || 0;
+    let b = parseFloat(document.getElementById('abs-b').value) || 0;
+    let c = parseFloat(document.getElementById('abs-c').value) || 0;
+    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
+  }
+
   else if (sel === 'polinomica') {
     let a = parseFloat(document.getElementById('poly-a').value) || 0;
     let b = parseFloat(document.getElementById('poly-b').value) || 0;
@@ -417,11 +426,25 @@ function actualizarGrafica() {
     let f = parseFloat(document.getElementById('quint-f').value) || 0;
     graficarFuncion((x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f, '#ef4444');
   }
-  else if (sel === 'absoluto') {
-    let a = parseFloat(document.getElementById('abs-a').value) || 0;
-    let b = parseFloat(document.getElementById('abs-b').value) || 0;
-    let c = parseFloat(document.getElementById('abs-c').value) || 0;
-    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
+
+  else if (sel === 'sextica') {
+    let a = parseFloat(document.getElementById('sext-a').value) || 0;
+    let b = parseFloat(document.getElementById('sext-b').value) || 0;
+    let c = parseFloat(document.getElementById('sext-c').value) || 0;
+    let d = parseFloat(document.getElementById('sext-d').value) || 0;
+    let e = parseFloat(document.getElementById('sext-e').value) || 0;
+    let f = parseFloat(document.getElementById('sext-f').value) || 0;
+    let g = parseFloat(document.getElementById('sext-g').value) || 0;
+
+    graficarFuncion((x) => 
+      a * Math.pow(x, 6) + 
+      b * Math.pow(x, 5) + 
+      c * Math.pow(x, 4) + 
+      d * Math.pow(x, 3) + 
+      e * Math.pow(x, 2) + 
+      f * x + g, 
+      '#ef4444'
+    );
   }
 }
 
@@ -1135,7 +1158,8 @@ function resolverCubicaAuxiliar(a, b, c, d, indiceInicio) {
   return html;
 }
 
-function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
+function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) 
+{
   let html = `<div style="margin-top:0.75rem;"><strong>Resolución de la Ecuación Cuadrática Residual:</strong></div>`;
   html += `<div>Aplicando la fórmula general a $${a2}x^2 + (${b2})x + (${c2}) = 0$:</div>`;
   
@@ -1156,6 +1180,136 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
     html += `<div class="resultado-final">$x_${indiceInicio} = ${pReal.toFixed(2)} + ${pImag.toFixed(2)}i$</div>`;
     html += `<div class="resultado-final">$x_${indiceInicio + 1} = ${pReal.toFixed(2)} - ${pImag.toFixed(2)}i$</div>`;
   }
-
   return html;
+}
+
+/* =====================================================================
+   RESOLUCIÓN PASO A PASO: ECUACIÓN POLINÓMICA DE SEXTO GRADO
+   ===================================================================== */
+function resolverSextica() {
+  const a = parseFloat(document.getElementById('sext-a').value) || 0;
+  const b = parseFloat(document.getElementById('sext-b').value) || 0;
+  const c = parseFloat(document.getElementById('sext-c').value) || 0;
+  const d = parseFloat(document.getElementById('sext-d').value) || 0;
+  const e = parseFloat(document.getElementById('sext-e').value) || 0;
+  const f = parseFloat(document.getElementById('sext-f').value) || 0;
+  const g = parseFloat(document.getElementById('sext-g').value) || 0;
+  const res = document.getElementById('resultado');
+
+  if (a === 0) {
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error matemático: Si $$a = 0$$, la expresión no representa un polinomio de sexto grado válido. Reduzca el grado según corresponda.</span>';
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  // Definición de la función polinómica P(x) y su primera derivada P'(x)
+  const P = (x) => a * Math.pow(x, 6) + b * Math.pow(x, 5) + c * Math.pow(x, 4) + d * Math.pow(x, 3) + e * Math.pow(x, 2) + f * x + g;
+  const dP = (x) => 6 * a * Math.pow(x, 5) + 5 * b * Math.pow(x, 4) + 4 * c * Math.pow(x, 3) + 3 * d * Math.pow(x, 2) + 2 * e * x + f;
+
+  // Cota de Cauchy para acotar la búsqueda de raíces reales
+  const maxCoef = Math.max(Math.abs(b), Math.abs(c), Math.abs(d), Math.abs(e), Math.abs(f), Math.abs(g));
+  const cotaCauchy = 1 + (maxCoef / Math.abs(a));
+  const limite = Math.min(Math.max(cotaCauchy, 10), 100);
+
+  // Algoritmo de exploración de raíces reales (Muestreo e iteración Newton-Raphson)
+  let raices = [];
+  const pasosMuestreo = 2000;
+  const paso = (2 * limite) / pasosMuestreo;
+
+  for (let i = 0; i <= pasosMuestreo; i++) {
+    let x0 = -limite + i * paso;
+    let x1 = x0 + paso;
+    let y0 = P(x0);
+    let y1 = P(x1);
+
+    if (y0 * y1 <= 0 || Math.abs(dP(x0)) < 1e-3) {
+      let x = (x0 + x1) / 2;
+      for (let iter = 0; iter < 60; iter++) {
+        let y = P(x);
+        let dy = dP(x);
+        if (Math.abs(dy) < 1e-12) break;
+        let dx = y / dy;
+        x -= dx;
+        if (Math.abs(dx) < 1e-8) break;
+      }
+      if (Math.abs(P(x)) < 1e-4 && x >= -limite - 1 && x <= limite + 1) {
+        if (!raices.some(r => Math.abs(r - x) < 1e-3)) {
+          raices.push(x);
+        }
+      }
+    }
+  }
+
+  raices.sort((r1, r2) => r1 - r2);
+
+  // Construcción del informe procedimental
+  let html = `<div><strong>Explicación Analítica:</strong> De acuerdo con el <em>Teorema Fundamental del Álgebra</em>, una ecuación de sexto grado posee exactamente 6 raíces en el conjunto de los números complejos. Debido al <em>Teorema de Abel-Ruffini</em>, la solución general se determina mediante análisis sintético y refinamiento numérico.</div>`;
+
+  html += `<div style="margin-top:0.5rem;"><strong>Paso 1: Planteamiento de la Ecuación Polinómica</strong></div>`;
+  html += `<div>$$(${a})x^6 + (${b})x^5 + (${c})x^4 + (${d})x^3 + (${e})x^2 + (${f})x + (${g}) = 0$$</div>`;
+
+  html += `<div style="margin-top:0.5rem;"><strong>Paso 2: Expresión de la Primera Derivada $P'(x)$</strong></div>`;
+  html += `<div>$$P'(x) = ${6 * a}x^5 + (${5 * b})x^4 + (${4 * c})x^3 + (${3 * d})x^2 + (${2 * e})x + (${f})$$</div>`;
+
+  // Comprobar si existe alguna raíz entera/racional para generar la Tabla de Ruffini
+  let raizEntera = raices.find(r => Math.abs(r - Math.round(r)) < 1e-5 && Math.abs(P(Math.round(r))) < 1e-5);
+  if (raizEntera !== undefined) {
+    let rInt = Math.round(raizEntera);
+    let coeffs = [a, b, c, d, e, f, g];
+    let fila2 = [0];
+    let fila3 = [];
+
+    let temp = coeffs[0];
+    fila3.push(temp);
+
+    for (let k = 1; k < coeffs.length; k++) {
+      let prod = temp * rInt;
+      fila2.push(prod);
+      temp = coeffs[k] + prod;
+      fila3.push(temp);
+    }
+
+    html += `<div style="margin-top:0.5rem;"><strong>Paso 3: Evaluación por División Sintética (Regla de Ruffini) para $r = ${rInt}$</strong></div>`;
+    html += `<div class="tabla-ruffini-container">
+      <table class="tabla-ruffini">
+        <tr>
+          <td class="col-raiz">r = ${rInt}</td>
+          ${coeffs.map(co => `<td>${co}</td>`).join('')}
+        </tr>
+        <tr>
+          <td class="col-raiz"></td>
+          ${fila2.map(v => `<td>${v >= 0 ? '+' + v : v}</td>`).join('')}
+        </tr>
+        <tr>
+          <td class="col-raiz">Coeficientes</td>
+          ${fila3.map((v, idx) => `<td class="${idx === fila3.length - 1 && v === 0 ? 'residuo-cero' : ''}">${v}</td>`).join('')}
+        </tr>
+      </table>
+    </div>`;
+  }
+
+  html += `<div style="margin-top:0.5rem;"><strong>Paso 4: Determinación de Raíces Reales Obtenidas</strong></div>`;
+
+  if (raices.length === 0) {
+    html += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">
+      No existen raíces reales en esta ecuación (la gráfica no corta el eje $X$). Las 6 soluciones pertenecen al campo complejo.
+    </div>`;
+  } else {
+    html += `<div>Se han localizado <strong>${raices.length}</strong> raíz(ces) real(es):</div>`;
+    raices.forEach((r, idx) => {
+      html += `<div class="resultado-final">
+        $$x_{${idx + 1}} = ${r.toFixed(4)}$$
+      </div>`;
+    });
+
+    let nComplejas = 6 - raices.length;
+    if (nComplejas > 0) {
+      html += `<div style="margin-top:0.5rem; font-size:0.88rem; color:#64748b;">
+        <em>Nota:</em> Las <strong>${nComplejas}</strong> raíces restantes corresponden a pares de conjugados complejos.
+      </div>`;
+    }
+  }
+
+  res.innerHTML = html;
+  renderizarMatematicasGlobal();
 }
