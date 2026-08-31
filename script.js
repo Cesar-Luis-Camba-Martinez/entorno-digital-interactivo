@@ -636,8 +636,72 @@ function resolverSistema() {
 }
 
 /* =====================================================================
-   LÓGICA POLINÓMICA: CÚBICA, CUÁRTICA Y QUÍNTICA CON RUFFINI
+   LÓGICA MATEMÁTICA: ECUACIONES CON VALOR ABSOLUTO
    ===================================================================== */
+function resolverAbsoluto() {
+  const a = parseFloat(document.getElementById('abs-a').value) || 0;
+  const b = parseFloat(document.getElementById('abs-b').value) || 0;
+  const c = parseFloat(document.getElementById('abs-c').value) || 0;
+  const res = document.getElementById('resultado');
+
+  if (a === 0) {
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente $$a$$ no puede ser cero.</span>';
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación:</strong></div>`;
+  pasos += `<div>|${a}x + (${b})| = ${c}</div>`;
+
+  if (c < 0) {
+    pasos += `<div><strong>Paso 2: Análisis de Restricción del Valor Absoluto:</strong></div>`;
+    pasos += `<div>Puesto que, el valor absoluto representa una distancia, no puede ser igual a un número negativo ($$c = ${c} < 0$$).</div>`;
+    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$ (Sin solución en $$\\mathbb{R}$$)</div>`;
+    res.innerHTML = pasos;
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  if (c === 0) {
+    let x = -b / a;
+    pasos += `<div><strong>Paso 2: Caso Único ($$c = 0$$):</strong></div>`;
+    pasos += `<div>$$${a}x + (${b}) = 0$$</div>`;
+    pasos += `<div><strong>Paso 3: Transposición del Término Independiente $$b$$:</strong></div>`;
+    pasos += `<div>$$${a}x = ${-b}$$</div>`;
+    pasos += `<div><strong>Paso 4: Despeje de $$x$$:</strong></div>`;
+    pasos += `<div>$$x = \\frac{${-b}}{${a}}$$</div>`;
+    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$</div>`;
+    res.innerHTML = pasos;
+    renderizarMatematicasGlobal();
+    return;
+  }
+
+  let x1 = (c - b) / a;
+  let x2 = (-c - b) / a;
+
+  pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($c > 0$):</strong></div>`;
+  pasos += `<div>La ecuación con valor absoluto se descompone en dos ecuaciones lineales:</div>`;
+  pasos += `<div>• Caso 1 (Positivo): $${a}x + (${b}) = ${c}$</div>`;
+  pasos += `<div>• Caso 2 (Negativo): $${a}x + (${b}) = ${-c}$</div>`;
+
+  pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
+  pasos += `<div>• Caso 1: $${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$</div>`;
+  pasos += `<div>• Caso 2: $${a}x = ${-c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(4)}$</div>`;
+
+  pasos += `<div><strong>Paso 4: Despeje Final de la Incógnita $x$:</strong></div>`;
+  pasos += `<div>• Caso 1: $x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$</div>`;
+  pasos += `<div>• Caso 2: $x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$</div>`;
+
+  pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
+  pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
+
+  res.innerHTML = pasos;
+  renderizarMatematicasGlobal();
+}
+
+/* =========================================================================
+   LÓGICA POLINÓMICA: CÚBICA, CUÁRTICA, QUÍNTICA, DE SEXTO GRADO CON RUFFINI
+   ====================================================================== */
 function obtenerDivisores(num) {
   let divisores = [];
   let absN = Math.abs(num);
@@ -1094,68 +1158,4 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
   }
 
   return html;
-}
-
-/* =====================================================================
-   LÓGICA MATEMÁTICA: ECUACIONES CON VALOR ABSOLUTO
-   ===================================================================== */
-function resolverAbsoluto() {
-  const a = parseFloat(document.getElementById('abs-a').value) || 0;
-  const b = parseFloat(document.getElementById('abs-b').value) || 0;
-  const c = parseFloat(document.getElementById('abs-c').value) || 0;
-  const res = document.getElementById('resultado');
-
-  if (a === 0) {
-    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente $$a$$ no puede ser cero.</span>';
-    renderizarMatematicasGlobal();
-    return;
-  }
-
-  let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación:</strong></div>`;
-  pasos += `<div>|${a}x + (${b})| = ${c}</div>`;
-
-  if (c < 0) {
-    pasos += `<div><strong>Paso 2: Análisis de Restricción del Valor Absoluto:</strong></div>`;
-    pasos += `<div>Puesto que, el valor absoluto representa una distancia, no puede ser igual a un número negativo ($$c = ${c} < 0$$).</div>`;
-    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$ (Sin solución en $$\\mathbb{R}$$)</div>`;
-    res.innerHTML = pasos;
-    renderizarMatematicasGlobal();
-    return;
-  }
-
-  if (c === 0) {
-    let x = -b / a;
-    pasos += `<div><strong>Paso 2: Caso Único ($$c = 0$$):</strong></div>`;
-    pasos += `<div>$$${a}x + (${b}) = 0$$</div>`;
-    pasos += `<div><strong>Paso 3: Transposición del Término Independiente $$b$$:</strong></div>`;
-    pasos += `<div>$$${a}x = ${-b}$$</div>`;
-    pasos += `<div><strong>Paso 4: Despeje de $$x$$:</strong></div>`;
-    pasos += `<div>$$x = \\frac{${-b}}{${a}}$$</div>`;
-    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$</div>`;
-    res.innerHTML = pasos;
-    renderizarMatematicasGlobal();
-    return;
-  }
-
-  let x1 = (c - b) / a;
-  let x2 = (-c - b) / a;
-
-  pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($c > 0$):</strong></div>`;
-  pasos += `<div>La ecuación con valor absoluto se descompone en dos ecuaciones lineales:</div>`;
-  pasos += `<div>• Caso 1 (Positivo): $${a}x + (${b}) = ${c}$</div>`;
-  pasos += `<div>• Caso 2 (Negativo): $${a}x + (${b}) = ${-c}$</div>`;
-
-  pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
-  pasos += `<div>• Caso 1: $${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$</div>`;
-  pasos += `<div>• Caso 2: $${a}x = ${-c} - (${b}) \\implies ${a}x = ${(-c - b).toFixed(4)}$</div>`;
-
-  pasos += `<div><strong>Paso 4: Despeje Final de la Incógnita $x$:</strong></div>`;
-  pasos += `<div>• Caso 1: $x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$</div>`;
-  pasos += `<div>• Caso 2: $x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$</div>`;
-
-  pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
-  pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
-
-  res.innerHTML = pasos;
-  renderizarMatematicasGlobal();
 }
