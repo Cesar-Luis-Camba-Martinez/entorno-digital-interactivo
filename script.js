@@ -763,12 +763,12 @@ function resolverCuartica() {
   }
 
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Cuártica:</strong></div>`;
-  pasos += `<div>$$P(x) = ${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e}) = 0$$</div>`;
+  pasos += `<div>$P(x) = ${a}x^4 + (${b})x^3 + (${c})x^2 + (${d})x + (${e}) = 0$</div>`;
 
   if (e === 0) {
-    pasos += `<div><strong>Paso 2: Factorización por Término Común $$x$$:</strong></div>`;
-    pasos += `<div>$$P(x) = x \\cdot (${a}x^3 + (${b})x^2 + (${c})x + (${d})) = 0$$</div>`;
-    pasos += `<div class="resultado-final">Primera raíz evidente: $$x_1 = 0$$</div>`;
+    pasos += `<div><strong>Paso 2: Factorización por Término Común $x$:</strong></div>`;
+    pasos += `<div>$P(x) = x \\cdot (${a}x^3 + (${b})x^2 + (${c})x + (${d})) = 0$</div>`;
+    pasos += `<div class="resultado-final">Primera raíz evidente: $x_1 = 0$</div>`;
     res.innerHTML = pasos + resolverCubicaAuxiliar(a, b, c, d, 2);
     renderizarMatematicasGlobal();
     return;
