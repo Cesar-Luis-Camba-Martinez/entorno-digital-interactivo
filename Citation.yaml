@@ -3,7 +3,7 @@ message: "Si utilizas este software, por favor cita el trabajo original."
 authors:
   - family-names: "Camba Martínez"
     given-names: "César Luis"
-title: "Nombre del Proyecto o Herramienta"
+title: "Entorno Digital de Álgebra"
 version: 1.0.0
 date-released: 2026-08-31
 url: "https://github.com/usuario/repositorio"
