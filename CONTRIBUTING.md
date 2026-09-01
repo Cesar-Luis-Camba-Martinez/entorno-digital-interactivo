@@ -32,5 +32,5 @@ Haz clic en el botón **Fork** en la parte superior derecha de la página del re
 
 ### 2. Clona tu Repositorio Forkeado
 ```bash
-git clone [https://github.com/TU-USUARIO/entorno-digital-interactivo.git](https://github.com/TU-USUARIO/entorno-digital-interactivo.git)
+git clone [https://github.com/Cesar-Luis-Camba-Martinez/entorno-digital-interactivo.git]
 cd entorno-digital-interactivo
