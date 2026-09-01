@@ -1,14 +1,11 @@
-Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0) 
+Copyright (c) 2026 Entorno digital interactivo creado por: César Luis Camba Martínez.
 
-Copyright (c) 2026 Empar-Yahui Liu-Zhou
+Esta obra está bajo una licencia internacional Creative Commons Atribución-NoComercial-CompartirIgual 4.0. 
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+Usted es libre de compartir y adaptar este material siempre que: 
+- se otorgue el crédito adecuado al autor; 
+- el material no se utilice con fines comerciales; 
+- cualquier adaptación se distribuya bajo la misma licencia. 
 
-You are free to share and adapt this material provided that:
-
-- appropriate credit is given to the author;
-- the material is not used for commercial purposes;
-- any adaptations are distributed under the same license.
-
-Full license text:
-https://creativecommons.org/licenses/by-nc-sa/4.0/
+Texto completo de la licencia: https://creativecommons.org/licenses/by-nc-sa/4.0/
