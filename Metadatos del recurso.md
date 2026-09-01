@@ -1,5 +1,7 @@
 # Metadatos del Recurso Educativo Abierto (REA)
 
+Información general:
+
 | Campo | Información |
 | :--- | :--- |
 | **Título** | Entorno Digital Interactivo para el Aprendizaje y Análisis Numérico-Gráfico de Ecuaciones Algebraicas |
