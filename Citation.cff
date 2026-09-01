@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Si utilizas este software, por favor cita el trabajo original."
+authors:
+  - family-names: "Camba Martínez"
+    given-names: "César Luis"
+title: "Entorno Digital de Álgebra"
+version: 1.0.0
+date-released: 2026-08-31
+url: "github.com/Cesar-Luis-Camba-Martinez/entorno-digital-interactivo"
