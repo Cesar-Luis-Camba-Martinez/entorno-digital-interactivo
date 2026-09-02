@@ -564,14 +564,14 @@ function calcularEcuacion() {
     pasos += `<div style="margin-left: 1rem;">• Extracción de la raíz cuadrada: $\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}$</div>`;
     pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $x_1$ ($+$):</strong> $x_1 = \\frac{${menosB.toFixed(2)} + ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x1.toFixed(4)}$</div>`;
     pasos += `<div style="margin-left: 1rem;">• <strong>Cálculo de $x_2$ ($-$) :</strong> $x_2 = \\frac{${menosB.toFixed(2)} - ${raizDisc.toFixed(4)}}{${dosA.toFixed(2)}} = ${x2.toFixed(4)}$</div>`;
-    pasos += `<div class="resultado-final">Soluciones reales distintas: $$x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$$</div>`;
+    pasos += `<div class="resultado-final">Soluciones reales distintas: $x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$</div>`;
 
   } else if (discriminante === 0) {
     let x = menosB / dosA;
 
     pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta = 0$$):</strong></div>`;
-    pasos += `<div style="margin-left: 1rem;">• Como $$\\sqrt{0} = 0$$: $$x = \\frac{-(${b})}{2(${a})} = ${x.toFixed(4)}$$</div>`;
-    pasos += `<div class="resultado-final">Solución real doble: $$x = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div style="margin-left: 1rem;">• Como $\\sqrt{0} = 0$: $x = \\frac{-(${b})}{2(${a})} = ${x.toFixed(4)}$</div>`;
+    pasos += `<div class="resultado-final">Solución real doble: $x = ${x.toFixed(4)}$</div>`;
 
   } else {
     let absDisc = -discriminante;
@@ -579,9 +579,9 @@ function calcularEcuacion() {
     let parteReal = menosB / dosA;
     let parteImaginaria = raizDisc / dosA;
 
-    pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($$\\Delta < 0$$):</strong></div>`;
-    pasos += `<div style="margin-left: 1rem;">• Unidad imaginaria: $$\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}i$$</div>`;
-    pasos += `<div class="resultado-final">Soluciones complejas conjugadas: $$x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$$</div>`;
+    pasos += `<div><strong>Paso 3: Aplicación Detallada de la Fórmula General ($\\Delta < 0$):</strong></div>`;
+    pasos += `<div style="margin-left: 1rem;">• Unidad imaginaria: $\\sqrt{${discriminante.toFixed(2)}} = ${raizDisc.toFixed(4)}i$</div>`;
+    pasos += `<div class="resultado-final">Soluciones complejas conjugadas: $x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$</div>`;
   }
 
   // Paso 4: ANÁLISIS PRÁCTICO DE LAS PROPIEDADES DE LA PARÁBOLA
@@ -589,9 +589,9 @@ function calcularEcuacion() {
   
   // 1. Vértice
   pasos += `<div>• <strong>Coordenadas del Vértice $V(h, k)$:</strong></div>`;
-  pasos += `<div style="margin-left: 1rem;">$$h = -\\frac{b}{2a} = -\\frac{${b}}{2(${a})} = ${h.toFixed(4)}$$</div>`;
-  pasos += `<div style="margin-left: 1rem;">$$k = f(${h.toFixed(4)}) = ${a}(${h.toFixed(4)})^2 + (${b})(${h.toFixed(4)}) + (${c}) = ${k.toFixed(4)}$$</div>`;
-  pasos += `<div style="margin-left: 1rem;">$$\\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$h = -\\frac{b}{2a} = -\\frac{${b}}{2(${a})} = ${h.toFixed(4)}$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$k = f(${h.toFixed(4)}) = ${a}(${h.toFixed(4)})^2 + (${b})(${h.toFixed(4)}) + (${c}) = ${k.toFixed(4)}$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$\\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$</div>`;
 
   // 2. Eje de Simetría
   pasos += `<div>• <strong>Eje de Simetría:</strong> Recta vertical $x = ${h.toFixed(4)}$</div>`;
@@ -609,15 +609,15 @@ function calcularEcuacion() {
     pasos += `<div>• <strong>Intersecciones con Eje $X$ ($y = 0$):</strong> Puntos $(${x1.toFixed(4)}, 0)$ y $(${x2.toFixed(4)}, 0)$</div>`;
   } else if (discriminante === 0) {
     let x = menosB / dosA;
-    pasos += `<div>• <strong>Intersección con Eje $X$ ($y = 0$):</strong> Punto de tangencia en $$(${x.toFixed(4)}, 0)$$ (coincide con el Vértice).</div>`;
+    pasos += `<div>• <strong>Intersección con Eje $X$ ($y = 0$):</strong> Punto de tangencia en $(${x.toFixed(4)}, 0)$ (coincide con el Vértice).</div>`;
   } else {
     pasos += `<div>• <strong>Intersecciones con Eje $X$ ($y = 0$):</strong> No existen intersecciones reales con el eje horizontal ($\\Delta < 0$).</div>`;
   }
 
   // 6. Dominio y Recorrido
   pasos += `<div>• <strong>Dominio y Recorrido:</strong></div>`;
-  pasos += `<div style="margin-left: 1rem;">$$\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$$</div>`;
-  pasos += `<div style="margin-left: 1rem;">$$\\text{Rec}(f) = ${rangoStr}$$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$</div>`;
+  pasos += `<div style="margin-left: 1rem;">$\\text{Rec}(f) = ${rangoStr}$</div>`;
 
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
