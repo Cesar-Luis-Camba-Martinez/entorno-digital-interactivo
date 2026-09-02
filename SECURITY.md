@@ -22,7 +22,7 @@ Si descubres una vulnerabilidad de seguridad, un fallo crítico en la manipulaci
 En su lugar, por favor repórtala mediante los siguientes canales:
 
 * **Autor y Responsable de Mantenimiento:** César Luis Camba Martínez
-* **Canal de notificación:** Creación previa de un reporte privado o contacto directo a través del perfil del autor en el ecosistema académico/institucional.
+* **Canal de notificación:** Creación previa de un reporte privado o contacto directo; a través, del perfil del autor en el ecosistema académico/institucional.
 
 ---
 
