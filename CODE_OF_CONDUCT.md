@@ -30,7 +30,7 @@ Ejemplos de comportamiento inaceptable incluyen:
 
 ## 3. Responsabilidades de la Administración
 
-Los administradores del proyecto (encabezados por el autor César Luis Camba Martínez) son responsables de aclarar e hacer cumplir nuestros estándares de comportamiento aceptable y tomarán acciones correctivas apropiadas y justas en respuesta a cualquier comportamiento que consideren inapropiado, amenazante, ofensivo o dañino.
+El administrador del proyecto es encabezado por el autor César Luis Camba Martínez responsable de aclarar e hacer cumplir nuestros estándares de comportamiento aceptable y tomarán acciones correctivas apropiadas y justas en respuesta a cualquier comportamiento que consideren inapropiado, amenazante, ofensivo o dañino.
 
 Los administradores tienen el derecho y la responsabilidad de eliminar, editar o rechazar comentarios, *commits*, *issues*, modificaciones en el código, entradas de la wiki y otras contribuciones que no estén alineadas con este Código de Conducta, y comunicar las razones de tales decisiones cuando sea apropiado.
 
