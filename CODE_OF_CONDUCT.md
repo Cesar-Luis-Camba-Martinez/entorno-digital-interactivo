@@ -1,16 +1,16 @@
 # Código de Conducta (CODE_OF_CONDUCT.md)
 
-## 1. Nuestro Compromiso
+## 1. Mi Compromiso
 
-En el interés de fomentar un ambiente abierto y acogedor para el **Entorno Digital Interactivo para el Aprendizaje y Análisis Numérico-Gráfico de Ecuaciones Algebraicas**, nos comprometemos como colaboradores y administradores a hacer de la participación en nuestro proyecto una experiencia libre de acoso para todos, independientemente de la edad, dimensión corporal, discapacidad, etnia, características sexogenéricas, identidad y expresión de género, nivel de experiencia, educación, estatus socioeconómico, nacionalidad, apariencia personal, raza, religión o identidad y orientación sexual.
+En el interés de fomentar un ambiente abierto y acogedor para el **Entorno Digital Interactivo para el Aprendizaje y Análisis Numérico-Gráfico de Ecuaciones Algebraicas**, me comprometo como colaborador y administrador a hacer de la participación en el proyecto una experiencia libre de acoso para todos, independientemente de la edad, dimensión corporal, discapacidad, etnia, características sexogenéricas, identidad y expresión de género, nivel de experiencia, educación, estatus socioeconómico, nacionalidad, apariencia personal, raza, religión o identidad y orientación sexual.
 
- Nos comprometemos a actuar e interactuar de maneras que contribuyan a una comunidad abierta, acogedora, diversa, inclusiva y saludable.
+ Me comprometo a actuar e interactuar de maneras que contribuyan a una comunidad abierta, acogedora, diversa, inclusiva y saludable.
 
 ---
 
-## 2. Nuestros Estándares
+## 2. Estándares
 
-Ejemplos de comportamiento que contribuyen a crear un ambiente positivo para nuestro proyecto académico y tecnológico incluyen:
+Comportamiento que contribuyen a crear un ambiente positivo para el proyecto académico y tecnológico incluyen:
 
 * Demostrar empatía y amabilidad hacia otras personas.
 * Respetar las diferentes opiniones, enfoques, puntos de vista y experiencias educativas.
@@ -18,7 +18,7 @@ Ejemplos de comportamiento que contribuyen a crear un ambiente positivo para nue
 * Aceptar la responsabilidad y disculparse con los afectados por nuestros errores, aprendiendo de la experiencia.
 * Centrarse en lo que es mejor no solo para nosotros como individuos, sino para toda la comunidad de aprendizaje.
 
-Ejemplos de comportamiento inaceptable incluyen:
+Comportamiento inaceptable incluyen:
 
 * El uso de lenguaje o imágenes de contenido sexual no deseados o no bienvenidos.
 * Comentarios insultantes o despectivos (*trolling*), ataques personales o políticos.
