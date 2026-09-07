@@ -712,8 +712,8 @@ function resolverAbsoluto() {
   pasos += `<div>• Caso 1: $x_1 = \\frac{${(c - b).toFixed(4)}}{${a}} = ${x1.toFixed(4)}$</div>`;
   pasos += `<div>• Caso 2: $x_2 = \\frac{${(-c - b).toFixed(4)}}{${a}} = ${x2.toFixed(4)}$</div>`;
 
-  pasos += `<div class="resultado-final">$$x_1 = ${x1.toFixed(4)}$$</div>`;
-  pasos += `<div class="resultado-final">$$x_2 = ${x2.toFixed(4)}$$</div>`;
+  pasos += `<div class="resultado-final">$x_1 = ${x1.toFixed(4)}$</div>`;
+  pasos += `<div class="resultado-final">$x_2 = ${x2.toFixed(4)}$</div>`;
 
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
