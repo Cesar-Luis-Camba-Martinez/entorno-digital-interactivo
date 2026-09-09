@@ -475,7 +475,7 @@ function resolverFraccionaria() {
   const res = document.getElementById('resultado');
 
   if (a === 0) {
-    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El numerador $$a$$ no puede ser cero en una ecuación fraccionaria racional.</span>';
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El numerador $a$ no puede ser cero en una ecuación fraccionaria racional.</span>';
     renderizarMatematicasGlobal();
     return;
   }
@@ -1050,7 +1050,7 @@ function resolverSextica() {
   }
 
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación de Sexto Grado (Séxtica):</strong></div>`;
-  pasos += `<div>$$P(x) = ${a}x^6 + (${b})x^5 + (${c})x^4 + (${d})x^3 + (${e})x^2 + (${f})x + (${g}) = 0$$</div>`;
+  pasos += `<div>$P(x) = ${a}x^6 + (${b})x^5 + (${c})x^4 + (${d})x^3 + (${e})x^2 + (${f})x + (${g}) = 0$</div>`;
 
   if (g === 0) {
     pasos += `<div><strong>Paso 2: Factorización por Término Común $x$:</strong></div>`;
