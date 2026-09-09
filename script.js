@@ -463,8 +463,8 @@ function resolverLineal() {
   res.innerHTML = `<div><strong>Explicación:</strong> Para resolver la ecuación lineal $${a}x + (${b}) = 0$, se aísla el término con la incógnita y luego se despeja $x$.</div>
                    <div><strong>Paso 1: Planteamiento de la ecuación original</strong> $${a}x + (${b}) = 0$</div>
                    <div><strong>Paso 2: Transposición del término independiente</strong> $${a}x = ${-b}$</div>
-                   <div><strong>Paso 3: Despeje formal dividiendo para $a$ $$a = ${a} \\neq 0$$</strong> $$x = \\frac{${-b}}{${a}}$$</div>
-                   <div class="resultado-final"><strong>Resultado Formateado:</strong> $$x = ${x.toFixed(4)}$$</div>`;
+                   <div><strong>Paso 3: Despeje formal dividiendo para $a$ $a = ${a} \\neq 0$</strong> $x = \\frac{${-b}}{${a}}$</div>
+                   <div class="resultado-final"><strong>Resultado Formateado:</strong> $x = ${x.toFixed(4)}$</div>`;
   renderizarMatematicasGlobal();
 }
 
@@ -507,7 +507,7 @@ function resolverFraccionaria() {
   pasos += `<div>$x = ${numPaso2.toFixed(4)} - (${b})$</div>`;
 
   if (Math.abs(x - restriccion) < 0.0001) {
-    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($$x = ${x.toFixed(4)}$$) coincide con la restricción del dominio ($$x \\neq ${restriccion}$$). Por lo tanto, la ecuación no tiene solución válida en $$\\mathbb{R}$$.</div>`;
+    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">La solución generada ($x = ${x.toFixed(4)}$) coincide con la restricción del dominio ($x \\neq ${restriccion}$). Por lo tanto, la ecuación no tiene solución válida en $\\mathbb{R}$.</div>`;
   } else {
     pasos += `<div class="resultado-final">$x = ${x.toFixed(4)}$ La solución válida es: $x \\neq ${restriccion}$</div>`;
   }
