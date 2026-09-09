@@ -648,8 +648,8 @@ function resolverSistema() {
               <div>$$\\text{Det}(X) = \\begin{vmatrix} ${c1} & ${b1} \\\\ ${c2} & ${b2} \\end{vmatrix} = (${c1} \\cdot ${b2}) - (${c2} \\cdot ${b1}) = ${detX}$$</div>
               <div>$$\\text{Det}(Y) = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${a2} \\cdot ${c1}) = ${detY}$$</div>
               <div><strong>Paso 3: Cálculo del punto de intersección $(x, y):$</strong></div>
-              <div class="resultado-final">$$x = \\frac{\\text{Det}(X)}{\\text{Det}(S)} = \\frac{${detX}}{${detS}} = ${x.toFixed(4)}$$</div>
-              <div class="resultado-final">$$y = \\frac{\\text{Det}(Y)}{\\text{Det}(S)} = \\frac{${detY}}{${detS}} = ${y.toFixed(4)}$$</div>`;
+              <div class="resultado-final">$x = \\frac{\\text{Det}(X)}{\\text{Det}(S)} = \\frac{${detX}}{${detS}} = ${x.toFixed(4)}$</div>
+              <div class="resultado-final">$y = \\frac{\\text{Det}(Y)}{\\text{Det}(S)} = \\frac{${detY}}{${detS}} = ${y.toFixed(4)}$</div>`;
   }
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
@@ -675,8 +675,8 @@ function resolverAbsoluto() {
 
   if (c < 0) {
     pasos += `<div><strong>Paso 2: Análisis de Restricción del Valor Absoluto:</strong></div>`;
-    pasos += `<div>Puesto que, el valor absoluto representa una distancia, no puede ser igual a un número negativo ($$c = ${c} < 0$$).</div>`;
-    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $$\\mathcal{S} = \\emptyset$$ (Sin solución en $$\\mathbb{R}$$)</div>`;
+    pasos += `<div>Puesto que, el valor absoluto representa una distancia, no puede ser igual a un número negativo ($c = ${c} < 0$).</div>`;
+    pasos += `<div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución: $\\mathcal{S} = \\emptyset$ (Sin solución en $\\mathbb{R}$)</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
@@ -684,13 +684,13 @@ function resolverAbsoluto() {
 
   if (c === 0) {
     let x = -b / a;
-    pasos += `<div><strong>Paso 2: Caso Único ($$c = 0$$):</strong></div>`;
-    pasos += `<div>$$${a}x + (${b}) = 0$$</div>`;
+    pasos += `<div><strong>Paso 2: Caso Único ($c = 0$):</strong></div>`;
+    pasos += `<div>$${a}x + (${b}) = 0$</div>`;
     pasos += `<div><strong>Paso 3: Transposición del Término Independiente $$b$$:</strong></div>`;
-    pasos += `<div>$$${a}x = ${-b}$$</div>`;
-    pasos += `<div><strong>Paso 4: Despeje de $$x$$:</strong></div>`;
-    pasos += `<div>$$x = \\frac{${-b}}{${a}}$$</div>`;
-    pasos += `<div class="resultado-final">$$x = ${x.toFixed(4)}$$</div>`;
+    pasos += `<div>$${a}x = ${-b}$</div>`;
+    pasos += `<div><strong>Paso 4: Despeje de $x$:</strong></div>`;
+    pasos += `<div>$x = \\frac{${-b}}{${a}}$</div>`;
+    pasos += `<div class="resultado-final">$x = ${x.toFixed(4)}$</div>`;
     res.innerHTML = pasos;
     renderizarMatematicasGlobal();
     return;
@@ -946,7 +946,7 @@ function resolverQuintica() {
   }
 
   let pasos = `<div><strong>Paso 1: Planteamiento de la Ecuación Quíntica:</strong></div>`;
-  pasos += `<div>$$P(x) = ${a}x^5 + (${b})x^4 + (${c})x^3 + (${d})x^2 + (${e})x + (${f}) = 0$$</div>`;
+  pasos += `<div>$P(x) = ${a}x^5 + (${b})x^4 + (${c})x^3 + (${d})x^2 + (${e})x + (${f}) = 0$</div>`;
 
   if (f === 0) {
     pasos += `<div><strong>Paso 2: Factorización por Término Común $x$:</strong></div>`;
