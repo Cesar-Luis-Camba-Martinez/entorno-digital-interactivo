@@ -686,7 +686,7 @@ function resolverAbsoluto() {
     let x = -b / a;
     pasos += `<div><strong>Paso 2: Caso Único ($c = 0$):</strong></div>`;
     pasos += `<div>$${a}x + (${b}) = 0$</div>`;
-    pasos += `<div><strong>Paso 3: Transposición del Término Independiente $$b$$:</strong></div>`;
+    pasos += `<div><strong>Paso 3: Transposición del Término Independiente $b$:</strong></div>`;
     pasos += `<div>$${a}x = ${-b}$</div>`;
     pasos += `<div><strong>Paso 4: Despeje de $x$:</strong></div>`;
     pasos += `<div>$x = \\frac{${-b}}{${a}}$</div>`;
