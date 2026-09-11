@@ -635,7 +635,7 @@ function resolverSistema() {
   let detS = (a1 * b2) - (a2 * b1);
   let pasos = `<div><strong>Explicación:</strong> Aplicación de la Regla de Cramer mediante cálculo de determinantes ordenados.</div>`;
   pasos += `<div><strong>Paso 1: Determinante del Sistema:</strong></div>
-               <div>$$\\text{Det}(S) = \\begin{vmatrix} ${a1} & ${b1} \\\\ ${a2} & ${b2} \\end{vmatrix} = (${a1} \\cdot ${b2}) - (${a2} \\cdot ${b1}) = ${detS}$$</div>`;
+               <div>$\\text{Det}(S) = \\begin{vmatrix} ${a1} & ${b1} \\\\ ${a2} & ${b2} \\end{vmatrix} = (${a1} \\cdot ${b2}) - (${a2} \\cdot ${b1}) = ${detS}$</div>`;
 
   if (detS === 0) {
     pasos += `<div style="color:#ef4444; font-weight:bold; margin-top:0.5rem;">El determinante es cero. El sistema es Incompatible o Indeterminado (rectas paralelas o coincidentes).</div>`;
@@ -645,8 +645,8 @@ function resolverSistema() {
     let x = detX / detS;
     let y = detY / detS;
     pasos += `<div><strong>Paso 2: Determinantes de las Incógnitas:</strong></div>
-              <div>$$\\text{Det}(X) = \\begin{vmatrix} ${c1} & ${b1} \\\\ ${c2} & ${b2} \\end{vmatrix} = (${c1} \\cdot ${b2}) - (${c2} \\cdot ${b1}) = ${detX}$$</div>
-              <div>$$\\text{Det}(Y) = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${a2} \\cdot ${c1}) = ${detY}$$</div>
+              <div>$\\text{Det}(X) = \\begin{vmatrix} ${c1} & ${b1} \\\\ ${c2} & ${b2} \\end{vmatrix} = (${c1} \\cdot ${b2}) - (${c2} \\cdot ${b1}) = ${detX}$</div>
+              <div>$\\text{Det}(Y) = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${a2} \\cdot ${c1}) = ${detY}$</div>
               <div><strong>Paso 3: Cálculo del punto de intersección $(x, y):$</strong></div>
               <div class="resultado-final">$x = \\frac{\\text{Det}(X)}{\\text{Det}(S)} = \\frac{${detX}}{${detS}} = ${x.toFixed(4)}$</div>
               <div class="resultado-final">$y = \\frac{\\text{Det}(Y)}{\\text{Det}(S)} = \\frac{${detY}}{${detS}} = ${y.toFixed(4)}$</div>`;
