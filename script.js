@@ -701,8 +701,8 @@ function resolverAbsoluto() {
 
   pasos += `<div><strong>Paso 2: Aplicación de la Propiedad Fundamental ($c > 0$):</strong></div>`;
   pasos += `<div>La ecuación con valor absoluto se descompone en dos ecuaciones lineales:</div>`;
-  pasos += `<div>• Caso 1 (Positivo): $${a}x + (${b}) = ${c}$</div>`;
-  pasos += `<div>• Caso 2 (Negativo): $${a}x + (${b}) = ${-c}$</div>`;
+  pasos += `<div>• Caso 1 (Positivo): ${a}x + (${b}) = ${c}$</div>`;
+  pasos += `<div>• Caso 2 (Negativo): ${a}x + (${b}) = ${-c}$</div>`;
 
   pasos += `<div><strong>Paso 3: Transposición de Términos Independientes:</strong></div>`;
   pasos += `<div>• Caso 1: $${a}x = ${c} - (${b}) \\implies ${a}x = ${(c - b).toFixed(4)}$</div>`;
