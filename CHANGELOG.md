@@ -7,7 +7,7 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/
 ---
 ## [1.2.0] - 2026-09-14
 ### Añadido
- - **En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección de que el mismo estudiante lleve a cabo los cálculos y luego se muestre la respuesta y el desarrollo como lo está en este momento.
+ - En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección de que el mismo estudiante lleve a cabo los cálculos y luego se muestre la respuesta y el desarrollo como lo está en este momento.
 ---
 
 ## [1.1.0] - 2026-09-02
