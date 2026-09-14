@@ -161,9 +161,10 @@ function conmutarPanel() {
 
   actualizarLeyenda(sel);
 
+  funcionResolverPendiente = null;
   const res = document.getElementById('resultado');
   if (res) {
-    res.innerHTML = 'Seleccione una ecuación y presione <strong>Resolver</strong> para mostrar los cálculos paso a paso.';
+    res.innerHTML = 'Seleccione una ecuación y presione <strong>Resolver</strong> para iniciar tu intento personal; luego podrás comparar tu respuesta con el desarrollo paso a paso.';
   }
 
   actualizarGrafica();
@@ -443,6 +444,76 @@ function actualizarGrafica() {
       '#ef4444'
     );
    }
+}
+
+/* =====================================================================
+   PROCESO PREVIO DE APRENDIZAJE: INTENTO DEL ESTUDIANTE ANTES DE LA SOLUCIÓN
+   ===================================================================== */
+// Guarda una referencia a la función de resolución real (resolverLineal,
+// calcularEcuacion, etc.) mientras el estudiante realiza su propio intento.
+let funcionResolverPendiente = null;
+
+// Se ejecuta al presionar "▶ Resolver". En lugar de mostrar de inmediato
+// la respuesta y el desarrollo, primero solicita al estudiante que
+// calcule la solución por su cuenta con los coeficientes ya ingresados.
+function iniciarResolucion(funcionResolver) {
+  funcionResolverPendiente = funcionResolver;
+  const res = document.getElementById('resultado');
+  if (!res) return;
+
+  res.innerHTML = `<div class="intento-estudiante">
+      <span class="etiqueta-formula">🧠 Antes de ver la solución: resuélvela tú mismo/a</span>
+      <p>Con los coeficientes que registraste en el Laboratorio Virtual, calcula la solución en tu cuaderno o directamente en el siguiente espacio. Anota el valor de la incógnita y, si puedes, los pasos que seguiste.</p>
+      <label for="campo-intento-estudiante" class="etiqueta-formula" style="margin-top:0.6rem;">Tu respuesta y procedimiento:</label>
+      <textarea id="campo-intento-estudiante" class="textarea-intento" rows="5" placeholder="Ejemplo: x = 2. Primero transpuse el término independiente y luego..." autocomplete="off"></textarea>
+      <button type="button" class="btn-resolver" onclick="revelarSolucion()">✅ Ya resolví: Ver Desarrollo y Respuesta</button>
+    </div>`;
+
+  const campo = document.getElementById('campo-intento-estudiante');
+  if (campo) campo.focus();
+}
+
+// Se ejecuta al presionar "Ver Desarrollo y Respuesta". Recupera el
+// intento del estudiante, ejecuta la función de resolución original
+// (sin alterarla) y antepone el intento registrado para que el
+// estudiante compare su propio procedimiento con el correcto.
+function revelarSolucion() {
+  if (typeof funcionResolverPendiente !== 'function') return;
+
+  const campo = document.getElementById('campo-intento-estudiante');
+  const intento = campo ? campo.value.trim() : '';
+
+  if (!intento) {
+    const continuar = window.confirm('Aún no escribiste tu respuesta. ¿Deseas ver el desarrollo y la respuesta de todos modos?');
+    if (!continuar) {
+      if (campo) campo.focus();
+      return;
+    }
+  }
+
+  const funcion = funcionResolverPendiente;
+  funcionResolverPendiente = null;
+  funcion();
+
+  if (intento) {
+    const res = document.getElementById('resultado');
+    if (res) {
+      const bloqueIntento = `<div class="intento-registrado">
+          <span class="etiqueta-formula">🧑‍🎓 Tu intento previo:</span>
+          <div class="intento-texto">${escaparHTML(intento)}</div>
+        </div>`;
+      res.insertAdjacentHTML('afterbegin', bloqueIntento);
+    }
+  }
+
+  renderizarMatematicasGlobal();
+}
+
+// Sanea el texto libre del estudiante antes de insertarlo como HTML.
+function escaparHTML(texto) {
+  const div = document.createElement('div');
+  div.textContent = texto;
+  return div.innerHTML;
 }
 
 /* =====================================================================
