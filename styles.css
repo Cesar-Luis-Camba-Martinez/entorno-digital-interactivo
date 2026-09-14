@@ -454,6 +454,58 @@ header p {
   transform: scale(0.98);
 }
 
+/* Proceso Previo de Aprendizaje: Intento del Estudiante antes de la Solución */
+.intento-estudiante {
+  background-color: var(--azul-claro);
+  border: 1px solid #93c5fd;
+  border-left: 4px solid var(--azul-medio);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.intento-estudiante p {
+  font-size: 0.92rem;
+  color: var(--gris-texto);
+  margin: 0.4rem 0 0;
+}
+
+.textarea-intento {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  margin: 0.5rem 0 1rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--gris-texto);
+  background-color: var(--blanco);
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textarea-intento:focus {
+  border-color: var(--azul-medio);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  outline: none;
+}
+
+.intento-registrado {
+  background-color: #f8fafc;
+  border: 1px dashed var(--gris-borde);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.intento-texto {
+  white-space: pre-wrap;
+  font-size: 0.92rem;
+  color: var(--gris-texto);
+  margin-top: 0.35rem;
+}
+
 /* Gráfica Canvas */
 .grafica-box-global {
   background: var(--blanco);
