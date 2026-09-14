@@ -7,7 +7,13 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/
 ---
 ## [1.2.0] - 2026-09-14
 ### Añadido
- - En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección de que el mismo estudiante lleve a cabo los cálculos y luego se muestre la respuesta y el desarrollo como lo está en este momento.
+ - En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección en la que el mismo estudiante lleva a cabo los cálculos y luego se muestra la respuesta y el desarrollo como lo está en este momento.
+ - Implementé un mecanismo que analica el intento del estudiante, lo compara automáticamente contra la(s) respuesta(s) correcta(s) ya calculadas, y muestra una retroalimentación visual (correcto / parcial / incorrecto) antes del desarrollo completo.
+ - Además, compara ambos conjuntos con una tolerancia razonable (por redondeo) y genera una caja de retroalimentación:
+   ✅ Correcta — si coinciden todas las raíces esperadas.
+   🟡 Parcial — si el estudiante acertó algunas pero no todas (útil en cúbicas, cuárticas, etc. con varias raíces).
+   ❌ Incorrecta — si no coincide ninguna.
+   ℹ️ Info — si no escribió ningún valor numérico.
 ---
 
 ## [1.1.0] - 2026-09-02
