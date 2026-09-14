@@ -475,8 +475,10 @@ function iniciarResolucion(funcionResolver) {
 
 // Se ejecuta al presionar "Ver Desarrollo y Respuesta". Recupera el
 // intento del estudiante, ejecuta la función de resolución original
-// (sin alterarla) y antepone el intento registrado para que el
-// estudiante compare su propio procedimiento con el correcto.
+// (sin alterarla), VERIFICA automáticamente la respuesta del estudiante
+// contra el resultado correcto recién calculado, y antepone tanto la
+// retroalimentación como el intento registrado para que el estudiante
+// compare su propio procedimiento con el correcto.
 function revelarSolucion() {
   if (typeof funcionResolverPendiente !== 'function') return;
 
@@ -495,14 +497,22 @@ function revelarSolucion() {
   funcionResolverPendiente = null;
   funcion();
 
-  if (intento) {
-    const res = document.getElementById('resultado');
-    if (res) {
-      const bloqueIntento = `<div class="intento-registrado">
-          <span class="etiqueta-formula">🧑‍🎓 Tu intento previo:</span>
-          <div class="intento-texto">${escaparHTML(intento)}</div>
-        </div>`;
-      res.insertAdjacentHTML('afterbegin', bloqueIntento);
+  const res = document.getElementById('resultado');
+
+  if (intento && res) {
+    // Antepone primero el intento registrado del estudiante...
+    const bloqueIntento = `<div class="intento-registrado">
+        <span class="etiqueta-formula">🧑‍🎓 Tu intento previo:</span>
+        <div class="intento-texto">${escaparHTML(intento)}</div>
+      </div>`;
+    res.insertAdjacentHTML('afterbegin', bloqueIntento);
+
+    // ...y luego, encima de todo, la caja de verificación automática,
+    // comparando lo que el estudiante escribió contra la(s) respuesta(s)
+    // correcta(s) que la función de resolución acaba de renderizar.
+    const cajaVerificacion = verificarIntentoEstudiante(intento, res);
+    if (cajaVerificacion) {
+      res.insertAdjacentHTML('afterbegin', cajaVerificacion);
     }
   }
 
@@ -514,6 +524,184 @@ function escaparHTML(texto) {
   const div = document.createElement('div');
   div.textContent = texto;
   return div.innerHTML;
+}
+
+/* =====================================================================
+   MECANISMO DE VERIFICACIÓN DE LA RESPUESTA DEL ESTUDIANTE
+   ===================================================================== */
+// Estas funciones comparan, de manera automática, el texto libre que
+// el estudiante escribió en el campo de intento contra los valores
+// numéricos finales que la función de resolución (resolverLineal,
+// calcularEcuacion, resolverSistema, etc.) ya calculó y mostró dentro
+// de los elementos con clase "resultado-final". No se modifica ninguna
+// función de resolución existente: la verificación "lee" el resultado
+// que ellas mismas generaron en el DOM y lo contrasta con el intento.
+
+// Extrae del texto los números que aparecen inmediatamente después de
+// un signo "=", que es exactamente el patrón que usan todas las
+// funciones de resolución para mostrar su respuesta final
+// (por ejemplo: "x = 2.0000", "x_1 = -3", "y = 1.5000").
+function extraerNumerosDeResultado(texto) {
+  if (!texto) return [];
+  const numeros = [];
+  const regexIgualdad = /=\s*(-?\d+(?:\.\d+)?)/g;
+  let coincidencia;
+  while ((coincidencia = regexIgualdad.exec(texto)) !== null) {
+    numeros.push(parseFloat(coincidencia[1]));
+  }
+  // Captura también la parte imaginaria de raíces complejas conjugadas,
+  // expresadas como "+ 2.00i" o "- 3i" dentro del texto.
+  const regexImaginaria = /([+-]\s*\d+(?:\.\d+)?)\s*i\b/g;
+  while ((coincidencia = regexImaginaria.exec(texto)) !== null) {
+    numeros.push(parseFloat(coincidencia[1].replace(/\s+/g, '')));
+  }
+  return numeros;
+}
+
+// Extrae los números que el ESTUDIANTE escribió en su intento. Se da
+// prioridad a patrones explícitos de asignación como "x = 3" o
+// "x1 = -2.5"; si no se encuentra ninguno, se toman en cuenta todos
+// los números presentes en el texto como respaldo.
+function extraerNumerosDelIntento(texto) {
+  if (!texto) return [];
+
+  const regexAsignacion = /\b[a-zA-Z]\w*\s*=\s*(-?\d+(?:[.,]\d+)?)/g;
+  const explicitos = [];
+  let coincidencia;
+  while ((coincidencia = regexAsignacion.exec(texto)) !== null) {
+    explicitos.push(parseFloat(coincidencia[1].replace(',', '.')));
+  }
+  if (explicitos.length > 0) return explicitos;
+
+  const regexGeneral = /-?\d+(?:[.,]\d+)?/g;
+  const coincidencias = texto.match(regexGeneral) || [];
+  return coincidencias
+    .map(n => parseFloat(n.replace(',', '.')))
+    .filter(n => !isNaN(n));
+}
+
+// Determina si el texto del estudiante indica, en palabras, que la
+// ecuación no tiene solución real (para los casos en que ese es,
+// efectivamente, el resultado correcto).
+function indicaSinSolucion(texto) {
+  if (!texto) return false;
+  const t = texto.toLowerCase();
+  return /(sin soluci|no tiene soluci|no hay soluci|conjunto vac|no existe soluci|∅|vac[ií]o)/.test(t);
+}
+
+// Compara dos números con una tolerancia razonable, ya que la
+// respuesta correcta se muestra redondeada (toFixed) y el estudiante
+// puede escribir menos decimales.
+function numerosCoinciden(a, b) {
+  const TOLERANCIA_ABSOLUTA = 0.05;
+  const TOLERANCIA_RELATIVA = 0.01;
+  const diferencia = Math.abs(a - b);
+  return diferencia <= TOLERANCIA_ABSOLUTA || diferencia <= Math.abs(b) * TOLERANCIA_RELATIVA;
+}
+
+// Construye el bloque HTML de retroalimentación visual.
+function construirCajaVerificacion(tipo, titulo, detalle) {
+  const config = {
+    correcta:   { icono: '✅', clase: 'verificacion-correcta' },
+    parcial:    { icono: '🟡', clase: 'verificacion-parcial' },
+    incorrecta: { icono: '❌', clase: 'verificacion-incorrecta' },
+    info:       { icono: 'ℹ️', clase: 'verificacion-info' },
+  };
+  const c = config[tipo] || config.info;
+  return `<div class="verificacion-caja ${c.clase}">
+      <span class="verificacion-icono" aria-hidden="true">${c.icono}</span>
+      <span class="verificacion-texto">
+        <span class="verificacion-titulo">${escaparHTML(titulo)}</span>
+        ${detalle ? `<span class="verificacion-detalle">${escaparHTML(detalle)}</span>` : ''}
+      </span>
+    </div>`;
+}
+
+// Función principal de verificación. Recibe el texto del intento del
+// estudiante y el contenedor #resultado (ya con la solución correcta
+// renderizada) y devuelve el HTML de la caja de retroalimentación.
+function verificarIntentoEstudiante(intento, contenedorResultado) {
+  if (!contenedorResultado) return '';
+
+  const nodosFinales = contenedorResultado.querySelectorAll('.resultado-final');
+  if (nodosFinales.length === 0) return '';
+
+  let textoCorrecto = '';
+  nodosFinales.forEach(nodo => { textoCorrecto += ' ' + nodo.textContent; });
+
+  const huboConjuntoVacio = /\\emptyset|∅/.test(textoCorrecto);
+  const numerosCorrectos = extraerNumerosDeResultado(textoCorrecto);
+
+  // Caso especial: la respuesta correcta es "no tiene solución real".
+  if (huboConjuntoVacio && numerosCorrectos.length === 0) {
+    if (indicaSinSolucion(intento)) {
+      return construirCajaVerificacion(
+        'correcta',
+        '¡Correcto! Identificaste que la ecuación no tiene solución real.',
+        'El conjunto solución es vacío, tal como concluiste.'
+      );
+    }
+    return construirCajaVerificacion(
+      'incorrecta',
+      'Tu respuesta no coincide con el resultado correcto.',
+      'En este caso, la ecuación NO tiene solución real (conjunto solución vacío). Revisa el porqué en el desarrollo de abajo.'
+    );
+  }
+
+  const numerosEstudiante = extraerNumerosDelIntento(intento);
+
+  if (numerosEstudiante.length === 0) {
+    return construirCajaVerificacion(
+      'info',
+      'No se detectó un valor numérico en tu respuesta.',
+      'Recuerda anotar el valor de la incógnita, por ejemplo: x = 3. Compara igualmente tu procedimiento con el desarrollo mostrado.'
+    );
+  }
+
+  if (numerosCorrectos.length === 0) return '';
+
+  // Se comparan los valores correctos (sin duplicados) contra los que
+  // escribió el estudiante, emparejando cada uno como máximo una vez.
+  const correctosUnicos = [...new Set(numerosCorrectos.map(n => Math.round(n * 1000) / 1000))];
+  const usados = new Set();
+  let encontrados = 0;
+
+  correctosUnicos.forEach(valorCorrecto => {
+    const indice = numerosEstudiante.findIndex((valorEstudiante, i) =>
+      !usados.has(i) && numerosCoinciden(valorEstudiante, valorCorrecto)
+    );
+    if (indice !== -1) {
+      encontrados++;
+      usados.add(indice);
+    }
+  });
+
+  const proporcion = encontrados / correctosUnicos.length;
+  const totalTexto = correctosUnicos.length === 1 ? 'la solución' : `las ${correctosUnicos.length} soluciones`;
+
+  if (proporcion === 1) {
+    return construirCajaVerificacion(
+      'correcta',
+      '¡Excelente! Tu respuesta es correcta.',
+      correctosUnicos.length === 1
+        ? 'El valor que calculaste coincide con la solución.'
+        : `Identificaste correctamente ${totalTexto} de la ecuación.`
+    );
+  }
+
+  if (proporcion > 0) {
+    return construirCajaVerificacion(
+      'parcial',
+      'Tu respuesta es parcialmente correcta.',
+      `Identificaste ${encontrados} de ${correctosUnicos.length} solución(es). Revisa el desarrollo paso a paso para completar tu análisis.`
+    );
+  }
+
+  return construirCajaVerificacion(
+    'incorrecta',
+    'Tu respuesta no coincide con la solución correcta.',
+    'No te preocupes: compara tu procedimiento con el desarrollo detallado a continuación para identificar en qué paso ocurrió la diferencia.'
+  );
 }
 
 /* =====================================================================
@@ -1427,4 +1615,4 @@ function resolverCuadraticaResidual(a2, b2, c2, indiceInicio) {
   }
 
   return html;
-}
+}        
