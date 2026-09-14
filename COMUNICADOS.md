@@ -9,9 +9,11 @@ Este documento reúne los comunicados oficiales para socializar el Entorno Digit
 
 ## Comunicado 1 - Estudiantes
 
-**Dirigido a:** Estudiantes de Décimo Año de Educación General Básica
+**Dirigido a:** Estudiantes de Décimo Año de Educación General Básica.
+
 **Fecha:** Guayaquil, 14 de septiembre de 2026
-**Asunto:** Presentación del Entorno Digital Interactivo de Ecuaciones Algebraicas
+
+**Asunto:** Presentación del Entorno Digital Interactivo de Ecuaciones Algebraicas.
 
 Estimados estudiantes:
 
@@ -35,8 +37,10 @@ Universidad de Guayaquil
 
 ## Comunicado 2 - Padres de familia
 
-**Dirigido a:** Padres y madres de familia de Décimo Año de Educación General Básica
+**Dirigido a:** Padres y madres de familia de Décimo Año de Educación General Básica.
+
 **Fecha:** Guayaquil, 14 de septiembre de 2026
+
 **Asunto:** Implementación de un recurso digital de apoyo para el aprendizaje de Matemáticas
 
 Estimados padres y madres de familia:
@@ -62,6 +66,7 @@ Universidad de Guayaquil
 ## Comunicado 3 - Autoridades / Rectorado
 
 **Dirigido a:** Autoridades de la institución
+
 **Fecha:** Guayaquil, 14 de septiembre de 2026
 
 Señor(a) Rector(a) / Vicerrector(a) Académico(a)
@@ -92,8 +97,10 @@ Universidad de Guayaquil
 
 ## Comunicado 4 - Docentes del área
 
-**Dirigido a:** Docentes del área de Matemáticas
+**Dirigido a:** Docentes del área de Matemáticas.
+
 **Fecha:** Guayaquil, 14 de septiembre de 2026
+
 **Asunto:** Invitación a conocer el Entorno Digital Interactivo de Ecuaciones Algebraicas como recurso complementario
 
 Estimados/as colegas docentes del área de Matemáticas:
