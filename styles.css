@@ -506,6 +506,67 @@ header p {
   margin-top: 0.35rem;
 }
 
+/* =====================================================================
+   VERIFICACIÓN AUTOMÁTICA DE LA RESPUESTA DEL ESTUDIANTE
+   ===================================================================== */
+.verificacion-caja {
+  padding: 0.9rem 1.1rem;
+  border-radius: 8px;
+  margin-bottom: 0.85rem;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.verificacion-icono {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.verificacion-texto {
+  flex: 1;
+}
+
+.verificacion-titulo {
+  font-weight: 700;
+  font-size: 0.98rem;
+  display: block;
+}
+
+.verificacion-detalle {
+  display: block;
+  font-weight: 500;
+  font-size: 0.87rem;
+  margin-top: 0.25rem;
+  opacity: 0.92;
+}
+
+.verificacion-correcta {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.verificacion-parcial {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.verificacion-incorrecta {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.verificacion-info {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
 /* Gráfica Canvas */
 .grafica-box-global {
   background: var(--blanco);
