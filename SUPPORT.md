@@ -1,4 +1,4 @@
-# Ayuda y reporte de problemas
+# Soporte técnico y Ayuda
 
 ## 📋 Tabla de Contenidos
 
