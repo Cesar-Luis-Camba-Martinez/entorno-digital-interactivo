@@ -83,8 +83,7 @@ Si encuentras barreras de accesibilidad, [abre un Issue](../../issues) e indica 
 ### Comunidad
 
 Si tienes preguntas generales, también puedes:
-- Revisar [Discussions](../../discussions) si están habilitadas
-- Consultar la documentación del proyecto
+- Consultar la documentación del proyecto.
 
 ---
 
