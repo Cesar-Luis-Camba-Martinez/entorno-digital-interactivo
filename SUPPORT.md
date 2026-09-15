@@ -89,7 +89,6 @@ Si tienes preguntas generales, también puedes:
 
 ## Más Información
 
-- **Licencia:** [Ver LICENSE](../../blob/main/LICENSE)
 - **Código de Conducta:** Se espera un comportamiento respetuoso en todos los reportes y discusiones
 - **Estado del Proyecto:** En desarrollo activo
 
