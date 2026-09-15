@@ -1,4 +1,4 @@
-# Soporte y Ayuda
+# Ayuda
 
 ## 📋 Tabla de Contenidos
 
