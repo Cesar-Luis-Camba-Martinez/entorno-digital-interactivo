@@ -1001,7 +1001,7 @@ function resolverPolinomica() {
   const res = document.getElementById('resultado');
 
   if (a === 0) {
-    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente principal $$a$$ debe ser distinto de cero.</span>';
+    res.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Error de definición: El coeficiente principal $a$ debe ser distinto de cero.</span>';
     renderizarMatematicasGlobal();
     return;
   }
