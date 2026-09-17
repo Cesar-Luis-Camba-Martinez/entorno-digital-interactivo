@@ -792,7 +792,7 @@ function resolverFraccionaria() {
   pasos += `
     <div><strong>Paso 1: Restricción del Dominio (Asíntota Vertical):</strong>
       <br>El denominador no puede ser cero porque la división para cero no está definida en matemáticas:
-      <br>$$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} \\neq 0 \\implies x \\neq ${restriccion}$$
+      <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} \\neq 0 \\implies x \\neq ${restriccion}$
       <br><em>Definición:</em> Si el cálculo final diera $x = ${restriccion}$, no habría solución válida.
     </div>
     <div><strong>Paso 2: Transposición del término independiente $c$:</strong>
@@ -801,15 +801,15 @@ function resolverFraccionaria() {
     </div>
     <div><strong>Paso 3: Multiplicación por el denominador para despejar la fracción:</strong>
       <br>Multiplicamos ambos lados de la ecuación por el binomio $(x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)})$:
-      <br>$$${a} = ${-c} \\cdot (x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)})$$
+      <br>$${a} = ${-c} \\cdot (x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)})$
     </div>
     <div><strong>Paso 4: Despeje del binomio $(x + b)$:</strong>
       <br>Pasamos ${-c} a dividir al lado izquierdo:
-      <br>$$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = \\frac{${a}}{${-c}} = ${numPaso2.toFixed(4)}$$
+      <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = \\frac{${a}}{${-c}} = ${numPaso2.toFixed(4)}$
     </div>
     <div><strong>Paso 5: Aislamiento final de $x$:</strong>
       <br>Restamos $(${b})$ en ambos miembros:
-      <br>$$x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${x.toFixed(4)}$$
+      <br>$x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${x.toFixed(4)}$
     </div>
     <div><strong>Paso 6: Verificación de la restricción:</strong>
       <br>Comprobamos si $x = ${x.toFixed(4)}$ coincide con la restricción $x \\neq ${restriccion}$. Como no coincide, el valor encontrado es una solución completamente válida.
