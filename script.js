@@ -740,15 +740,15 @@ function resolverLineal() {
     </div>
     <div><strong>Paso 4: Aislamiento de la incógnita $x$ (División por el coeficiente $a$):</strong>
       <br>Dado que $a = ${a}$ está multiplicando a $x$, pasa al segundo miembro a dividir a ${-b} conservando su signo:
-      <br>$$x = \\frac{${-b}}{${a}}$$
+      <br>$x = \\frac{${-b}}{${a}}$
     </div>
     <div><strong>Paso 5: Cálculo aritmético final:</strong>
       <br>Realizamos la división numérica:
-      <br>$x = ${x.toFixed(4)}$
+      <br>x = ${x.toFixed(4)}
     </div>
     <div><strong>Paso 6: Comprobación de la solución:</strong>
       <br>Sustituimos $x = ${x.toFixed(4)}$ en la ecuación original $a x + b = 0$:
-      <br>$$${a}(${x.toFixed(4)}) ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${(a * x + b).toFixed(4)} \\approx 0 \\quad \\text{(¡Verificación exitosa!)}$$
+      <br>$${a}(${x.toFixed(4)}) ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${(a * x + b).toFixed(4)} \\approx 0 \\quad \\text{(¡Verificación exitosa!)}$
     </div>
     <div class="resultado-final">Solución única despejada: $x = ${x.toFixed(4)}$</div>
   `;
