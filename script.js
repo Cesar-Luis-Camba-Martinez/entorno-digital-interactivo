@@ -732,11 +732,11 @@ function resolverLineal() {
       <br>• Término independiente ($b$): $b = ${b}$
     </div>
     <div><strong>Paso 2: Planteamiento de la ecuación con tus datos:</strong>
-      <br>$$${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = 0$$
+      <br>$${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = 0$
     </div>
     <div><strong>Paso 3: Transposición del término independiente ($b$):</strong>
       <br>Para quitar el número $(${b})$ del lado izquierdo, aplicamos la propiedad uniforme restando $(${b})$ a ambos lados de la igualdad (lo que popularmente se conoce como "pasar al otro miembro con signo cambiado"):
-      <br>$$${a}x = ${-b}$$
+      <br>$${a}x = ${-b}$
     </div>
     <div><strong>Paso 4: Aislamiento de la incógnita $x$ (División por el coeficiente $a$):</strong>
       <br>Dado que $a = ${a}$ está multiplicando a $x$, pasa al segundo miembro a dividir a ${-b} conservando su signo:
@@ -744,7 +744,7 @@ function resolverLineal() {
     </div>
     <div><strong>Paso 5: Cálculo aritmético final:</strong>
       <br>Realizamos la división numérica:
-      <br>$$x = ${x.toFixed(4)}$$
+      <br>$x = ${x.toFixed(4)}$
     </div>
     <div><strong>Paso 6: Comprobación de la solución:</strong>
       <br>Sustituimos $x = ${x.toFixed(4)}$ en la ecuación original $a x + b = 0$:
