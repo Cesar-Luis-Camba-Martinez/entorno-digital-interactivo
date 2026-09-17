@@ -958,11 +958,11 @@ function resolverSistema() {
       </div>
       <div><strong>Paso 4: Cálculo del Determinante Auxiliar $D_y$:</strong>
         <br>Reemplazamos la columna de $y$ por los términos independientes ($c_1, c_2$):
-        <br>$$D_y = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${c1} \\cdot ${a2}) = ${a1 * c2} - (${c1 * a2}) = ${Dy}$$
+        <br>$D_y = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${c1} \\cdot ${a2}) = ${a1 * c2} - (${c1 * a2}) = ${Dy}$
       </div>
       <div><strong>Paso 5: Obtención de las soluciones por cociente:</strong>
-        <br>$$x = \\frac{D_x}{D} = \\frac{${Dx}}{${D}} = ${x.toFixed(4)}$$
-        <br>$$y = \\frac{D_y}{D} = \\frac{${Dy}}{${D}} = ${y.toFixed(4)}$$
+        <br>$x = \\frac{D_x}{D} = \\frac{${Dx}}{${D}} = ${x.toFixed(4)}$
+        <br>$y = \\frac{D_y}{D} = \\frac{${Dy}}{${D}} = ${y.toFixed(4)}$
       </div>
       <div><strong>Paso 6: Interpretación geométrica:</strong>
         <br>Las dos rectas se cruzan exactamente en las coordenadas $(x, y) = (${x.toFixed(4)}, ${y.toFixed(4)})$.
