@@ -735,8 +735,7 @@ function resolverLineal() {
       <br>$${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = 0$
     </div>
     <div><strong>Paso 3: Transposición del término independiente ($b$):</strong>
-      <br>Para quitar el número $(${b})$ del lado izquierdo, aplicamos la propiedad uniforme restando $(${b})$ a ambos lados de la igualdad (lo que popularmente se conoce como "pasar al otro miembro con signo cambiado"):
-      <br>$${a}x = ${-b}$
+      <br>Para quitar el número $(${b})$ del lado izquierdo, aplicamos la propiedad uniforme restando $(${b})$ a ambos lados de la igualdad (lo que popularmente se conoce como "pasar al otro miembro con signo cambiado"): $${a}x = ${-b}$
     </div>
     <div><strong>Paso 4: Aislamiento de la incógnita $x$ (División por el coeficiente $a$):</strong>
       <br>Dado que $a = ${a}$ está multiplicando a $x$, pasa al segundo miembro a dividir a ${-b} conservando su signo: $x = \\frac{${-b}}{${a}}$
