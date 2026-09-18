@@ -790,7 +790,7 @@ function resolverFraccionaria() {
       <br><em>Definición:</em> Si el cálculo final diera $x = ${restriccion}$, no habría solución válida.
     </div>
     <div><strong>Paso 2: Transposición del término independiente $c$:</strong>
-      <br>Escribimos la ecuación y pasamos el término $c = ${c}$ restando al miembro derecho: $\\frac{${a}}{x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}} = ${-c}$
+      <br>Escribimos la ecuación y pasamos el término $c = ${c}$ con signo cambiado al miembro derecho: $\\frac{${a}}{x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}} = ${-c}$
     </div>
     <div><strong>Paso 3: Multiplicación por el denominador para despejar la fracción:</strong>
       <br>Multiplicamos ambos lados de la ecuación por el binomio $(x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)})$: $${a} = ${-c} \\cdot (x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)})$
