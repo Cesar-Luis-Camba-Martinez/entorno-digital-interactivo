@@ -786,8 +786,7 @@ function resolverFraccionaria() {
 
   pasos += `
     <div><strong>Paso 1: Restricción del Dominio (Asíntota Vertical):</strong>
-      <br>El denominador no puede ser cero porque la división para cero no está definida en matemáticas:
-      <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} \\neq 0 \\implies x \\neq ${restriccion}$
+      <br>El denominador no puede ser cero porque la división para cero no está definida en matemáticas: $x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} \\neq 0 \\implies x \\neq ${restriccion}$
       <br><em>Definición:</em> Si el cálculo final diera $x = ${restriccion}$, no habría solución válida.
     </div>
     <div><strong>Paso 2: Transposición del término independiente $c$:</strong>
@@ -801,7 +800,7 @@ function resolverFraccionaria() {
       <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = \\frac{${a}}{${-c}} = ${numPaso2.toFixed(4)}$
     </div>
     <div><strong>Paso 5: Aislamiento final de $x$:</strong>
-      <br>Restamos $(${b})$ en ambos miembros: $x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${x.toFixed(4)}$
+      <br>Pasamos $(${b})$ con signo cambiado al otro lado de la ecuación: $x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${x.toFixed(4)}$
     </div>
     <div><strong>Paso 6: Verificación de la restricción:</strong>
       <br>Comprobamos si $x = ${x.toFixed(4)}$ coincide con la restricción $x \\neq ${restriccion}$. Como no coincide, el valor encontrado es una solución completamente válida.
