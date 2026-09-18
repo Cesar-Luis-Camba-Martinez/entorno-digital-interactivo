@@ -1009,7 +1009,7 @@ function resolverAbsoluto() {
   let x2 = (-c - b) / a;
 
   pasos += `
-    <div><strong>Paso 2: Descomposición en dos casos por definición de valor absoluto:</strong>
+    <div><strong>Paso 2: Descomposición de los dos casos por definición de valor absoluto:</strong>
       <br>1) Caso Positivo: $(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
       <br>2) Caso Negativo: $(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
     </div>
