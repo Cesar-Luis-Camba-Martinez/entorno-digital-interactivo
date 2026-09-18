@@ -731,8 +731,7 @@ function resolverLineal() {
       <br>• Coeficiente principal ($a$): $a = ${a}$
       <br>• Término independiente ($b$): $b = ${b}$
     </div>
-    <div><strong>Paso 2: Planteamiento de la ecuación con tus datos:</strong>
-      <br>$${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = 0$
+    <div><strong>Paso 2: Planteamiento de la ecuación con tus datos: $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = 0$</strong>
     </div>
     <div><strong>Paso 3: Transposición del término independiente ($b$):</strong>
       <br>Para quitar el número $(${b})$ del lado izquierdo, aplicamos la propiedad uniforme restando $(${b})$ a ambos lados de la igualdad (lo que popularmente se conoce como "pasar al otro miembro con signo cambiado"): $${a}x = ${-b}$
