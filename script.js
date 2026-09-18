@@ -739,12 +739,10 @@ function resolverLineal() {
       <br>$${a}x = ${-b}$
     </div>
     <div><strong>Paso 4: Aislamiento de la incógnita $x$ (División por el coeficiente $a$):</strong>
-      <br>Dado que $a = ${a}$ está multiplicando a $x$, pasa al segundo miembro a dividir a ${-b} conservando su signo:
-      <br>$x = \\frac{${-b}}{${a}}$
+      <br>Dado que $a = ${a}$ está multiplicando a $x$, pasa al segundo miembro a dividir a ${-b} conservando su signo: $x = \\frac{${-b}}{${a}}$
     </div>
     <div><strong>Paso 5: Cálculo aritmético final:</strong>
-      <br>Realizamos la división numérica:
-      <br>x = ${x.toFixed(4)}
+      <br>Realizamos la división numérica: x = ${x.toFixed(4)}
     </div>
     <div><strong>Paso 6: Comprobación de la solución:</strong>
       <br>Sustituimos $x = ${x.toFixed(4)}$ en la ecuación original $a x + b = 0$:
