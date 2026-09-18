@@ -1014,12 +1014,12 @@ function resolverAbsoluto() {
       <br>2) Caso Negativo: $(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
     </div>
     <div><strong>Paso 3: Resolución del Caso Positivo:</strong>
-      <br>$$(${a})x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${c - b}$$
-      <br>$$x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$$
+      <br>$(${a})x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${c - b}$
+      <br>$x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$
     </div>
     <div><strong>Paso 4: Resolución del Caso Negativo:</strong>
-      <br>$$(${a})x = ${-c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${-c - b}$$
-      <br>$$x_2 = \\frac{${-c - b}}{${a}} = ${x2.toFixed(4)}$$
+      <br>$(${a})x = ${-c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${-c - b}$
+      <br>$x_2 = \\frac{${-c - b}}{${a}} = ${x2.toFixed(4)}$
     </div>
     <div><strong>Paso 5: Verificación de resultados:</strong>
       <br>Sustituimos $x_1$ y $x_2$ en el valor absoluto original, comprobando que ambas distancias son exactamente $c = ${c}$.
