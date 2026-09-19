@@ -871,7 +871,7 @@ function calcularEcuacion() {
         <br>• <strong>Intersecciones con el eje $X$ (Raíces):</strong> Puntos $(${x1.toFixed(4)}, 0)$ y $(${x2.toFixed(4)}, 0)$
         <br>• <strong>Dominio y Rango:</strong>
           <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
-          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}\$
       </div>
       <div class="resultado-final">Dos soluciones reales distintas: $x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$</div>
     `;
@@ -895,7 +895,7 @@ function calcularEcuacion() {
         <br>• <strong>Intersección con el eje $X$:</strong> La parábola es tangente al eje horizontal en $(${x.toFixed(4)}, 0)$
         <br>• <strong>Dominio y Rango:</strong>
           <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
-          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[0.0000, +\\infty)` : `(-\\infty, 0.0000]`}
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[0.0000, +\\infty)` : `(-\\infty, 0.0000]`}\$
       </div>
       <div class="resultado-final">Solución real única (raíz doble): $x = ${x.toFixed(4)}$</div>
     `;
@@ -927,7 +927,7 @@ function calcularEcuacion() {
         <br>• <strong>Intersección con el eje $X$:</strong> No tiene intersecciones reales con el eje $X$.
         <br>• <strong>Dominio y Rango:</strong>
           <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
-          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}\$
       </div>
       <div class="resultado-final">Dos soluciones complejas conjugadas: $x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$</div>
     `;
@@ -936,6 +936,7 @@ function calcularEcuacion() {
   res.innerHTML = pasos;
   renderizarMatematicasGlobal();
 }
+
 
 function resolverSistema() {
   const a1 = parseFloat(document.getElementById('sys-a1').value) || 0;
