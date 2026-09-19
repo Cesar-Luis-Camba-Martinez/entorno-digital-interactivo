@@ -985,48 +985,40 @@ function resolverAbsoluto() {
     return;
   }
 
-  let pasos = `
-    <div><strong>🎯 Explicación para principiantes:</strong> El valor absoluto $|a x + b| = c$ representa la distancia numérica entre la expresión $a x + b$ y el origen $0$. Como las distancias siempre son no negativas, debe cumplirse $c \\ge 0$.</div>
-    <div><strong>Paso 1: Planteamiento inicial:</strong>
-      <br>$|(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}| = ${c}$
+  let HTML = `
+    <div><strong>🎯 Explicación para principiantes:</strong> Una ecuación con valor absoluto $|a x + b| = c$ representa una distancia. Puesto que una distancia no puede ser negativa, si $c < 0$, la ecuación carece de solución real.</div>
+    <div><strong>Paso 1: Análisis del término externo $c$:</strong>
+      <br>Término independiente externo: $c = ${c}$
     </div>
   `;
 
   if (c < 0) {
-    pasos += `
-      <div><strong>Análisis de imposibilidad ($c < 0$):</strong>
-        <br>Como $c = ${c} < 0$, la ecuación exige que una magnitud absoluta sea negativa. Ningún número real cumple esta condición.
+    HTML += `
+      <div><strong>Paso 2: Evaluación de la propiedad de Positividad:</strong>
+        <br>El valor absoluto de cualquier expresión real es mayor o igual a cero ($|ax + b| \\ge 0$). Como $c = ${c} < 0$, la igualdad es imposible.
       </div>
-      <div class="resultado-final" style="background-color:#fef2f2; color:#991b1b;">Sin solución real: $\\mathcal{S} = \\emptyset$</div>
+      <div class="resultado-final" style="background-color:#fef2f2; border-color:#fecaca; color:#991b1b;">Conjunto Solución Vacío: $\\mathcal{S} = \\emptyset$</div>
     `;
-    res.innerHTML = pasos;
-    renderizarMatematicasGlobal();
-    return;
+  } else {
+    let x1 = (c - b) / a;
+    let x2 = (-c - b) / a;
+
+    HTML += `
+      <div><strong>Paso 2: Descomposición en dos casos algebraicos ($ax + b = c$ y $ax + b = -c$):</strong>
+        <br>• Caso 1 (Positivo): $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
+        <br>• Caso 2 (Negativo): $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
+      </div>
+      <div><strong>Paso 3: Resolución del Caso 1 ($ax + b = c$):</strong>
+        <br>$$${a}x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} \\implies x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$$
+      </div>
+      <div><strong>Paso 4: Resolución del Caso 2 ($ax + b = -c$):</strong>
+        <br>$$${a}x = ${-c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} \\implies x_2 = \\frac{${-c - b}}{${a}} = ${x2.toFixed(4)}$$
+      </div>
+      <div class="resultado-final">${Math.abs(x1 - x2) < 1e-9 ? `Solución única: $x = ${x1.toFixed(4)}$` : `Dos soluciones reales: $x_1 =${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$`}</div>
+    `;
   }
 
-  let x1 = (c - b) / a;
-  let x2 = (-c - b) / a;
-
-  pasos += `
-    <div><strong>Paso 2: Descomposición de los dos casos por definición de valor absoluto:</strong>
-      <br>1) Caso Positivo: $(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
-      <br>2) Caso Negativo: $(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
-    </div>
-    <div><strong>Paso 3: Resolución del Caso Positivo:</strong>
-      <br>$(${a})x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${c - b}$
-      <br>$x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$
-    </div>
-    <div><strong>Paso 4: Resolución del Caso Negativo:</strong>
-      <br>$(${a})x = ${-c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${-c - b}$
-      <br>$x_2 = \\frac{${-c - b}}{${a}} = ${x2.toFixed(4)}$
-    </div>
-    <div><strong>Paso 5: Verificación de resultados:</strong>
-      <br>Sustituimos $x_1$ y $x_2$ en el valor absoluto original, comprobando que ambas distancias son exactamente $c = ${c}$.
-    </div>
-    <div class="resultado-final">Dos soluciones válidas: $x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$</div>
-  `;
-
-  res.innerHTML = pasos;
+  res.innerHTML = HTML;
   renderizarMatematicasGlobal();
 }
 
