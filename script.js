@@ -929,7 +929,7 @@ function resolverSistema() {
       <br><em>Fórmula del determinante $2 \\times 2$:</em> $\\begin{vmatrix} p & q \\\\ r & s \\end{vmatrix} = (p \\cdot s) - (q \\cdot r)$.
     </div>
     <div><strong>Paso 1: Formulación del sistema con tus valores:</strong>
-      <br>$$\\begin{cases} (${a1})x + (${b1})y = ${c1} \\\\ (${a2})x + (${b2})y = ${c2} \\end{cases}$$
+      <br>$\\begin{cases} (${a1})x + (${b1})y = ${c1} \\\\ (${a2})x + (${b2})y = ${c2} \\end{cases}$
     </div>
     <div><strong>Paso 2: Cálculo del Determinante Principal ($D$):</strong>
       <br>Formado por los coeficientes de las incógnitas:
@@ -948,7 +948,7 @@ function resolverSistema() {
       </div>
       <div><strong>Paso 4: Cálculo del Determinante Auxiliar $D_y$:</strong>
         <br>Reemplazamos la columna de $y$ por los términos independientes ($c_1, c_2$):
-        <br>$D_y = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${c1} \\cdot ${a2}) = ${a1 * c2} - (${c1 * a2}) = ${Dy}$
+        <br>$$D_y = \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1} \\cdot ${c2}) - (${c1} \\cdot ${a2}) = ${a1 * c2} - (${c1 * a2}) = ${Dy}$$
       </div>
       <div><strong>Paso 5: Obtención de las soluciones por cociente:</strong>
         <br>$x = \\frac{D_x}{D} = \\frac{${Dx}}{${D}} = ${x.toFixed(4)}$
