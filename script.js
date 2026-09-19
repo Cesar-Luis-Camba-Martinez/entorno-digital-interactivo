@@ -988,7 +988,7 @@ function resolverAbsoluto() {
   let pasos = `
     <div><strong>🎯 Explicación para principiantes:</strong> El valor absoluto $|a x + b| = c$ representa la distancia numérica entre la expresión $a x + b$ y el origen $0$. Como las distancias siempre son no negativas, debe cumplirse $c \\ge 0$.</div>
     <div><strong>Paso 1: Planteamiento inicial:</strong>
-      <br>$$|(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}| = ${c}$$
+      <br>$|(${a})x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}| = ${c}$
     </div>
   `;
 
