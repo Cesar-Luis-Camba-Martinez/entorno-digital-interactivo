@@ -831,7 +831,7 @@ function calcularEcuacion() {
   let k = a * h * h + b * h + c;
 
   let pasos = `
-    <div><strong>🎯 Explicación para principiantes:</strong> Una ecuación de segundo grado tiene la forma $a x^2 + b x + c = 0$. Se resuelve mediante la Fórmula General (Fórmula de Bhaskara): $$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$</div>
+    <div><strong>🎯 Explicación para principiantes:</strong> Una ecuación de segundo grado tiene la forma $a x^2 + b x + c = 0$. Se resuelve mediante la Fórmula General (Fórmula de Bhaskara): $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$</div>
     <div><strong>Paso 1: Identificación de coeficientes:</strong>
       <br>• Coeficiente cuadrático ($a$): $a = ${a}$
       <br>• Coeficiente lineal ($b$): $b = ${b}$
@@ -852,7 +852,7 @@ function calcularEcuacion() {
         <br>Puesto que $\\Delta = ${discriminante.toFixed(4)} > 0$, la raíz cuadrada $\\sqrt{${discriminante.toFixed(4)}} = ${raizDisc.toFixed(4)}$ es un número real positivo. Por tanto, existen <strong>dos soluciones reales distintas</strong>.
       </div>
       <div><strong>Paso 3: Sustitución de valores en la Fórmula General:</strong>
-        <br>$$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(4)}}}{2(${a})} = \\frac{${menosB} \\pm ${raizDisc.toFixed(4)}}{${dosA}}$$
+        <br>$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(4)}}}{2(${a})} = \\frac{${menosB} \\pm ${raizDisc.toFixed(4)}}{${dosA}}$
       </div>
       <div><strong>Paso 4: Cálculo de la primera raíz ($x_1$, usando el signo $+$):</strong>
         <br>$x_1 = \\frac{${menosB} + ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB + raizDisc).toFixed(4)}}{${dosA}} = ${x1.toFixed(4)}$
