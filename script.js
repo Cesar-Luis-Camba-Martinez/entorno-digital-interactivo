@@ -861,9 +861,17 @@ function calcularEcuacion() {
         <br>$x_2 = \\frac{${menosB} - ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB - raizDisc).toFixed(4)}}{${dosA}} = ${x2.toFixed(4)}$
       </div>
       <div><strong>Paso 6: Análisis Geométrico de la Parábola $f(x) = ax^2 + bx + c$:</strong>
-        <br>• Vértice $V(h, k)$: $h = -\\frac{b}{2a} = \\frac{${menosB}}{${dosA}} = ${h.toFixed(4)}$, $k = f(h) = ${k.toFixed(4)} \\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$.
-        <br>• Eje de Simetría: Recta vertical $x = ${h.toFixed(4)}$.
-        <br>• Concavidad: ${a > 0 ? 'Cóncava hacia arriba ( $\\cup$ ), el vértice es un punto Mínimo.' : 'Cóncava hacia abajo ( $\\cap$ ), el vértice es un punto Máximo.'}
+        <br>• <strong>Coordenadas del Vértice $V(h, k)$:</strong>
+          <br>&nbsp;&nbsp;– <em>Abscisa ($h$):</em> $h = -\\frac{b}{2a} = -\\frac{${b}}{2(${a})} = \\frac{${menosB}}{${dosA}} = ${h.toFixed(4)}$
+          <br>&nbsp;&nbsp;– <em>Ordenada ($k$):</em> $k = f(${h.toFixed(4)}) = ${a}(${h.toFixed(4)})^2 ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)}(${h.toFixed(4)}) ${c >= 0 ? '+ ' + c : '- ' + Math.abs(c)} = ${k.toFixed(4)}$
+          <br>&nbsp;&nbsp;– <em>Punto Vértice:</em> $V(${h.toFixed(4)}, ${k.toFixed(4)})$
+        <br>• <strong>Eje de Simetría:</strong> Recta vertical $x = ${h.toFixed(4)}$
+        <br>• <strong>Concavidad y Extremo:</strong> Como $a = ${a} ${a > 0 ? '> 0$' : '< 0$'}, la parábola es ${a > 0 ? 'cóncava hacia arriba ( $\\cup$ ) y el vértice es un punto <strong>Mínimo absoluto</strong>.' : 'cóncava hacia abajo ( $\\cap$ ) y el vértice es un punto <strong>Máximo absoluto</strong>.'}
+        <br>• <strong>Intersección con el eje $Y$ (Ordenada al origen):</strong> $f(0) = c = ${c} \\implies (0, ${c})$
+        <br>• <strong>Intersecciones con el eje $X$ (Raíces):</strong> Puntos $(${x1.toFixed(4)}, 0)$ y $(${x2.toFixed(4)}, 0)$
+        <br>• <strong>Dominio y Rango:</strong>
+          <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}
       </div>
       <div class="resultado-final">Dos soluciones reales distintas: $x_1 = ${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$</div>
     `;
@@ -877,8 +885,17 @@ function calcularEcuacion() {
       <div><strong>Paso 3: Sustitución en la Fórmula General:</strong>
         <br>$$x = \\frac{-(${b}) \\pm 0}{2(${a})} = \\frac{${menosB}}{${dosA}} = ${x.toFixed(4)}$$
       </div>
-      <div><strong>Paso 4: Propiedades geométricas:</strong>
-        <br>• Vértice $V(h, k)$: $V(${h.toFixed(4)}, ${k.toFixed(4)})$. La parábola es tangente al eje horizontal $X$ exactamente en su vértice.
+      <div><strong>Paso 4: Análisis Geométrico de la Parábola $f(x) = ax^2 + bx + c$:</strong>
+        <br>• <strong>Coordenadas del Vértice $V(h, k)$:</strong>
+          <br>&nbsp;&nbsp;– <em>Abscisa ($h$):</em> $h = -\\frac{b}{2a} = ${h.toFixed(4)}$
+          <br>&nbsp;&nbsp;– <em>Ordenada ($k$):</em> $k = f(${h.toFixed(4)}) = 0.0000 \\implies V(${h.toFixed(4)}, 0.0000)$
+        <br>• <strong>Eje de Simetría:</strong> Recta vertical $x = ${h.toFixed(4)}$
+        <br>• <strong>Concavidad y Extremo:</strong> Como $a = ${a} ${a > 0 ? '> 0$' : '< 0$'}, la parábola es ${a > 0 ? 'cóncava hacia arriba ( $\\cup$ ) y el vértice es un punto <strong>Mínimo absoluto</strong>.' : 'cóncava hacia abajo ( $\\cap$ ) y el vértice es un punto <strong>Máximo absoluto</strong>.'}
+        <br>• <strong>Intersección con el eje $Y$:</strong> $f(0) = c = ${c} \\implies (0, ${c})$
+        <br>• <strong>Intersección con el eje $X$:</strong> La parábola es tangente al eje horizontal en $(${x.toFixed(4)}, 0)$
+        <br>• <strong>Dominio y Rango:</strong>
+          <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[0.0000, +\\infty)` : `(-\\infty, 0.0000]`}
       </div>
       <div class="resultado-final">Solución real única (raíz doble): $x = ${x.toFixed(4)}$</div>
     `;
@@ -900,8 +917,17 @@ function calcularEcuacion() {
         <br>$$x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i$$
         <br>$$x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$$
       </div>
-      <div><strong>Paso 5: Geometría de la Parábola:</strong>
-        <br>El vértice es $V(${h.toFixed(4)}, ${k.toFixed(4)})$. La parábola no interseca al eje $X$ en ningún punto.
+      <div><strong>Paso 5: Análisis Geométrico de la Parábola $f(x) = ax^2 + bx + c$:</strong>
+        <br>• <strong>Coordenadas del Vértice $V(h, k)$:</strong>
+          <br>&nbsp;&nbsp;– <em>Abscisa ($h$):</em> $h = -\\frac{b}{2a} = ${h.toFixed(4)}$
+          <br>&nbsp;&nbsp;– <em>Ordenada ($k$):</em> $k = f(${h.toFixed(4)}) = ${k.toFixed(4)} \\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$
+        <br>• <strong>Eje de Simetría:</strong> Recta vertical $x = ${h.toFixed(4)}$
+        <br>• <strong>Concavidad y Extremo:</strong> Como $a = ${a} ${a > 0 ? '> 0$' : '< 0$'}, la parábola es ${a > 0 ? 'cóncava hacia arriba ( $\\cup$ ) y el vértice es un punto <strong>Mínimo absoluto</strong>.' : 'cóncava hacia abajo ( $\\cap$ ) y el vértice es un punto <strong>Máximo absoluto</strong>.'}
+        <br>• <strong>Intersección con el eje $Y$:</strong> $f(0) = c = ${c} \\implies (0, ${c})$
+        <br>• <strong>Intersección con el eje $X$:</strong> No tiene intersecciones reales con el eje $X$.
+        <br>• <strong>Dominio y Rango:</strong>
+          <br>&nbsp;&nbsp;– <em>Dominio:</em> $\\text{Dom}(f) = \\mathbb{R} = (-\\infty, +\\infty)$
+          <br>&nbsp;&nbsp;– <em>Rango:</em> $\\text{Ran}(f) = ${a > 0 ? `[${k.toFixed(4)}, +\\infty)` : `(-\\infty, ${k.toFixed(4)}]`}
       </div>
       <div class="resultado-final">Dos soluciones complejas conjugadas: $x_1 = ${parteReal.toFixed(4)} + ${parteImaginaria.toFixed(4)}i, \\quad x_2 = ${parteReal.toFixed(4)} - ${parteImaginaria.toFixed(4)}i$</div>
     `;
