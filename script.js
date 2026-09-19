@@ -838,8 +838,7 @@ function calcularEcuacion() {
       <br>• Término independiente ($c$): $c = ${c}$
     </div>
     <div><strong>Paso 2: Cálculo explícito del Discriminante ($\Delta = b^2 - 4ac$):</strong>
-      <br>El discriminante determina la naturaleza de las raíces:
-      <br>$$\\Delta = (${b})^2 - 4(${a})(${c}) = ${b * b} - (${4 * a * c}) = ${discriminante.toFixed(4)}$$
+      <br>El discriminante determina la naturaleza de las raíces: $\\Delta = (${b})^2 - 4(${a})(${c}) = ${b * b} - (${4 * a * c}) = ${discriminante.toFixed(4)}$
     </div>
   `;
 
@@ -856,10 +855,10 @@ function calcularEcuacion() {
         <br>$$x = \\frac{-(${b}) \\pm \\sqrt{${discriminante.toFixed(4)}}}{2(${a})} = \\frac{${menosB} \\pm ${raizDisc.toFixed(4)}}{${dosA}}$$
       </div>
       <div><strong>Paso 4: Cálculo de la primera raíz ($x_1$, usando el signo $+$):</strong>
-        <br>$$x_1 = \\frac{${menosB} + ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB + raizDisc).toFixed(4)}}{${dosA}} = ${x1.toFixed(4)}$$
+        <br>$x_1 = \\frac{${menosB} + ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB + raizDisc).toFixed(4)}}{${dosA}} = ${x1.toFixed(4)}$
       </div>
       <div><strong>Paso 5: Cálculo de la segunda raíz ($x_2$, usando el signo $-$):</strong>
-        <br>$$x_2 = \\frac{${menosB} - ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB - raizDisc).toFixed(4)}}{${dosA}} = ${x2.toFixed(4)}$$
+        <br>$x_2 = \\frac{${menosB} - ${raizDisc.toFixed(4)}}{${dosA}} = \\frac{${(menosB - raizDisc).toFixed(4)}}{${dosA}} = ${x2.toFixed(4)}$
       </div>
       <div><strong>Paso 6: Análisis Geométrico de la Parábola $f(x) = ax^2 + bx + c$:</strong>
         <br>• Vértice $V(h, k)$: $h = -\\frac{b}{2a} = \\frac{${menosB}}{${dosA}} = ${h.toFixed(4)}$, $k = f(h) = ${k.toFixed(4)} \\implies V(${h.toFixed(4)}, ${k.toFixed(4)})$.
