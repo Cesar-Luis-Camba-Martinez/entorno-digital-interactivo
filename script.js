@@ -797,7 +797,7 @@ function resolverFraccionaria() {
     </div>
     <div><strong>Paso 4: Despeje del binomio $(x + b)$:</strong>
       <br>Pasamos ${-c} a dividir al lado izquierdo:
-      <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = \\frac{${a}}{${-c}} = ${numPaso2.toFixed(4)}$
+      <br>$x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = \\frac{${a}}{${-c}}$
     </div>
     <div><strong>Paso 5: Aislamiento final de $x$:</strong>
       <br>Pasamos $(${b})$ con signo cambiado al otro lado de la ecuación: $x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} = ${x.toFixed(4)}$
