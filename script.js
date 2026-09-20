@@ -802,7 +802,7 @@ function resolverFraccionaria() {
     </div>
     <div><strong>Paso 5: Aislamiento final de $x$:</strong>
       <br>Pasamos $(${b})$ con signo cambiado al otro lado de la ecuación: $x = ${numPaso2.toFixed(4)} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)}$
-      <br>$x$ = ${numPaso2.toFixed(4)}$
+      <br>$x = ${x.toFixed(4)}$
     </div>
     <div><strong>Paso 6: Verificación de la restricción:</strong>
       <br>Comprobamos si $x = ${x.toFixed(4)}$ coincide con la restricción $x \\neq ${restriccion}$. Como no coincide, el valor encontrado es una solución completamente válida.
