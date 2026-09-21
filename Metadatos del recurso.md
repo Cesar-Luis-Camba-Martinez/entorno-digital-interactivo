@@ -17,7 +17,7 @@
 
 ## 2. Descripción del Recurso
 
-El **Entorno Digital Interactivo para el Aprendizaje y Análisis Numérico-Gráfico de Ecuaciones Algebraicas** es un Recurso Educativo Abierto (REA) de arquitectura web autocontenida, diseñado como apoyo pedagógico y tecnológico para el área de Ciencias Matemáticas en la Unidad Educativa Fiscomisional Francisco García Jiménez, enfocado en estudiantes del subnivel Básica Superior del 10.° Grado de educación general básica.
+El **Entorno Digital Interactivo EduTech Math sirve para mejorar el Aprendizaje de ecuaciones algebraicas, mediante, el análisis numérico-gráfico de Ecuaciones Algebraicas**. Es un Recurso Educativo Abierto (REA) de arquitectura web autocontenida, diseñado como apoyo pedagógico y tecnológico para el área de Ciencias Matemáticas en la Unidad Educativa Fiscomisional Francisco García Jiménez, enfocado en estudiantes del subnivel Básica Superior del 10.° Grado de educación general básica.
 
 El recurso integra **9 laboratorios virtuales interactivos** que abarcan el estudio analítico y conceptual de diversas familias de ecuaciones: ecuaciones lineales (primer grado), fraccionarias, cuadráticas (segundo grado), sistemas de ecuaciones lineales 2×2, ecuaciones con valor absoluto y ecuaciones polinómicas de mayor grado (cúbicas, cuárticas, quínticas y séxticas).
 
