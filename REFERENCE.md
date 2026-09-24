@@ -7,7 +7,7 @@ title: "Entorno Digital Interactivo para el Aprendizaje y Análisis Numérico-Gr
 version: 1.0.0[cite: 4]
 date-released: 2026-08-31[cite: 4]
 url: "https://cesar-luis-camba-martinez.github.io/entorno-digital-interactivo/"
-repository-code: "https://github.com/Cesar-Luis-Camba-Martinez/entorno-digital-interactivo"[cite: 4]
+repository-code: "https://github.com/Cesar-Luis-Camba-Martinez/entorno-digital-interactivo" [cite: 4]
 license: "CC-BY-NC-SA-4.0"
 keywords:
   - "álgebra"
