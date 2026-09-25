@@ -6,18 +6,6 @@ let canvas, ctx;
 const RANGO_BASE = { minX: -10, maxX: 10, minY: -10, maxY: 10 };
 let RANGO = { ...RANGO_BASE };
 
-/* Paleta de colores vibrantes y distintivos para cada solución de x */
-const PALETA_SOLUCIONES = [
-  '#f59e0b', // Ámbar / Dorado (Solución 1)
-  '#06b6d4', // Cian (Solución 2)
-  '#10b981', // Esmeralda (Solución 3)
-  '#8b5cf6', // Púrpura (Solución 4)
-  '#ec4899', // Rosa vibrante (Solución 5)
-  '#84cc16', // Lima (Solución 6)
-  '#3b82f6', // Azul brillante (Solución 7)
-  '#f97316'  // Naranja (Solución 8)
-];
-
 /* =====================================================================
    CONTROL DE NAVEGACIÓN: PORTADA / APLICACIÓN
    ===================================================================== */
@@ -167,7 +155,7 @@ function conmutarPanel() {
     if (panelActivo) panelActivo.classList.remove('oculto');
   }
 
-  actualizarLeyenda(sel, []);
+  actualizarLeyenda(sel);
 
   funcionResolverPendiente = null;
   const res = document.getElementById('resultado');
@@ -179,33 +167,20 @@ function conmutarPanel() {
   renderizarMatematicasGlobal();
 }
 
-function actualizarLeyenda(tipo, soluciones = []) {
+function actualizarLeyenda(tipo) {
   const leyenda = document.getElementById('leyenda');
   if (!leyenda) return;
-  
-  let html = '';
   if (tipo === 'sistema') {
-    html = '<span class="leyenda-item"><span class="leyenda-color" style="background:#2563eb;"></span> Ecuación 1</span> <span class="leyenda-item"><span class="leyenda-color" style="background:#10b981;"></span> Ecuación 2</span>';
+    leyenda.innerHTML = '<span class="leyenda-item"><span class="leyenda-color" style="background:#2563eb;"></span> Ecuación 1</span> <span class="leyenda-item"><span class="leyenda-color" style="background:#10b981;"></span> Ecuación 2</span>';
   } else if (tipo === 'fraccionaria') {
-    html = '<span class="leyenda-item"><span class="leyenda-color" style="background:#ef4444;"></span> Gráfica f(x)</span> <span class="leyenda-item"><span class="leyenda-color" style="border: 1px dashed #94a3b8; background:transparent; width:16px; height:0; border-top-width:2px;"></span> Asíntota Vertical</span>';
+    leyenda.innerHTML = '<span class="leyenda-item"><span class="leyenda-color" style="background:#ef4444;"></span> Gráfica f(x)</span> <span class="leyenda-item"><span class="leyenda-color" style="border: 1px dashed #94a3b8; background:transparent; width:16px; height:0; border-top-width:2px;"></span> Asíntota Vertical</span>';
   } else {
-    html = '<span class="leyenda-item"><span class="leyenda-color" style="background:#ef4444;"></span> Gráfica f(x)</span>';
+    leyenda.innerHTML = '<span class="leyenda-item"><span class="leyenda-color" style="background:#ef4444;"></span> Gráfica f(x)</span>';
   }
-
-  // Agregar leyenda dinámica para cada solución coloreada encontrada
-  if (soluciones && soluciones.length > 0) {
-    html += ' <span style="margin: 0 0.5rem; color:#cbd5e1;">|</span> ';
-    soluciones.forEach((xVal, idx) => {
-      let colorSol = PALETA_SOLUCIONES[idx % PALETA_SOLUCIONES.length];
-      html += `<span class="leyenda-item"><span class="leyenda-color" style="background:${colorSol}; border-radius:50%;"></span> x${soluciones.length > 1 ? '_' + (idx + 1) : ''} (${xVal.toFixed(2)})</span> `;
-    });
-  }
-
-  leyenda.innerHTML = html;
 }
 
 /* =====================================================================
-   MOTOR GRÁFICO (CANVAS API) Y DETECCIÓN UNIVERSAL DE RAÍCES
+   MOTOR GRÁFICO (CANVAS API)
    ===================================================================== */
 function obtenerDimensionesEfectivas() {
   const rect = canvas.getBoundingClientRect();
@@ -335,186 +310,28 @@ function graficarFuncion(funcion, color, asintotaX = null) {
   ctx.stroke();
 }
 
-/* Buscador universal de raíces reales por muestreo y bisección */
-function encontrarRaicesReales(fn, minX, maxX, numPasos = 1500) {
-  let raices = [];
-  let dx = (maxX - minX) / numPasos;
-  let xPrev = minX;
-  let yPrev = fn(xPrev);
-
-  for (let i = 1; i <= numPasos; i++) {
-    let xCurr = minX + i * dx;
-    let yCurr = fn(xCurr);
-
-    if (isNaN(yPrev) || isNaN(yCurr) || !isFinite(yPrev) || !isFinite(yCurr)) {
-      xPrev = xCurr;
-      yPrev = yCurr;
-      continue;
-    }
-
-    if (Math.abs(yCurr) < 1e-5) {
-      if (!raices.some(r => Math.abs(r - xCurr) < 1e-3)) {
-        raices.push(xCurr);
-      }
-    } else if (yPrev * yCurr < 0) {
-      let a = xPrev, b = xCurr;
-      let mid = a;
-      for (let iter = 0; iter < 15; iter++) {
-        mid = (a + b) / 2;
-        let yMid = fn(mid);
-        if (Math.abs(yMid) < 1e-8) break;
-        if (yPrev * yMid < 0) {
-          b = mid;
-        } else {
-          a = mid;
-          yPrev = yMid;
-        }
-      }
-      if (!raices.some(r => Math.abs(r - mid) < 1e-3)) {
-        raices.push(mid);
-      }
-    }
-    xPrev = xCurr;
-    yPrev = yCurr;
-  }
-  return raices.sort((a, b) => a - b);
-}
-
-function dibujarSolucionesEnGrafica(fn, tipo, asintota = null) {
-  if (!ctx || !canvas) return;
-  const { ancho, alto } = obtenerDimensionesEfectivas();
-  const scaleX = ancho / (RANGO.maxX - RANGO.minX);
-  const scaleY = alto / (RANGO.maxY - RANGO.minY);
-
-  let soluciones = [];
-
-  if (tipo === 'lineal') {
-    let a = parseFloat(document.getElementById('lin-a').value) || 0;
-    let b = parseFloat(document.getElementById('lin-b').value) || 0;
-    if (a !== 0) soluciones.push(-b / a);
-  } else if (tipo === 'fraccionaria') {
-    let a = parseFloat(document.getElementById('frac-a').value) || 0;
-    let b = parseFloat(document.getElementById('frac-b').value) || 0;
-    let c = parseFloat(document.getElementById('frac-c').value) || 0;
-    if (c !== 0) {
-      let x = -b - (a / c);
-      if (Math.abs(x - (-b)) > 1e-4) soluciones.push(x);
-    }
-  } else if (tipo === 'cuadratica') {
-    let a = parseFloat(document.getElementById('coef-a').value) || 0;
-    let b = parseFloat(document.getElementById('coef-b').value) || 0;
-    let c = parseFloat(document.getElementById('coef-c').value) || 0;
-    let disc = b * b - 4 * a * c;
-    if (disc >= 0 && a !== 0) {
-      soluciones.push((-b + Math.sqrt(disc)) / (2 * a));
-      if (disc > 0) soluciones.push((-b - Math.sqrt(disc)) / (2 * a));
-    }
-  } else if (tipo === 'sistema') {
-    let a1 = parseFloat(document.getElementById('sys-a1').value) || 0;
-    let b1 = parseFloat(document.getElementById('sys-b1').value) || 0;
-    let c1 = parseFloat(document.getElementById('sys-c1').value) || 0;
-    let a2 = parseFloat(document.getElementById('sys-a2').value) || 0;
-    let b2 = parseFloat(document.getElementById('sys-b2').value) || 0;
-    let c2 = parseFloat(document.getElementById('sys-c2').value) || 0;
-    let D = a1 * b2 - a2 * b1;
-    if (Math.abs(D) > 1e-6) {
-      soluciones.push((c1 * b2 - c2 * b1) / D);
-    }
-  } else if (tipo === 'absoluto') {
-    let a = parseFloat(document.getElementById('abs-a').value) || 0;
-    let b = parseFloat(document.getElementById('abs-b').value) || 0;
-    let c = parseFloat(document.getElementById('abs-c').value) || 0;
-    if (c >= 0 && a !== 0) {
-      let x1 = (c - b) / a;
-      let x2 = (-c - b) / a;
-      soluciones.push(x1);
-      if (Math.abs(x1 - x2) > 1e-5) soluciones.push(x2);
-    }
-  } else {
-    soluciones = encontrarRaicesReales(fn, RANGO.minX, RANGO.maxX);
-  }
-
-  // Filtrar soluciones dentro del rango visible
-  soluciones = soluciones.filter(x => x >= RANGO.minX && x <= RANGO.maxX);
-  let unicos = [];
-  soluciones.forEach(s => {
-    if (!unicos.some(u => Math.abs(u - s) < 1e-3)) unicos.push(s);
-  });
-  soluciones = unicos.sort((a, b) => a - b);
-
-  // Dibujar cada solución con un color distintivo, halo y etiqueta
-  soluciones.forEach((x, idx) => {
-    let colorSol = PALETA_SOLUCIONES[idx % PALETA_SOLUCIONES.length];
-    let y = fn(x);
-    if (isNaN(y) || !isFinite(y)) y = 0;
-
-    let px = (x - RANGO.minX) * scaleX;
-    let py = (RANGO.maxY - y) * scaleY;
-
-    if (px >= 0 && px <= ancho && py >= 0 && py <= alto) {
-      ctx.save();
-
-      // Halo luminoso (glow)
-      ctx.beginPath();
-      ctx.arc(px, py, 14, 0, 2 * Math.PI);
-      ctx.fillStyle = colorSol;
-      ctx.globalAlpha = 0.35;
-      ctx.fill();
-      ctx.globalAlpha = 1.0;
-
-      // Círculo principal de la solución
-      ctx.beginPath();
-      ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
-      ctx.fillStyle = colorSol;
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2.5;
-      ctx.fill();
-      ctx.stroke();
-
-      // Etiqueta flotante con el valor de x
-      ctx.font = 'bold 12px sans-serif';
-      ctx.fillStyle = colorSol;
-      ctx.textAlign = 'center';
-      let offset = py > alto / 2 ? -12 : 14;
-      ctx.textBaseline = py > alto / 2 ? 'bottom' : 'top';
-      ctx.fillText(`x${soluciones.length > 1 ? '_' + (idx + 1) : ''} = ${x.toFixed(2)}`, px, py + offset);
-
-      ctx.restore();
-    }
-  });
-
-  actualizarLeyenda(tipo, soluciones);
-}
-
 function actualizarGrafica() {
   dibujarPlano();
   const selector = document.getElementById('tipo-algebra');
   if (!selector) return;
   const sel = selector.value;
 
-  let fnActiva = (x) => 0;
-  let asintota = null;
-
   if (sel === 'lineal') {
     let a = parseFloat(document.getElementById('lin-a').value) || 0;
     let b = parseFloat(document.getElementById('lin-b').value) || 0;
-    fnActiva = (x) => a * x + b;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * x + b, '#ef4444');
   } 
   else if (sel === 'fraccionaria') {
     let a = parseFloat(document.getElementById('frac-a').value) || 0;
     let b = parseFloat(document.getElementById('frac-b').value) || 0;
     let c = parseFloat(document.getElementById('frac-c').value) || 0;
-    asintota = -b;
-    fnActiva = (x) => (a / (x + b)) + c;
-    graficarFuncion(fnActiva, '#ef4444', asintota);
+    graficarFuncion((x) => (a / (x + b)) + c, '#ef4444', -b);
   }
   else if (sel === 'cuadratica') {
     let a = parseFloat(document.getElementById('coef-a').value) || 0;
     let b = parseFloat(document.getElementById('coef-b').value) || 0;
     let c = parseFloat(document.getElementById('coef-c').value) || 0;
-    fnActiva = (x) => a * x * x + b * x + c;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * x * x + b * x + c, '#ef4444');
   }
   else if (sel === 'sistema') {
     let a1 = parseFloat(document.getElementById('sys-a1').value) || 0;
@@ -526,28 +343,19 @@ function actualizarGrafica() {
 
     if (b1 !== 0) graficarFuncion((x) => (c1 - a1 * x) / b1, '#2563eb');
     if (b2 !== 0) graficarFuncion((x) => (c2 - a2 * x) / b2, '#10b981');
-    
-    // Para el sistema, evaluamos la diferencia para encontrar la coordenada x de intersección
-    fnActiva = (x) => {
-      let y1 = b1 !== 0 ? (c1 - a1 * x) / b1 : 0;
-      let y2 = b2 !== 0 ? (c2 - a2 * x) / b2 : 0;
-      return y1 - y2;
-    };
   }
   else if (sel === 'absoluto') {
     let a = parseFloat(document.getElementById('abs-a').value) || 0;
     let b = parseFloat(document.getElementById('abs-b').value) || 0;
     let c = parseFloat(document.getElementById('abs-c').value) || 0;
-    fnActiva = (x) => Math.abs(a * x + b) - c;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => Math.abs(a * x + b) - c, '#ef4444');
   }
   else if (sel === 'polinomica') {
     let a = parseFloat(document.getElementById('poly-a').value) || 0;
     let b = parseFloat(document.getElementById('poly-b').value) || 0;
     let c = parseFloat(document.getElementById('poly-c').value) || 0;
     let d = parseFloat(document.getElementById('poly-d').value) || 0;
-    fnActiva = (x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d, '#ef4444');
   }
   else if (sel === 'cuartica') {
     let a = parseFloat(document.getElementById('quart-a').value) || 0;
@@ -555,8 +363,7 @@ function actualizarGrafica() {
     let c = parseFloat(document.getElementById('quart-c').value) || 0;
     let d = parseFloat(document.getElementById('quart-d').value) || 0;
     let e = parseFloat(document.getElementById('quart-e').value) || 0;
-    fnActiva = (x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * Math.pow(x, 4) + b * Math.pow(x, 3) + c * Math.pow(x, 2) + d * x + e, '#ef4444');
   }
   else if (sel === 'quintica') {
     let a = parseFloat(document.getElementById('quint-a').value) || 0;
@@ -565,8 +372,7 @@ function actualizarGrafica() {
     let d = parseFloat(document.getElementById('quint-d').value) || 0;
     let e = parseFloat(document.getElementById('quint-e').value) || 0;
     let f = parseFloat(document.getElementById('quint-f').value) || 0;
-    fnActiva = (x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * Math.pow(x, 5) + b * Math.pow(x, 4) + c * Math.pow(x, 3) + d * Math.pow(x, 2) + e * x + f, '#ef4444');
   }
   else if (sel === 'sextica') {
     let a = parseFloat(document.getElementById('sext-a').value) || 0;
@@ -576,16 +382,15 @@ function actualizarGrafica() {
     let e = parseFloat(document.getElementById('sext-e').value) || 0;
     let f = parseFloat(document.getElementById('sext-f').value) || 0;
     let g = parseFloat(document.getElementById('sext-g').value) || 0;
-    fnActiva = (x) => a * Math.pow(x, 6) + b * Math.pow(x, 5) + c * Math.pow(x, 4) + d * Math.pow(x, 3) + e * Math.pow(x, 2) + f * x + g;
-    graficarFuncion(fnActiva, '#ef4444');
+    graficarFuncion((x) => a * Math.pow(x, 6) + b * Math.pow(x, 5) + c * Math.pow(x, 4) + d * Math.pow(x, 3) + e * Math.pow(x, 2) + f * x + g, '#ef4444');
   }
 
-  // Dibujar las soluciones con colores distintos en la gráfica
-  dibujarSolucionesEnGrafica(fnActiva, sel, asintota);
+  // ✨ MEJORA: Pintar de color distinto cada solución de x observada en la gráfica
+  renderizarSolucionesEnCanvas(sel);
 }
 
 /* =====================================================================
-   PROCESO PREVIO Y VERIFICACIÓN (MANTENIDO ÍNTEGRO)
+   PROCESO PREVIO Y VERIFICACIÓN
    ===================================================================== */
 let funcionResolverPendiente = null;
 let tipoEcuacionPendiente = null;
@@ -908,7 +713,7 @@ function verificarPorSustitucion(intento, tipoEcuacion) {
 }
 
 /* =====================================================================
-   MÉTODOS DE RESOLUCIÓN PASO A PASO DETALLADOS (MANTENIDOS ÍNTEGROS)
+   MÉTODOS DE RESOLUCIÓN PASO A PASO DETALLADOS
    ===================================================================== */
 function resolverLineal() {
   const a = parseFloat(document.getElementById('lin-a').value) || 0;
@@ -1423,4 +1228,230 @@ function resolverQuintica() {
 }
 function resolverSextica() {
   resolverPolinomioGenerico([parseFloat(document.getElementById('sext-a').value)||1, parseFloat(document.getElementById('sext-b').value)||0, parseFloat(document.getElementById('sext-c').value)||0, parseFloat(document.getElementById('sext-d').value)||0, parseFloat(document.getElementById('sext-e').value)||0, parseFloat(document.getElementById('sext-f').value)||0, parseFloat(document.getElementById('sext-g').value)||0], "Sexto Grado (Séxtica)");
+}
+
+/* =====================================================================
+   NUEVO MOTOR DE RENDERIZADO DE SOLUCIONES CON COLORES DISTINTOS EN LA GRÁFICA
+   ===================================================================== */
+const COLORES_SOLUCIONES = [
+  '#f59e0b', // Ámbar brillante (Solución 1)
+  '#10b981', // Esmeralda brillante (Solución 2)
+  '#8b5cf6', // Púrpura eléctrico (Solución 3)
+  '#ec4899', // Rosa fucsia (Solución 4)
+  '#06b6d4', // Cian brillante (Solución 5)
+  '#f97316', // Naranja intenso (Solución 6)
+  '#84cc16'  // Lima brillante (Solución 7)
+];
+
+function obtenerSolucionesActuales(sel) {
+  let soluciones = [];
+  if (sel === 'lineal') {
+    let a = parseFloat(document.getElementById('lin-a').value) || 0;
+    let b = parseFloat(document.getElementById('lin-b').value) || 0;
+    if (a !== 0) soluciones.push(-b / a);
+  } else if (sel === 'fraccionaria') {
+    let a = parseFloat(document.getElementById('frac-a').value) || 0;
+    let b = parseFloat(document.getElementById('frac-b').value) || 0;
+    let c = parseFloat(document.getElementById('frac-c').value) || 0;
+    if (a !== 0 && c !== 0) {
+      let x = (-a / c) - b;
+      if (Math.abs(x - (-b)) > 1e-5) soluciones.push(x);
+    }
+  } else if (sel === 'cuadratica') {
+    let a = parseFloat(document.getElementById('coef-a').value) || 0;
+    let b = parseFloat(document.getElementById('coef-b').value) || 0;
+    let c = parseFloat(document.getElementById('coef-c').value) || 0;
+    if (a !== 0) {
+      let disc = b * b - 4 * a * c;
+      if (disc >= 0) {
+        let rDisc = Math.sqrt(disc);
+        soluciones.push((-b + rDisc) / (2 * a));
+        if (disc > 1e-9) soluciones.push((-b - rDisc) / (2 * a));
+      }
+    }
+  } else if (sel === 'absoluto') {
+    let a = parseFloat(document.getElementById('abs-a').value) || 0;
+    let b = parseFloat(document.getElementById('abs-b').value) || 0;
+    let c = parseFloat(document.getElementById('abs-c').value) || 0;
+    if (a !== 0 && c >= 0) {
+      let x1 = (c - b) / a;
+      let x2 = (-c - b) / a;
+      soluciones.push(x1);
+      if (Math.abs(x1 - x2) > 1e-5) soluciones.push(x2);
+    }
+  } else if (['polinomica', 'cuartica', 'quintica', 'sextica'].includes(sel)) {
+    let fn = (x) => 0;
+    if (sel === 'polinomica') {
+      let a = parseFloat(document.getElementById('poly-a').value)||0;
+      let b = parseFloat(document.getElementById('poly-b').value)||0;
+      let c = parseFloat(document.getElementById('poly-c').value)||0;
+      let d = parseFloat(document.getElementById('poly-d').value)||0;
+      fn = (x) => a*x*x*x + b*x*x + c*x + d;
+    } else if (sel === 'cuartica') {
+      let a = parseFloat(document.getElementById('quart-a').value)||0;
+      let b = parseFloat(document.getElementById('quart-b').value)||0;
+      let c = parseFloat(document.getElementById('quart-c').value)||0;
+      let d = parseFloat(document.getElementById('quart-d').value)||0;
+      let e = parseFloat(document.getElementById('quart-e').value)||0;
+      fn = (x) => a*Math.pow(x,4) + b*Math.pow(x,3) + c*Math.pow(x,2) + d*x + e;
+    } else if (sel === 'quintica') {
+      let a = parseFloat(document.getElementById('quint-a').value)||0;
+      let b = parseFloat(document.getElementById('quint-b').value)||0;
+      let c = parseFloat(document.getElementById('quint-c').value)||0;
+      let d = parseFloat(document.getElementById('quint-d').value)||0;
+      let e = parseFloat(document.getElementById('quint-e').value)||0;
+      let f = parseFloat(document.getElementById('quint-f').value)||0;
+      fn = (x) => a*Math.pow(x,5) + b*Math.pow(x,4) + c*Math.pow(x,3) + d*Math.pow(x,2) + e*x + f;
+    } else if (sel === 'sextica') {
+      let a = parseFloat(document.getElementById('sext-a').value)||0;
+      let b = parseFloat(document.getElementById('sext-b').value)||0;
+      let c = parseFloat(document.getElementById('sext-c').value)||0;
+      let d = parseFloat(document.getElementById('sext-d').value)||0;
+      let e = parseFloat(document.getElementById('sext-e').value)||0;
+      let f = parseFloat(document.getElementById('sext-f').value)||0;
+      let g = parseFloat(document.getElementById('sext-g').value)||0;
+      fn = (x) => a*Math.pow(x,6) + b*Math.pow(x,5) + c*Math.pow(x,4) + d*Math.pow(x,3) + e*Math.pow(x,2) + f*x + g;
+    }
+
+    let pasosScan = 800;
+    let dx = (RANGO.maxX - RANGO.minX) / pasosScan;
+    let prevX = RANGO.minX;
+    let prevY = fn(prevX);
+
+    for (let i = 1; i <= pasosScan; i++) {
+      let currX = RANGO.minX + i * dx;
+      let currY = fn(currX);
+      if (isNaN(currY) || !isFinite(currY)) {
+        prevX = currX;
+        prevY = currY;
+        continue;
+      }
+      if (prevY !== undefined && !isNaN(prevY) && isFinite(prevY)) {
+        if (Math.abs(currY) < 1e-6) {
+          if (!soluciones.some(s => Math.abs(s - currX) < 1e-2)) soluciones.push(currX);
+        } else if (prevY * currY < 0) {
+          let xLow = prevX, xHigh = currX;
+          let root = currX;
+          for (let iter = 0; iter < 15; iter++) {
+            let xMid = (xLow + xHigh) / 2;
+            let yMid = fn(xMid);
+            if (Math.abs(yMid) < 1e-9) { root = xMid; break; }
+            if (prevY * yMid < 0) { xHigh = xMid; }
+            else { xLow = xMid; prevY = yMid; root = xMid; }
+          }
+          if (!soluciones.some(s => Math.abs(s - root) < 1e-2)) soluciones.push(root);
+        }
+      }
+      prevX = currX;
+      prevY = currY;
+    }
+  }
+
+  let unicos = [];
+  soluciones.forEach(s => {
+    if (!unicos.some(u => Math.abs(u - s) < 1e-3)) unicos.push(s);
+  });
+  return unicos;
+}
+
+function obtenerPuntoSistema() {
+  let a1 = parseFloat(document.getElementById('sys-a1').value) || 0;
+  let b1 = parseFloat(document.getElementById('sys-b1').value) || 0;
+  let c1 = parseFloat(document.getElementById('sys-c1').value) || 0;
+  let a2 = parseFloat(document.getElementById('sys-a2').value) || 0;
+  let b2 = parseFloat(document.getElementById('sys-b2').value) || 0;
+  let c2 = parseFloat(document.getElementById('sys-c2').value) || 0;
+  let D = a1 * b2 - a2 * b1;
+  if (Math.abs(D) <= 1e-6) return null;
+  let x = (c1 * b2 - c2 * b1) / D;
+  let y = (a1 * c2 - a2 * c1) / D;
+  return { x, y };
+}
+
+function renderizarSolucionesEnCanvas(sel) {
+  if (!ctx || !canvas) return;
+  const { ancho, alto } = obtenerDimensionesEfectivas();
+  const scaleX = ancho / (RANGO.maxX - RANGO.minX);
+  const scaleY = alto / (RANGO.maxY - RANGO.minY);
+  const centroY = RANGO.maxY * scaleY;
+
+  if (sel === 'sistema') {
+    let pt = obtenerPuntoSistema();
+    if (pt && pt.x >= RANGO.minX && pt.x <= RANGO.maxX && pt.y >= RANGO.minY && pt.y <= RANGO.maxY) {
+      let px = (pt.x - RANGO.minX) * scaleX;
+      let py = (RANGO.maxY - pt.y) * scaleY;
+
+      ctx.save();
+      // Halo resplandeciente
+      ctx.beginPath();
+      ctx.arc(px, py, 15, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.3)';
+      ctx.fill();
+
+      // Círculo principal
+      ctx.beginPath();
+      ctx.arc(px, py, 7.5, 0, 2 * Math.PI);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = '#ffffff';
+      ctx.stroke();
+
+      // Etiqueta flotante
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillStyle = '#1e3a8a';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(`Intersección (${pt.x.toFixed(2)}, ${pt.y.toFixed(2)})`, px + 12, py - 6);
+      ctx.restore();
+    }
+    return;
+  }
+
+  let sols = obtenerSolucionesActuales(sel);
+  sols.forEach((xVal, idx) => {
+    if (xVal >= RANGO.minX && xVal <= RANGO.maxX) {
+      let px = (xVal - RANGO.minX) * scaleX;
+      let py = centroY; // Sobre el eje X (y = 0)
+      let color = COLORES_SOLUCIONES[idx % COLORES_SOLUCIONES.length];
+
+      ctx.save();
+      // Halo exterior brillante con el color distintivo de esta solución
+      ctx.beginPath();
+      ctx.arc(px, py, 16, 0, 2 * Math.PI);
+      ctx.fillStyle = hexToRgba(color, 0.32);
+      ctx.fill();
+
+      // Anillo secundario
+      ctx.beginPath();
+      ctx.arc(px, py, 10, 0, 2 * Math.PI);
+      ctx.fillStyle = hexToRgba(color, 0.65);
+      ctx.fill();
+
+      // Punto central sólido blanco con borde de color
+      ctx.beginPath();
+      ctx.arc(px, py, 5.5, 0, 2 * Math.PI);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+
+      // Etiqueta con el valor exacto de x y su color identificativo
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = py > alto / 2 ? 'bottom' : 'top';
+      let offsetY = py > alto / 2 ? -14 : 14;
+      ctx.fillText(`x${idx + 1} = ${xVal.toFixed(2)}`, px, py + offsetY);
+      ctx.restore();
+    }
+  });
+}
+
+function hexToRgba(hex, alpha) {
+  let c = hex.replace('#', '');
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  let num = parseInt(c, 16);
+  return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
 }
