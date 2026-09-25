@@ -1,5 +1,5 @@
 /* =====================================================================
-   ESTILOS GENERALES APLICADOS Y VARIABLES DE TEMA INSTITUCIONAL
+   ESTILOS GENERALES APLICADOS Y VARIABLES DE: TEMA INSTITUCIONAL
    ===================================================================== */
 :root {
   --azul-oscuro: #1e3a8a;
@@ -34,13 +34,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Enfoque accesible para navegación por teclado */
 :focus-visible {
   outline: 3px solid var(--azul-medio);
   outline-offset: 2px;
 }
 
 /* =====================================================================
-   PORTADA Y PANTALLA PRINCIPAL DE BIENVENIDA
+   ESTILOS ESPECÍFICOS DE LA: PORTADA / PANTALLA PRINCIPAL DE BIENVENIDA
    ===================================================================== */
 .seccion-portada {
   display: flex;
@@ -193,6 +194,7 @@ body {
   transform: scale(0.98);
 }
 
+/* Encabezado con Botón Volver a la Portada */
 .header-top {
   display: flex;
   justify-content: space-between;
@@ -220,7 +222,7 @@ body {
 }
 
 /* =====================================================================
-   ESTILOS DE APLICACIÓN Y PANELES
+   ESTILOS PRINCIPALES DE: LA APLICACIÓN Y LOS PANELES
    ===================================================================== */
 header {
   background: linear-gradient(135deg, #1e3a8a, #3b82f6);
@@ -247,6 +249,7 @@ header p {
   margin-top: 0.2rem;
 }
 
+/* Selector Principal */
 .selector-entorno {
   background: var(--blanco);
   padding: 1.25rem;
@@ -286,6 +289,7 @@ header p {
   background-color: #dbeafe;
 }
 
+/* Visibilidad de Paneles */
 .oculto {
   display: none !important;
 }
@@ -297,6 +301,7 @@ header p {
   margin-bottom: 1.5rem;
 }
 
+/* Tarjetas de Información y Laboratorio */
 .tarjeta-info, .tarjeta-laboratorio {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -337,12 +342,21 @@ header p {
   text-align: center;
 }
 
+.math-render .katex-display {
+  margin: 0.5em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Cualquier fórmula en modo bloque generada dinámicamente (por ejemplo,
+   el planteamiento de la ecuación séxtica en el procedimiento paso a
+   paso) también se desplaza en horizontal en lugar de desbordar su
+   contenedor. */
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
   padding: 2px 0;
-  margin: 0.5em 0;
 }
 
 .etiqueta-formula {
@@ -363,6 +377,7 @@ header p {
   color: #334155;
 }
 
+/* Formulario de Entrada */
 .formulario {
   display: flex;
   flex-direction: column;
@@ -439,6 +454,7 @@ header p {
   transform: scale(0.98);
 }
 
+/* Proceso Previo de Aprendizaje: Intento del Estudiante antes de la Solución */
 .intento-estudiante {
   background-color: var(--azul-claro);
   border: 1px solid #93c5fd;
@@ -495,6 +511,9 @@ header p {
   margin-top: 0.35rem;
 }
 
+/* =====================================================================
+   VERIFICACIÓN AUTOMÁTICA DE LA RESPUESTA INGRESADA POR EL ESTUDIANTE
+   ===================================================================== */
 .verificacion-caja {
   padding: 0.9rem 1.1rem;
   border-radius: 8px;
@@ -557,6 +576,7 @@ header p {
   color: #334155;
 }
 
+/* Gráfica Canvas */
 .grafica-box-global {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -631,8 +651,6 @@ header p {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
   margin-top: 0.75rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -651,6 +669,7 @@ header p {
   display: inline-block;
 }
 
+/* Resultados y Procedimiento Paso a Paso */
 .resultado-box-global {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -703,6 +722,7 @@ header p {
   box-sizing: border-box;
 }
 
+/* Tabla de División Sintética (Regla de Ruffini) */
 .tabla-ruffini-container {
   overflow-x: auto;
   margin: 1rem 0;
@@ -741,6 +761,7 @@ header p {
   background-color: #ecfdf5;
 }
 
+/* Pie de Página */
 footer {
   text-align: center;
   padding: 1.5rem 0;
@@ -750,37 +771,47 @@ footer {
   margin-top: 2rem;
 }
 
+/* Adaptabilidad Responsiva */
 @media (max-width: 640px) {
   body {
     padding: 0.75rem;
   }
+
   .portada-card {
     padding: 1.5rem 1rem;
   }
+
   .portada-titulo {
     font-size: 1.5rem;
   }
+
   .header-top {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .selector-entorno {
     flex-direction: column;
     align-items: stretch;
   }
+
   .select-destacado {
     min-width: 100%;
   }
+
   .control {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .control input {
     width: 100%;
   }
+
   .katex-display {
     font-size: 0.92em;
   }
+
   .tabla-ruffini {
     font-size: 0.92rem;
   }
