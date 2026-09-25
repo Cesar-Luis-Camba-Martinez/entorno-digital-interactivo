@@ -1310,7 +1310,7 @@ function obtenerSolucionesActuales(sel) {
       let e = parseFloat(document.getElementById('sext-e').value)||0;
       let f = parseFloat(document.getElementById('sext-f').value)||0;
       let g = parseFloat(document.getElementById('sext-g').value)||0;
-      fn = (x) => a*Math.pow(x,5) + b*Math.pow(x,6) + c*Math.pow(x,4) + d*Math.pow(x,3) + e*Math.pow(x,2) + f*x + g;
+      fn = (x) => a*Math.pow(x,6) + b*Math.pow(x,5) + c*Math.pow(x,4) + d*Math.pow(x,3) + e*Math.pow(x,2) + f*x + g;
     }
 
     let pasosScan = 800;
