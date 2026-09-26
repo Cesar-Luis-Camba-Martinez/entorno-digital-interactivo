@@ -939,7 +939,6 @@ function calcularEcuacion() {
   renderizarMatematicasGlobal();
 }
 
-
 function resolverSistema() {
   const a1 = parseFloat(document.getElementById('sys-a1').value) || 0;
   const b1 = parseFloat(document.getElementById('sys-b1').value) || 0;
