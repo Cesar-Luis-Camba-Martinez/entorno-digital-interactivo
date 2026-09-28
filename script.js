@@ -1190,10 +1190,8 @@ function resolverPolinomioGenerico(coefs, nombreGrado) {
       let r2 = (menosB - raizDisc) / dosA;
 
       pasos += `
-        <div>• Solución cuadrática $x_{${raices.length + 1}} = \\frac{${menosB} + ${raizDisc.toFixed(4)}}{${dosA}} 
-        $x_{${raices.lenght +1}} = ${r1.toFixed(4)}$
-        <br>• Solución cuadrática $x_{${raices.length + 2}} = \\frac{${menosB} - ${raizDisc.toFixed(4)}}{${dosA}} 
-        $x_{${raices.lenght +2}} = ${r2.toFixed(4)}$
+        <div>• Solución cuadrática $x_{${raices.length + 1}} = \\frac{${menosB} + ${raizDisc.toFixed(4)}}{${dosA}} = ${r1.toFixed(4)}$
+        <br>• Solución cuadrática $x_{${raices.length + 2}} = \\frac{${menosB} - ${raizDisc.toFixed(4)}}{${dosA}} = ${r2.toFixed(4)}$
         </div>
       `;
       raices.push(`x_${raices.length + 1} = ${r1.toFixed(4)}`);
