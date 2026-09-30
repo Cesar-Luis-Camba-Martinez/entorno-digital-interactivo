@@ -1180,7 +1180,8 @@ function resolverPolinomioGenerico(coefs, nombreGrado) {
     pasos += `
       <div><strong>Paso ${pasoNum}: Resolución de la Ecuación Cuadrática Reducida ($${A}x^2 ${B >= 0 ? '+ ' + B : '- ' + Math.abs(B)}x ${C >= 0 ? '+ ' + C : '- ' + Math.abs(C)} = 0$):</strong>
         <br>Fórmula General: $x = \\frac{-B \\pm \\sqrt{B^2 - 4AC}}{2A}$
-        <br>• Discriminante: $\\Delta = (${B})^2 - 4(${A})(${C}) = ${disc.toFixed(4)}$
+        <br>• Discriminante: $\\Delta = (${B})^2 - 4(${A})(${C}) 
+        <br> $\\Delta = ${disc.toFixed(4)}$
       </div>
     `;
 
