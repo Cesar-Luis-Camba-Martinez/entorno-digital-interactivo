@@ -840,7 +840,8 @@ function calcularEcuacion() {
       <br>• Término independiente ($c$): $c = ${c}$
     </div>
     <div><strong>Paso 2: Cálculo explícito del Discriminante ($\Delta = b^2 - 4ac$):</strong>
-      <br>El discriminante determina la naturaleza de las raíces: $\\Delta = (${b})^2 - 4(${a})(${c}) = ${b * b} - (${4 * a * c}) = ${discriminante.toFixed(4)}$
+      <br>El discriminante determina la naturaleza de las raíces: $\\Delta = (${b})^2 - 4(${a})(${c})$
+      $\\Delta = ${b * b} - (${4 * a * c}) = ${discriminante.toFixed(4)}$
     </div>
   `;
 
