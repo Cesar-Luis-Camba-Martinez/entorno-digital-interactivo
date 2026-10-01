@@ -816,3 +816,60 @@ footer {
     font-size: 0.92rem;
   }
 }
+
+
+/* =====================================================================
+   EXIGENCIA PREVIA: CONFIANZA, COMPROBACIÓN PROPIA Y REFLEXIÓN
+   ===================================================================== */
+.bloque-previo {
+  border: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+}
+
+.bloque-previo legend {
+  padding: 0;
+}
+
+.opcion-confianza {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.4rem 1rem 0 0;
+  font-size: 0.92rem;
+  color: var(--gris-texto);
+  cursor: pointer;
+}
+
+.intento-estudiante .aviso-previo {
+  color: #991b1b;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+
+.aviso-previo[hidden] {
+  display: none;
+}
+
+.reflexion-estudiante {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #f59e0b;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.reflexion-estudiante p {
+  font-size: 0.92rem;
+  color: var(--gris-texto);
+  margin: 0.4rem 0;
+}
+
+.reflexion-estudiante .textarea-intento {
+  min-height: unset;
+  margin-bottom: 0;
+}
