@@ -405,6 +405,15 @@ function iniciarResolucion(funcionResolver, tipoEcuacion) {
       <input type="text" id="campo-respuesta-estudiante" class="textarea-intento campo-respuesta" placeholder="Ejemplo: x = 2" autocomplete="off">
       <label for="campo-procedimiento-estudiante" class="etiqueta-formula" style="margin-top:0.6rem;">Procedimiento (opcional, no se evalúa):</label>
       <textarea id="campo-procedimiento-estudiante" class="textarea-intento" rows="4" placeholder="Ejemplo: Primero transpuse el término independiente y luego..." autocomplete="off"></textarea>
+      <fieldset class="bloque-previo">
+        <legend class="etiqueta-formula">🎚️ ¿Qué tan seguro/a estás de tu respuesta?</legend>
+        <label class="opcion-confianza"><input type="radio" name="confianza-estudiante" value="alta"> Muy seguro/a</label>
+        <label class="opcion-confianza"><input type="radio" name="confianza-estudiante" value="media"> Más o menos</label>
+        <label class="opcion-confianza"><input type="radio" name="confianza-estudiante" value="baja"> Poco seguro/a</label>
+      </fieldset>
+      <label for="campo-comprobacion-estudiante" class="etiqueta-formula" style="margin-top:0.6rem;">🔍 Comprueba tu respuesta: sustitúyela en la ecuación original y escribe lo que obtuviste</label>
+      <input type="text" id="campo-comprobacion-estudiante" class="textarea-intento campo-respuesta" placeholder="Ejemplo: 2(3) - 6 = 0" autocomplete="off">
+      <p id="aviso-previo-estudiante" class="aviso-previo" role="alert" hidden></p>
       <button type="button" class="btn-resolver" onclick="revelarSolucion()">✅ Ya resolví: Ver Desarrollo y Respuesta</button>
     </div>`;
 
@@ -419,6 +428,9 @@ function revelarSolucion() {
   const campoProcedimiento = document.getElementById('campo-procedimiento-estudiante');
   const intento = campoRespuesta ? campoRespuesta.value.trim() : '';
   const procedimiento = campoProcedimiento ? campoProcedimiento.value.trim() : '';
+
+  const esfuerzoPrevio = validarEsfuerzoPrevio(intento);
+  if (!esfuerzoPrevio) return;
 
   if (!intento) {
     const continuar = window.confirm('Aún no escribiste tu respuesta final. ¿Deseas ver el desarrollo y la respuesta de todos modos?');
@@ -452,7 +464,83 @@ function revelarSolucion() {
     }
   }
 
+  agregarReflexionPostSolucion(res, esfuerzoPrevio);
+
   renderizarMatematicasGlobal();
+}
+
+/* ---------------------------------------------------------------------
+   EXIGENCIA DE APRENDIZAJE PREVIA A LA SOLUCIÓN
+   Confianza declarada + comprobación propia por sustitución + reflexión.
+   --------------------------------------------------------------------- */
+// Si lo pones en true, el estudiante no podrá ver la solución sin escribir una respuesta final.
+const EXIGIR_RESPUESTA_PREVIA = false;
+
+function validarEsfuerzoPrevio(intento) {
+  const aviso = document.getElementById('aviso-previo-estudiante');
+  const mostrarAviso = (mensaje, campo) => {
+    if (aviso) { aviso.textContent = mensaje; aviso.hidden = false; }
+    if (campo) campo.focus();
+  };
+  if (aviso) aviso.hidden = true;
+
+  if (!intento) {
+    if (EXIGIR_RESPUESTA_PREVIA) {
+      mostrarAviso('Escribe tu respuesta final antes de ver la solución.', document.getElementById('campo-respuesta-estudiante'));
+      return null;
+    }
+    return { confianza: '', comprobacion: '' };
+  }
+
+  const radio = document.querySelector('input[name="confianza-estudiante"]:checked');
+  if (!radio) {
+    mostrarAviso('Indica qué tan seguro/a estás de tu respuesta antes de continuar.', document.querySelector('input[name="confianza-estudiante"]'));
+    return null;
+  }
+
+  const campo = document.getElementById('campo-comprobacion-estudiante');
+  const comprobacion = campo ? campo.value.trim() : '';
+  if (!/\d/.test(comprobacion) || comprobacion.indexOf('=') === -1) {
+    mostrarAviso('Sustituye tu respuesta en la ecuación original y escribe la comprobación con números y una igualdad. Ejemplo: 2(3) - 6 = 0.', campo);
+    return null;
+  }
+
+  return { confianza: radio.value, comprobacion: comprobacion };
+}
+
+function agregarReflexionPostSolucion(res, previo) {
+  if (!res || !previo || !previo.confianza) return;
+
+  const hayDiferencia = res.querySelector('.verificacion-incorrecta, .verificacion-parcial');
+  const hayAcierto = res.querySelector('.verificacion-correcta');
+  let mensaje;
+
+  if (hayDiferencia) {
+    mensaje = previo.confianza === 'baja'
+      ? 'Dudaste de tu respuesta y la duda era razonable. Ubica en qué paso del desarrollo se separa tu procedimiento.'
+      : 'Estabas seguro/a, pero tu respuesta no coincide del todo. Esto es útil: compara tu comprobación con el Paso de comprobación del desarrollo y encuentra dónde cambió el resultado.';
+  } else if (hayAcierto) {
+    mensaje = previo.confianza === 'alta'
+      ? 'Tu seguridad coincidió con el resultado. Revisa si tu método fue el mismo que el del desarrollo.'
+      : 'Tu respuesta fue correcta aunque dudabas. Revisa el desarrollo para reconocer qué pasos ya dominas.';
+  } else {
+    mensaje = 'Compara tu procedimiento y tu comprobación con el desarrollo detallado.';
+  }
+
+  const html = `<div class="reflexion-estudiante">
+      <span class="etiqueta-formula">🔁 Reflexiona sobre tu proceso</span>
+      <p>${escaparHTML(mensaje)}</p>
+      <div class="intento-texto">Tu comprobación: ${escaparHTML(previo.comprobacion)}</div>
+      <label for="campo-reflexion-estudiante" class="etiqueta-formula" style="margin-top:0.6rem;">Compara con el desarrollo de abajo: ¿en qué paso coinciden o difieren?</label>
+      <textarea id="campo-reflexion-estudiante" class="textarea-intento" rows="2" placeholder="Ejemplo: Coincido hasta el paso 3, pero yo dividí antes de transponer..." autocomplete="off"></textarea>
+    </div>`;
+
+  const cajas = res.querySelectorAll('.verificacion-caja');
+  if (cajas.length > 0) {
+    cajas[cajas.length - 1].insertAdjacentHTML('afterend', html);
+  } else {
+    res.insertAdjacentHTML('afterbegin', html);
+  }
 }
 
 function escaparHTML(texto) {
