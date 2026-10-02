@@ -1126,10 +1126,10 @@ function resolverAbsoluto() {
         <br>• Caso 1 Positivo: $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
         <br>• Caso 2 Negativo: $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
       </div>
-      <div><strong>Paso 3: Resolución del Caso 1 ($ax + b = c$):</strong>
+      <div><strong>Paso 3: Resolución del Caso 1 $ax + b = c$:</strong>
         <br>$${a}x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} \\implies x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$
       </div>
-      <div><strong>Paso 4: Resolución del Caso 2 ($ax + b = -c$):</strong>
+      <div><strong>Paso 4: Resolución del Caso 2 $ax + b = -c$:</strong>
         <br>$${a}x = ${-c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} \\implies x_2 = \\frac{${-c - b}}{${a}} = ${x2.toFixed(4)}$
       </div>
       <div class="resultado-final">${Math.abs(x1 - x2) < 1e-9 ? `Solución única: $x = ${x1.toFixed(4)}$` : `Dos soluciones reales: $x_1 =${x1.toFixed(4)}, \\quad x_2 = ${x2.toFixed(4)}$`}</div>
