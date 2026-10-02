@@ -1122,9 +1122,9 @@ function resolverAbsoluto() {
     let x2 = (-c - b) / a;
 
     HTML += `
-      <div><strong>Paso 2: Descomposición en dos casos algebraicos ($ax + b = c$ y $ax + b = -c$):</strong>
-        <br>• Caso 1 (Positivo): $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
-        <br>• Caso 2 (Negativo): $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
+      <div><strong>Paso 2: Descomposición en dos casos algebraicos $ax + b = c$ y $ax + b = -c$:</strong>
+        <br>• Caso 1 Positivo: $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${c}$
+        <br>• Caso 2 Negativo: $${a}x ${b >= 0 ? '+ ' + b : '- ' + Math.abs(b)} = ${-c}$
       </div>
       <div><strong>Paso 3: Resolución del Caso 1 ($ax + b = c$):</strong>
         <br>$${a}x = ${c} ${b >= 0 ? '- ' + b : '+ ' + Math.abs(b)} \\implies x_1 = \\frac{${c - b}}{${a}} = ${x1.toFixed(4)}$
