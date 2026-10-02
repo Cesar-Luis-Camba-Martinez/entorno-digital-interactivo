@@ -814,7 +814,7 @@ function resolverLineal() {
   let x = -b / a;
   
   let HTML = `
-    <div><strong>🎯 Explicación para principiantes:</strong> Una ecuación de primer grado (lineal) tiene la forma $a x + b = 0$. El objetivo pedagógico es "despejar" la incógnita $x$ dejándola sola en el primer miembro mediante operaciones inversas.</div>
+    <div><strong>🎯 Explicación para principiantes:</strong> Una ecuación afín tiene la forma $a x + b = 0$. El objetivo pedagógico es "despejar" la incógnita $x$ dejándola sola en el primer miembro, mediante, operaciones inversas.</div>
     <div><strong>Paso 1: Identificación de componentes:</strong>
       <br>• Coeficiente principal ($a$): $a = ${a}$
       <br>• Término independiente ($b$): $b = ${b}$
