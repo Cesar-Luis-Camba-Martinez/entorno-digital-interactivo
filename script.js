@@ -7,7 +7,7 @@ const RANGO_BASE = { minX: -10, maxX: 10, minY: -10, maxY: 10 };
 let RANGO = { ...RANGO_BASE };
 
 /* =====================================================================
-   CONTROL DE NAVEGACIÓN: PORTADA / APLICACIÓN
+   CONTROL DE NAVEGACIÓN: PORTADA DE BIENVENIDA / APLICACIÓN
    ===================================================================== */
 function entrarAlEntorno() {
   const portada = document.getElementById('seccion-portada');
