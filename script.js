@@ -479,7 +479,7 @@ const EXIGIR_RESPUESTA_PREVIA = true;
 function validarEsfuerzoPrevio(intento) {
   const aviso = document.getElementById('aviso-previo-estudiante');
   const mostrarAviso = (mensaje, campo) => {
-    if (aviso) { aviso.textContent = mensaje; aviso.hidden = false; }
+    if (aviso) { aviso.textContent = mensaje; aviso.hidden = true; }
     if (campo) campo.focus();
   };
   if (aviso) aviso.hidden = true;
