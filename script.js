@@ -482,7 +482,7 @@ function validarEsfuerzoPrevio(intento) {
     if (aviso) { aviso.textContent = mensaje; aviso.hidden = true; }
     if (campo) campo.focus();
   };
-  if (aviso) aviso.hidden = true;
+  if (aviso) aviso.hidden = false;
 
   if (!intento) {
     if (EXIGIR_RESPUESTA_PREVIA) {
