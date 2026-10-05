@@ -474,7 +474,7 @@ function revelarSolucion() {
    Confianza declarada + comprobación propia por sustitución + reflexión.
    --------------------------------------------------------------------- */
 // Si lo pones en true, el estudiante no podrá ver la solución sin escribir una respuesta final.
-const EXIGIR_RESPUESTA_PREVIA = false;
+const EXIGIR_RESPUESTA_PREVIA = true;
 
 function validarEsfuerzoPrevio(intento) {
   const aviso = document.getElementById('aviso-previo-estudiante');
