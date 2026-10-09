@@ -77,7 +77,7 @@ Pruebas: probé la rúbrica con cinco procedimientos de ejemplo. Un procedimient
   - Ecuación Cuadrática (Segundo Grado) con análisis del discriminante ($\Delta = b^2 - 4ac$), vértice $V(h,k)$, eje de simetría y concavidad.
   - Sistema de Ecuaciones Lineales $2 \times 2$ mediante la Regla de Cramer.
   - Ecuación con Valor Absoluto y propiedades de distancia en la recta real.
-  - Ecuación Polinómica de Tercer Grado (Cúbica) y Cuarto Grado (Cuártica).
+  - Ecuación Polinómica de: Tercer Grado (Cúbica), Cuarto Grado (Cuártica), Quinto Grado (Quintica) y Sexto Grado (Séxtica).
 - **Motor de Graficación y Cálculo:**
   - Graficador en tiempo real con Canvas de HTML5.
   - Despliegue interactivo de resolución paso a paso con rigor sintáctico y analítico.
