@@ -15,6 +15,7 @@ Campos obligatorios (antes de ver la solución):
 - Comprobación: debe incluir números y una igualdad.
 Cada campo muestra un aviso claro si falta o está incompleto.
 Reflexión (después de la solución): es obligatoria, con mínimo 20 caracteres, y se confirma con el botón “Guardar reflexión”.
+
 Evaluación del procedimiento (rúbrica de 10 puntos): se califican cinco criterios, cada uno de 0 a 2 puntos:
 1. Pasos ordenados.
 2. Operaciones con números.
