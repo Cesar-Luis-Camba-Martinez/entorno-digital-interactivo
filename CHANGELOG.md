@@ -5,7 +5,30 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/) y este proyecto se adhiere a la versión semántica [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
-## [1.2.0] - 2026-09-14
+## [1.2.0] - 2026-10-09
+
+### Añadido
+Campos obligatorios (antes de ver la solución):
+- Respuesta final: debe incluir un valor numérico, por ejemplo x = 2.
+- Procedimiento: mínimo 30 caracteres y 5 palabras.
+- Nivel de seguridad: debe seleccionarse una opción.
+- Comprobación: debe incluir números y una igualdad.
+Cada campo muestra un aviso claro si falta o está incompleto.
+Reflexión (después de la solución): es obligatoria, con mínimo 20 caracteres, y se confirma con el botón “Guardar reflexión”.
+Evaluación del procedimiento (rúbrica de 10 puntos): se califican cinco criterios, cada uno de 0 a 2 puntos:
+1. Pasos ordenados.
+2. Operaciones con números.
+3. Método matemático.
+4. Concepto propio del tipo de ecuación.
+5. Cierre y verificación.
+Cada criterio muestra si está logrado, en progreso o por desarrollar, con una sugerencia concreta para mejorar. La nota evalúa el proceso y no depende de que el resultado final sea correcto.
+
+Pruebas: probé la rúbrica con cinco procedimientos de ejemplo. Un procedimiento completo obtuvo 10/10, uno con un error en el resultado final obtuvo 9/10 y uno breve pero real obtuvo 7/10. Un texto mínimo que solo expresa intención recibe 1/10, reconociendo que el estudiante describió su intento.
+
+---
+
+### [1.3.0] - 2026-09-014
+
 ### Añadido
  - En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección en la que el mismo estudiante lleva a cabo los cálculos y luego se muestra la respuesta y el desarrollo como lo está en este momento.
  - Implementé un mecanismo que analica el intento del estudiante, lo compara automáticamente contra la(s) respuesta(s) correcta(s) ya calculadas, y muestra una retroalimentación visual (correcto / parcial / incorrecto) antes del desarrollo completo.
