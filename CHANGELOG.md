@@ -5,7 +5,7 @@ Todos los cambios notables realizados en este proyecto serán documentados en es
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/) y este proyecto se adhiere a la versión semántica [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
-## [1.2.0] - 2026-10-09
+## [1.3.0] - 2026-10-09
 
 ### Añadido
 Campos obligatorios (antes de ver la solución):
@@ -27,7 +27,7 @@ Pruebas: probé la rúbrica con cinco procedimientos de ejemplo. Un procedimient
 
 ---
 
-### [1.3.0] - 2026-09-014
+### [1.2.0] - 2026-09-014
 
 ### Añadido
  - En el entorno digital interactivo existe un proceso previo para el aprendizaje, como una sección en la que el mismo estudiante lleva a cabo los cálculos y luego se muestra la respuesta y el desarrollo como lo está en este momento.
