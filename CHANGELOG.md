@@ -32,12 +32,13 @@ Pruebas: probé la rúbrica con cinco procedimientos de ejemplo. Un procedimient
 
 ## Añadido 
 Añadí el modo oscuro al entorno.
+
 ¿Qué incluye?:
-Un botón flotante en la esquina inferior derecha que alterna entre “Modo oscuro” y “Modo claro”, visible tanto en la portada como dentro del entorno.
-Al cargar la página se aplica el tema que el visitante eligió la última vez, guardado en localStorage. Si nunca lo eligió, se usa la preferencia del sistema operativo.
-El tema se aplica antes del primer pintado, así que no hay parpadeo de claro a oscuro.
-La gráfica del plano cartesiano cambia sus colores de rejilla, ejes y etiquetas según el tema, y se vuelve a dibujar al alternar.
-Las variables de color institucionales se redefinen en styles.css bajo :root[data-theme="dark"]. Los colores que estaban escritos directamente en el CSS (tarjetas, resultados, verificaciones, tablas, campos de formulario) también tienen su versión oscura.
+- Un botón flotante en la esquina inferior derecha que alterna entre “Modo oscuro” y “Modo claro”, visible tanto en la portada como dentro del entorno.
+- Al cargar la página se aplica el tema que el visitante eligió la última vez, guardado en localStorage. Si nunca lo eligió, se usa la preferencia del sistema operativo.
+- El tema se aplica antes del primer pintado, así que no hay parpadeo de claro a oscuro.
+- La gráfica del plano cartesiano cambia sus colores de rejilla, ejes y etiquetas según el tema, y se vuelve a dibujar al alternar.
+- Las variables de color institucionales se redefinen en styles.css bajo :root[data-theme="dark"]. Los colores que estaban escritos directamente en el CSS (tarjetas, resultados, verificaciones, tablas, campos de formulario) también tienen su versión oscura.
 
 ---
 
