@@ -47,6 +47,7 @@ Este Código de Conducta se aplica tanto dentro de los espacios del proyecto (re
 Casos de abuso, acoso u otro comportamiento inaceptable pueden ser reportados directamente a la administración del proyecto enviando un reporte al responsable de mantenimiento:
 
 * **Responsable de Mantenimiento:** César Luis Camba Martínez
+* Correo electrónico: cesarluiscambamartinez@gmail.com
 
 Todos los reportes serán revisados e investigados de manera oportuna y justa. La administración del proyecto está obligada a respetar la privacidad y la seguridad de quien reporta cualquier incidente.
 
