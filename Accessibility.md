@@ -17,16 +17,16 @@ Para lograrlo, el entorno se desarrolla aplicando de forma continua los principi
 
 El entorno digital interactivo ha sido optimizado y probado para funcionar de manera estable y accesible en los siguientes entornos:
 
-* **Navegadores Web:**
+**Navegadores Web:**
 * Google Chrome / Chromium (versiones recientes).
 * Mozilla Firefox (versiones recientes).
 * Microsoft Edge (versiones recientes).
 * Safari (en macOS e iOS).
 
 
-* **Sistemas Operativos:** Windows, macOS, Linux, Android e iOS.
+**Sistemas Operativos:** Windows, macOS, Linux, Android e iOS.
 * **Dispositivos:** Computadoras de escritorio, laptops, tabletas y teléfonos inteligentes (diseño responsivo).
-* **Tecnologías Asistivas:**
+**Tecnologías Asistivas:**
 * Lectores de pantalla (ej. NVDA, JAWS, TalkBack y VoiceOver).
 * Navegación exclusiva por teclado (tecla `Tab`, `Shift + Tab`, `Enter`, `Espacio` y flechas de dirección).
 * Ampliadores y zooms nativos del navegador sin pérdida de funcionalidad o superposición de contenido hasta un 200%.
@@ -37,7 +37,7 @@ El entorno digital interactivo ha sido optimizado y probado para funcionar de ma
 
 #### **3. Limitaciones Conocidas y Alternativas**
 
-A pesar de nuestros esfuerzos continuos para garantizar que todas las secciones y componentes interactivos sean accesibles, reconocemos que pueden existir algunas limitaciones puntuales en proceso de mejora:
+A pesar de los esfuerzos continuos para garantizar que todas las secciones y componentes interactivos sean accesibles, reconozco que pueden existir algunas limitaciones puntuales en proceso de mejora:
 
 1. **Simulaciones o Componentes Dinámicos Complejos:** Ciertas actividades interactivas avanzadas o canvas pueden requerir pasos específicos para la lectura mediante software asistivo.
 * *Alternativa:* Se proporcionan descripciones textuales explicativas y guías paso a paso para respaldar la comprensión del contenido.
