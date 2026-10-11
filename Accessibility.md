@@ -52,7 +52,7 @@ A pesar de nuestros esfuerzos continuos para garantizar que todas las secciones 
 
 #### **4. Comentarios y Notificación de Barreras**
 
-Agradecemos cualquier comentario o notificación que ayude a identificar y solucionar barreras de accesibilidad. Si experimentas alguna dificultad para acceder a los contenidos o interactuar con la plataforma, puedes enviar tu reporte detallado a través del siguiente canal:
+Agradezco cualquier comentario o notificación que ayude a identificar y solucionar barreras de accesibilidad. Si experimentas alguna dificultad para acceder a los contenidos o interactuar con la plataforma, puedes enviar tu reporte detallado, a través del siguiente canal:
 
 * **Responsable del Proyecto:** César Luis Camba Martínez
 * **Enlace del Proyecto:** [https://cesar-luis-camba-martinez.github.io/entorno-digital-interactivo/](https://cesar-luis-camba-martinez.github.io/entorno-digital-interactivo/)
@@ -63,4 +63,4 @@ Agradecemos cualquier comentario o notificación que ayude a identificar y soluc
 
 
 
-*Nos comprometemos a revisar y responder a las incidencias reportadas en el menor tiempo posible para garantizar una experiencia educativa accesible e inclusiva.*
+*Me comprometo a revisar y responder a las incidencias reportadas en el menor tiempo posible para garantizar una experiencia educativa accesible e inclusiva.*
