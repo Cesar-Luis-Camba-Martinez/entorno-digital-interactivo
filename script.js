@@ -1531,8 +1531,11 @@ function alternarTema() {
 
 /* =====================================================================
    ACCESIBILIDAD: LECTURA POR VOZ Y SOPORTE PARA LECTORES DE PANTALLA
-   Usa la Web Speech API (speechSynthesis). Si el navegador no la
-   soporta, los botones se ocultan y se muestra un aviso.
+   Usa la Web Speech API (speechSynthesis). Las fórmulas se leen a partir
+   del código LaTeX original (la anotación que KaTeX incluye para lectores
+   de pantalla), de modo que se pronuncian como "x igual a menos b sobre a"
+   y no como caracteres sueltos. Si el navegador no soporta la voz, los
+   botones se ocultan y se muestra un aviso.
    ===================================================================== */
 (function () {
   const SOPORTA_VOZ = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
@@ -1563,14 +1566,161 @@ function alternarTema() {
       || null;
   }
 
-  // Quita el MathML oculto de KaTeX (que duplicaría las fórmulas) y el ruido visual.
+  /* ---------- Conversión de LaTeX a lenguaje hablado ---------- */
+  const SIMBOLOS_HABLADOS = {
+    '+': ' más ', '-': ' menos ', '−': ' menos ', '=': ' igual a ',
+    '<': ' menor que ', '>': ' mayor que ', '±': ' más menos ', '∓': ' menos más ',
+    '×': ' por ', '÷': ' entre ', '/': ' entre ', '*': ' por ',
+    '≠': ' distinto de ', '≤': ' menor o igual que ', '≥': ' mayor o igual que ',
+    '≈': ' aproximadamente igual a ', '∞': ' infinito ', '∅': ' conjunto vacío ',
+    '∈': ' pertenece a ', '∪': ' unión ', '∩': ' intersección ', 'Δ': ' delta ',
+    '⇒': ' entonces ', '⟺': ' si y solo si '
+  };
+
+  const COMANDOS_HABLADOS = {
+    pm: ' más menos ', mp: ' menos más ', cdot: ' por ', times: ' por ', div: ' entre ',
+    ge: ' mayor o igual que ', geq: ' mayor o igual que ',
+    le: ' menor o igual que ', leq: ' menor o igual que ',
+    neq: ' distinto de ', ne: ' distinto de ', approx: ' aproximadamente igual a ',
+    implies: ' entonces ', Rightarrow: ' entonces ', rightarrow: ' entonces ',
+    Leftrightarrow: ' si y solo si ', iff: ' si y solo si ', to: ' tiende a ',
+    in: ' pertenece a ', infty: ' infinito ', cup: ' unión ', cap: ' intersección ',
+    emptyset: ' conjunto vacío ', varnothing: ' conjunto vacío ',
+    Delta: ' delta ', delta: ' delta ', alpha: ' alfa ', beta: ' beta ',
+    gamma: ' gamma ', theta: ' theta ', pi: ' pi ', sigma: ' sigma ', lambda: ' lambda ',
+    quad: ' ', qquad: ' ', cdots: ' ... ', ldots: ' ... ', dots: ' ... '
+  };
+
+  // Lee un grupo {…} que empieza en la posición "inicio" (que debe ser '{').
+  function leerGrupo(s, inicio) {
+    let profundidad = 0;
+    for (let j = inicio; j < s.length; j++) {
+      if (s[j] === '{') profundidad++;
+      else if (s[j] === '}' && --profundidad === 0) {
+        return { contenido: s.slice(inicio + 1, j), fin: j + 1 };
+      }
+    }
+    return { contenido: s.slice(inicio + 1), fin: s.length };
+  }
+
+  // Lee el argumento de un comando: un grupo {…} o un solo carácter.
+  function leerArgumento(s, i) {
+    while (s[i] === ' ') i++;
+    if (s[i] === '{') return leerGrupo(s, i);
+    return { contenido: s[i] || '', fin: i + 1 };
+  }
+
+  function convertirComandos(s) {
+    let salida = '';
+    let i = 0;
+    while (i < s.length) {
+      const c = s[i];
+
+      if (c === '\\') {
+        const m = s.slice(i).match(/^\\([a-zA-Z]+)/);
+        if (!m) { // símbolos de espaciado o escapados: \, \; \{ \% ...
+          salida += ' ';
+          i += 2;
+          continue;
+        }
+        const cmd = m[1];
+        i += m[0].length;
+
+        if (cmd === 'frac' || cmd === 'dfrac' || cmd === 'tfrac') {
+          const num = leerArgumento(s, i);
+          const den = leerArgumento(s, num.fin);
+          // Si numerador o denominador tienen varios términos, se marcan con "paréntesis" para no confundirlos
+          const envolver = (t) => {
+            const limpio = convertirComandos(t).trim();
+            return limpio.split(/\s+/).length > 2 ? `abre paréntesis ${limpio} cierra paréntesis` : limpio;
+          };
+          salida += ` ${envolver(num.contenido)} sobre ${envolver(den.contenido)} `;
+          i = den.fin;
+        } else if (cmd === 'sqrt') {
+          let indice = null;
+          if (s[i] === '[') {
+            const fin = s.indexOf(']', i);
+            indice = s.slice(i + 1, fin);
+            i = fin + 1;
+          }
+          const arg = leerArgumento(s, i);
+          const raiz = indice ? `raíz de índice ${convertirComandos(indice)} de` : 'raíz cuadrada de';
+          salida += ` ${raiz} ${convertirComandos(arg.contenido)} `;
+          i = arg.fin;
+        } else if (/^(text|textbf|mathrm|mathbf|mathit|mathcal|operatorname)$/.test(cmd)) {
+          const arg = leerArgumento(s, i);
+          salida += ` ${convertirComandos(arg.contenido)} `;
+          i = arg.fin;
+        } else if (cmd === 'mathbb') {
+          const arg = leerArgumento(s, i);
+          salida += arg.contenido === 'R' ? ' los números reales ' : ` ${convertirComandos(arg.contenido)} `;
+          i = arg.fin;
+        } else {
+          const hablado = COMANDOS_HABLADOS[cmd];
+          salida += hablado !== undefined ? hablado : ' ';
+        }
+        continue;
+      }
+
+      if (c === '^' || c === '_') {
+        const arg = leerArgumento(s, i + 1);
+        const contenido = convertirComandos(arg.contenido).trim();
+        if (c === '_') salida += ` sub ${contenido} `;
+        else if (contenido === '2') salida += ' al cuadrado ';
+        else if (contenido === '3') salida += ' al cubo ';
+        else salida += ` elevado a ${contenido} `;
+        i = arg.fin;
+        continue;
+      }
+
+      salida += Object.prototype.hasOwnProperty.call(SIMBOLOS_HABLADOS, c) ? SIMBOLOS_HABLADOS[c] : c;
+      i++;
+    }
+    return salida;
+  }
+
+  function latexAHablado(tex) {
+    if (!tex) return '';
+    let s = tex
+      .replace(/\\(left|right|displaystyle|textstyle)\b/g, '')
+      .replace(/\\begin\{[a-zA-Z]+\}(\{[^}]*\})?/g, ' ')
+      .replace(/\\end\{[a-zA-Z]+\}/g, ' ')
+      .replace(/\\\\/g, '. ')
+      .replace(/&/g, ' ')
+      .replace(/\\lvert|\\rvert|\\vert/g, '|')
+      .replace(/(\d)\.(\d)/g, '$1 punto $2');
+
+    // Barras de valor absoluto emparejadas: |…| → valor absoluto de (…)
+    let barras = 0;
+    s = s.replace(/\|/g, () => (barras++ % 2 === 0 ? ' valor absoluto de (' : ') '));
+
+    return convertirComandos(s)
+      .replace(/\s+/g, ' ')
+      .replace(/\s+([,.;:)])/g, '$1')
+      .replace(/\(\s+/g, '(')
+      .trim();
+  }
+
+  // Quita emojis para que el lector no los pronuncie.
+  const RE_EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu;
+
+  // Texto legible de un elemento; cada fórmula KaTeX se sustituye por su lectura.
   function textoLegible(elemento) {
     if (!elemento) return '';
     const copia = elemento.cloneNode(true);
+
+    copia.querySelectorAll('.katex').forEach(formula => {
+      const anotacion = formula.querySelector('annotation[encoding="application/x-tex"]');
+      const hablado = anotacion ? latexAHablado(anotacion.textContent) : '';
+      formula.replaceWith(document.createTextNode(` ${hablado}. `));
+    });
+
     copia.querySelectorAll(
-      '.katex-mathml, [aria-hidden="true"], button, script, style, .sr-only, .barra-voz, .aviso-voz-no-disponible'
+      'button, script, style, .sr-only, .barra-voz, .aviso-voz-no-disponible, [aria-hidden="true"]'
     ).forEach(n => n.remove());
+
     return (copia.textContent || '')
+      .replace(RE_EMOJI, ' ')
       .replace(/\$/g, '')
       .replace(/\s+/g, ' ')
       .trim();
@@ -1650,6 +1800,26 @@ function alternarTema() {
     actualizarBotones();
     anunciar('Leyendo ' + descripcion + '.');
     reproducirSiguiente();
+  }
+
+  /* ---------- Botón de lectura por cada fórmula ---------- */
+  function agregarBotonesFormula() {
+    document.querySelectorAll('.contenedor-formula').forEach(contenedor => {
+      if (contenedor.querySelector('.btn-voz-formula')) return;
+
+      const etiqueta = contenedor.querySelector('.etiqueta-formula');
+      const nombre = (etiqueta ? textoLegible(etiqueta) : 'fórmula').replace(/:\s*$/, '');
+
+      const boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'btn-voz btn-voz-formula';
+      boton.textContent = '🔊 Leer fórmula';
+      boton.setAttribute('aria-label', `Leer fórmula: ${nombre}`);
+      boton.addEventListener('click', () => {
+        leer(textoLegible(contenedor), `la fórmula. ${nombre}`);
+      });
+      contenedor.appendChild(boton);
+    });
   }
 
   /* ---------- Descripción textual de la gráfica para lectores de pantalla ---------- */
@@ -1732,7 +1902,30 @@ function alternarTema() {
       if (btnResultado) btnResultado.addEventListener('click', () => {
         leer(textoLegible($('resultado')), 'el resultado');
       });
+
+      // Botón nuevo: lee la descripción de la gráfica (útil también sin lector de pantalla)
+      const barra = document.querySelector('.barra-voz');
+      if (barra && btnDetener) {
+        const btnGrafica = document.createElement('button');
+        btnGrafica.type = 'button';
+        btnGrafica.className = 'btn-voz';
+        btnGrafica.id = 'btn-voz-grafica';
+        btnGrafica.textContent = '🔊 Leer gráfica';
+        barra.insertBefore(btnGrafica, btnDetener);
+        btnGrafica.addEventListener('click', () => {
+          describirGrafica();
+          const desc = $('desc-grafica');
+          leer(desc ? desc.textContent : '', 'la descripción de la gráfica');
+        });
+      }
+
       if (btnDetener) btnDetener.addEventListener('click', () => detener(false));
+
+      // Escape detiene la lectura desde cualquier punto de la página
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && leyendo) detener(false);
+      });
+      window.addEventListener('pagehide', () => detener(true));
     }
 
     // Cortar la lectura al cambiar de ecuación o al volver a la portada
@@ -1754,6 +1947,13 @@ function alternarTema() {
     const canvasEl = $('planoCartesiano');
     if (canvasEl) canvasEl.addEventListener('wheel', () => setTimeout(describirGrafica, 0));
     describirGrafica();
+
+    // Los botones por fórmula necesitan el texto ya renderizado por KaTeX
+    if (SOPORTA_VOZ) {
+      const alCargar = () => agregarBotonesFormula();
+      if (document.readyState === 'complete') alCargar();
+      else window.addEventListener('load', alCargar);
+    }
 
     // Mover el foco al título de la sección que aparece (lectores de pantalla y teclado)
     const enfocarAlMostrar = (idSeccion, selectorTitulo) => {
