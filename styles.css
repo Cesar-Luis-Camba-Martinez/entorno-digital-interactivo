@@ -1286,3 +1286,10 @@ input:focus-visible, textarea:focus-visible, [tabindex="-1"]:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== Lectura por voz por fórmula ===== */
+.contenedor-formula { display: block; }
+.btn-voz-formula {
+  margin-top: 0.5rem; padding: 0.3rem 0.7rem; font-size: 0.85rem;
+}
+.contenedor-formula .btn-voz-formula { display: inline-block; }
